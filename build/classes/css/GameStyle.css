@@ -1,0 +1,37 @@
+.background{
+-fx-background-image: url("photos/backgroundimg.jpg"); 
+-fx-background-size: cover;
+}
+.blueBtn{
+   -fx-background-color: #66ccff;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 60px;
+   -fx-pref-width: 293px;  
+}
+.logo{
+   -fx-font-size: 72px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-text-fill: #66ccff;
+}
+.pinkbtn{
+   -fx-background-color: #ff66cc;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 60px;
+   -fx-pref-width: 293px;
+}
+.backBtn{
+   -fx-background-color: #ffcc66;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 40px;
+   -fx-pref-width: 93px;
+}
