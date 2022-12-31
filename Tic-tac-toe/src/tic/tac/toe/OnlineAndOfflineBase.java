@@ -40,7 +40,7 @@ public  class OnlineAndOfflineBase extends AnchorPane {
         btnOnline.setTextFill(javafx.scene.paint.Color.valueOf("#000000ca"));
         btnOnline.setFont(new Font("System Bold Italic", 10.0));
         btnOnline.setOnAction(( event) ->{
-                ScreenAdapter.setScreen(event, new players_listBase());
+                ScreenAdapter.setScreen(event, new LoginBase());
             }
         );
 
