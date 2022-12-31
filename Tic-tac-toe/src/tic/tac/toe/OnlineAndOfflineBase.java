@@ -2,6 +2,8 @@ package tic.tac.toe;
 
 import Controlers.ScreenAdapter;
 import java.net.URL;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
@@ -26,7 +28,7 @@ public  class OnlineAndOfflineBase extends AnchorPane {
         setPrefHeight(478.0);
         setPrefWidth(793.0);
         getStyleClass().add("background");
-
+        
         btnOnline.setLayoutX(250.0);
         btnOnline.setLayoutY(209.0);
         btnOnline.setMnemonicParsing(false);
@@ -37,6 +39,10 @@ public  class OnlineAndOfflineBase extends AnchorPane {
         btnOnline.setText("Online");
         btnOnline.setTextFill(javafx.scene.paint.Color.valueOf("#000000ca"));
         btnOnline.setFont(new Font("System Bold Italic", 10.0));
+        btnOnline.setOnAction(( event) ->{
+                ScreenAdapter.setScreen(event, new LoginBase());
+            }
+        );
 
         label.setLayoutX(206.0);
         label.setLayoutY(75.0);
