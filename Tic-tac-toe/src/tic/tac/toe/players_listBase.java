@@ -68,7 +68,7 @@ public class players_listBase extends AnchorPane {
         onBtn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                requestDialog();
+                requestDialog(event);
             }
         });
         
@@ -85,7 +85,7 @@ public class players_listBase extends AnchorPane {
         onBtn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                requestDialog();
+                requestDialog(event);
             }
         });
         
@@ -102,7 +102,7 @@ public class players_listBase extends AnchorPane {
         onBtn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                requestDialog();
+                requestDialog(event);
             }
         });
         
@@ -117,7 +117,7 @@ public class players_listBase extends AnchorPane {
         onBtn4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                requestDialog();
+                requestDialog(event);
             }
         });
         
@@ -190,9 +190,10 @@ public class players_listBase extends AnchorPane {
         getChildren().add(backBtn);
 
     }
-    void requestDialog (){
+    void requestDialog (ActionEvent event){
         int a=JOptionPane.showConfirmDialog(null,"Send a request?");  
         if(a==JOptionPane.YES_OPTION)
-            System.out.println(a+"select yes");  
+            
+            ScreenAdapter.setScreen(event, new GameScreenViewBase());  
 }
 }
