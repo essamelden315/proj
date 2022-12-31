@@ -7,6 +7,7 @@ package Controlers;
 
 import com.sun.javafx.scene.control.skin.Utils;
 import java.awt.Event;
+import java.util.EventObject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ public class ScreenAdapter {
 
  
     
-    public static void setScreen(ActionEvent event , Parent root ) {
+    public static void setScreen(EventObject event , Parent root ) {
             
              Scene scene = new Scene(root);
                  Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

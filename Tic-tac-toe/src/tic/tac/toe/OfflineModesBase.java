@@ -84,6 +84,14 @@ public class OfflineModesBase extends AnchorPane {
            
                  ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         });
+         btnOfflineSinglePlayer.setOnAction((event)->{
+         ScreenAdapter.setScreen(event, new GameScreenViewBase());
+         
+         });
+         btnOfflineMultiPlayers.setOnAction((event)->{
+          ScreenAdapter.setScreen(event, new GameScreenViewBase());
+         });
+         
 
     }
 }
