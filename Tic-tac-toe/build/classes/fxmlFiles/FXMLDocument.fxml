@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="startScreen" prefHeight="478.0" prefWidth="793.0" styleClass="background" stylesheets="@../../../css/GameStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tic.tac.toe.FXMLDocumentController">
+   <children>
+      <Button fx:id="btrStart" layoutX="251.0" layoutY="239.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="364.0" styleClass="blueBtn" stylesheets="@../../../css/GameStyle.css" text="strart" textFill="#000000ca">
+         <font>
+            <Font name="System Bold Italic" size="10.0" />
+         </font>
+      </Button>
+      <Label layoutX="201.0" layoutY="62.0" prefHeight="115.0" prefWidth="394.0" styleClass="logo" stylesheets="@../../../css/GameStyle.css" text="Tic-tac-toe " textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold Italic" size="72.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>
