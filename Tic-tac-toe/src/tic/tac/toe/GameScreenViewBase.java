@@ -397,10 +397,10 @@ public class GameScreenViewBase extends AnchorPane {
                  turn="O";
                  
             }
-            imageLocation5.setDisable(true);
+            imageLocation3.setDisable(true);
             GameHandler.board[2]=turn;
             System.out.println(GameHandler.checkWinner());
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
+             if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
              imageLocation1.setDisable(true);
              imageLocation2.setDisable(true);
              imageLocation3.setDisable(true);
