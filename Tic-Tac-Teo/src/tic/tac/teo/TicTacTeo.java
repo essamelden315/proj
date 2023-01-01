@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tic.tac.toe;
+package tic.tac.teo;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,17 +13,16 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author User
+ * @author essam elden
  */
-public class TicTacToe extends Application {
+public class TicTacTeo extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new FXMLDocumentBase();
+        players_listBase root = new players_listBase(stage);
         Scene scene = new Scene(root);
-        stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Tic-Tac-toe Game");
+        stage.setScene(scene);
         stage.show();
     }
 

@@ -1,6 +1,5 @@
-package tic.tac.toe;
+package tic.tac.teo;
 
-import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +30,7 @@ public class players_listBase extends AnchorPane {
     protected final ImageView btnImg4;
     protected final Button backBtn;
 
-    public players_listBase() {
+    public players_listBase(Stage stage) {
 
         onBtn1 = new Button();
         onBtn2 = new Button();
@@ -52,7 +51,7 @@ public class players_listBase extends AnchorPane {
         setPrefHeight(478.0);
         setPrefWidth(793.0);
         getStyleClass().add("background");
-        getStylesheets().add("/css/GameStyle.css");
+        getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
 
         onBtn1.setId("onBtn1");
         onBtn1.setLayoutX(265.0);
@@ -62,7 +61,7 @@ public class players_listBase extends AnchorPane {
         onBtn1.setPrefHeight(58.0);
         onBtn1.setPrefWidth(156.0);
         onBtn1.getStyleClass().add("bleBtn");
-        onBtn1.getStylesheets().add("/css/GameStyle.css");
+        onBtn1.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         onBtn1.setText("Player 1");
         onBtn1.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         onBtn1.setOnAction(new EventHandler<ActionEvent>() {
@@ -80,7 +79,7 @@ public class players_listBase extends AnchorPane {
         onBtn2.setPrefHeight(51.0);
         onBtn2.setPrefWidth(167.0);
         onBtn2.getStyleClass().add("bleBtn");
-        onBtn2.getStylesheets().add("/css/GameStyle.css");
+        onBtn2.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         onBtn2.setText("Player 2");
         onBtn2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -97,7 +96,7 @@ public class players_listBase extends AnchorPane {
         onBtn3.setPrefHeight(25.0);
         onBtn3.setPrefWidth(52.0);
         onBtn3.getStyleClass().add("bleBtn");
-        onBtn3.getStylesheets().add("/css/GameStyle.css");
+        onBtn3.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         onBtn3.setText("Player 3");
         onBtn3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -112,7 +111,7 @@ public class players_listBase extends AnchorPane {
         onBtn4.setMnemonicParsing(false);
         onBtn4.setOpacity(0.61);
         onBtn4.getStyleClass().add("bleBtn");
-        onBtn4.getStylesheets().add("/css/GameStyle.css");
+        onBtn4.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         onBtn4.setText("Player 4");
         onBtn4.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -127,7 +126,7 @@ public class players_listBase extends AnchorPane {
         onLabel.setPrefHeight(90.0);
         onLabel.setPrefWidth(193.0);
         onLabel.getStyleClass().add("onlabel");
-        onLabel.getStylesheets().add("/css/GameStyle.css");
+        onLabel.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         onLabel.setText("Online");
 
         btnImg1.setFitHeight(59.0);
@@ -138,7 +137,7 @@ public class players_listBase extends AnchorPane {
         btnImg1.setPickOnBounds(true);
         btnImg1.setPreserveRatio(true);
         btnImg1.getStyleClass().add("img");
-        btnImg1.setImage(new Image(getClass().getResource("/css/photos/boy.jpeg").toExternalForm()));
+        btnImg1.setImage(new Image(getClass().getResource("Styles/boy.jpeg").toExternalForm()));
 
         btnImg2.setFitHeight(66.0);
         btnImg2.setFitWidth(59.0);
@@ -147,7 +146,7 @@ public class players_listBase extends AnchorPane {
         btnImg2.setLayoutY(193.0);
         btnImg2.setPickOnBounds(true);
         btnImg2.setPreserveRatio(true);
-        btnImg2.setImage(new Image(getClass().getResource("/css/photos/girl.jpeg").toExternalForm()));
+        btnImg2.setImage(new Image(getClass().getResource("Styles/girl.jpeg").toExternalForm()));
 
         btnImg3.setFitHeight(59.0);
         btnImg3.setFitWidth(59.0);
@@ -156,7 +155,7 @@ public class players_listBase extends AnchorPane {
         btnImg3.setLayoutY(288.0);
         btnImg3.setPickOnBounds(true);
         btnImg3.setPreserveRatio(true);
-        btnImg3.setImage(new Image(getClass().getResource("/css/photos/boy.jpeg").toExternalForm()));
+        btnImg3.setImage(new Image(getClass().getResource("Styles/boy.jpeg").toExternalForm()));
 
         btnImg4.setFitHeight(59.0);
         btnImg4.setFitWidth(59.0);
@@ -166,17 +165,28 @@ public class players_listBase extends AnchorPane {
         btnImg4.setPickOnBounds(true);
         btnImg4.setPreserveRatio(true);
         btnImg4.getStyleClass().add("btnImg1");
-        btnImg4.setImage(new Image(getClass().getResource("/css/photos/girl.jpeg").toExternalForm()));
+        btnImg4.setImage(new Image(getClass().getResource("Styles/girl.jpeg").toExternalForm()));
         
         backBtn.setId("backBtn");
         backBtn.setLayoutX(675.0);
         backBtn.setLayoutY(400.0);
         backBtn.setMnemonicParsing(false);
         backBtn.getStyleClass().add("bckBtn");
-        backBtn.getStylesheets().add("/css/GameStyle.css");
+        backBtn.getStylesheets().add("/tic/tac/teo/Styles/GameStyle.css");
         backBtn.setText("back");
-        backBtn.setOnAction((ActionEvent event) -> {
-              ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("Screen2.fxml"));
+                    Scene  scene= new Scene(root);
+                    Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(players_listBase.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         });
         getChildren().add(onBtn1);
         getChildren().add(onBtn2);

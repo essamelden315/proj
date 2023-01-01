@@ -1,7 +1,8 @@
 .background{
--fx-background-image: url("photos/backgroundimg.jpg"); 
+-fx-background-image: url("background.jpeg");    
 -fx-background-size: cover;
 }
+<<<<<<< HEAD:Tic-tac-toe/build/classes/css/GameStyle.css
 .root{
     -fx-background-image: url("../images/Background.jpg");    
     -fx-background-size: cover;
@@ -60,6 +61,8 @@
    -fx-pref-height: 40px;
    -fx-pref-width: 93px;
 }
+=======
+>>>>>>> e8a7de16ee6c957ae58355c4adff46046a90b465:Tic-Tac-Teo/src/tic/tac/teo/Styles/GameStyle.css
 .bleBtn{
    -fx-background-color:#66ccff ;
    -fx-background-radius: 5px;
@@ -101,15 +104,21 @@
        -fx-text-fill: whitesmoke;
 }
 .img{
-        -fx-border-radius: 5000px;
+        -fx-border-radius: 50%;
 }
+<<<<<<< HEAD:Tic-tac-toe/build/classes/css/GameStyle.css
 .blueBtn{
     -fx-background-color: #66ccff; /*dark blue*/
+=======
+/*.pinkbtn{
+    -fx-background-color: #ff66cc;
+>>>>>>> e8a7de16ee6c957ae58355c4adff46046a90b465:Tic-Tac-Teo/src/tic/tac/teo/Styles/GameStyle.css
    -fx-background-radius: 5000px;
    -fx-font-size: 24px;
    -fx-font-style:italic; 
    -fx-font-weight: bold;
    -fx-pref-height: 60px;
+<<<<<<< HEAD:Tic-tac-toe/build/classes/css/GameStyle.css
     -fx-pref-width: 293px;  
     -fx-transition-duration: 0.4s;
 }
@@ -153,3 +162,7 @@
         -fx-text-fill: #000000;
         -fx-prompt-text-fill: #000000;
 }
+=======
+    -fx-pref-width: 293px;
+}*/
+>>>>>>> e8a7de16ee6c957ae58355c4adff46046a90b465:Tic-Tac-Teo/src/tic/tac/teo/Styles/GameStyle.css
