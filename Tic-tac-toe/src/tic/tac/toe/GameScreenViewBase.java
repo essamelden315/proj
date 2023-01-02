@@ -1,9 +1,8 @@
 package tic.tac.toe;
 
-<<<<<<< HEAD
-=======
+
 import Controlers.GameHandler;
->>>>>>> ahmed
+
 import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,14 +12,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-<<<<<<< HEAD
 import javafx.scene.control.Button;
-=======
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
->>>>>>> ahmed
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,11 +35,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameScreenViewBase extends AnchorPane {
-<<<<<<< HEAD
 
-=======
     private boolean gameTurn; 
->>>>>>> ahmed
     protected final ImageView myBackground;
     protected final GridPane gridPane;
     protected final ColumnConstraints columnConstraints;
@@ -97,15 +90,14 @@ public class GameScreenViewBase extends AnchorPane {
     protected final ImageView recordImage;
     protected final Pane pane;
     protected final ImageView exitImage;
-    protected final Button ExitBtn;
+    //protected final Button ExitBtn;
     private Stage stage;
 
     public GameScreenViewBase() {
-<<<<<<< HEAD
-=======
+
          GameHandler.board = new String[9];
         gameTurn= false;
->>>>>>> ahmed
+
         this.stage=stage;
         myBackground = new ImageView();
         gridPane = new GridPane();
@@ -177,7 +169,7 @@ public class GameScreenViewBase extends AnchorPane {
         pane = new Pane();
         exitImage = new ImageView();
         
-        ExitBtn = new Button();
+        //ExitBtn = new Button();
         
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -308,7 +300,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation1.setFitWidth(77.0);
         imageLocation1.setPickOnBounds(true);
         location1.setCenter(imageLocation1);
-<<<<<<< HEAD
+/*<<<<<<< HEAD
         imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
      @Override
@@ -317,7 +309,7 @@ public class GameScreenViewBase extends AnchorPane {
          event.consume();
      }
     });
-=======
+=======*/
         
         imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> {
              String turn;
@@ -351,7 +343,7 @@ public class GameScreenViewBase extends AnchorPane {
          }
            event.consume();
         });
->>>>>>> ahmed
+
 
         GridPane.setColumnIndex(location2, 2);
         location2.setPrefHeight(200.0);
@@ -363,7 +355,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation2.setPickOnBounds(true);
         imageLocation2.setPreserveRatio(true);
         location2.setCenter(imageLocation2);
-<<<<<<< HEAD
+/*<<<<<<< HEAD
         imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
@@ -371,7 +363,7 @@ public class GameScreenViewBase extends AnchorPane {
             event.consume();
         }
        });
-=======
+=======*/
         imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -404,7 +396,7 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
+
 
         GridPane.setColumnIndex(location3, 4);
         location3.setPrefHeight(200.0);
@@ -416,8 +408,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation3.setPickOnBounds(true);
         imageLocation3.setPreserveRatio(true);
         location3.setCenter(imageLocation3);
-<<<<<<< HEAD
-=======
+
         imageLocation3.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -451,7 +442,7 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
+
 
         GridPane.setRowIndex(location4, 2);
         location4.setPrefHeight(200.0);
@@ -463,8 +454,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation4.setPickOnBounds(true);
         imageLocation4.setPreserveRatio(true);
         location4.setCenter(imageLocation4);
-<<<<<<< HEAD
-=======
+
         imageLocation4.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -498,7 +488,6 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
 
         GridPane.setColumnIndex(location5, 2);
         GridPane.setRowIndex(location5, 2);
@@ -511,8 +500,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation5.setPickOnBounds(true);
         imageLocation5.setPreserveRatio(true);
         location5.setCenter(imageLocation5);
-<<<<<<< HEAD
-=======
+
         imageLocation5.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -546,7 +534,7 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
+
 
         GridPane.setColumnIndex(location6, 4);
         GridPane.setRowIndex(location6, 2);
@@ -559,8 +547,6 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation6.setPickOnBounds(true);
         imageLocation6.setPreserveRatio(true);
         location6.setCenter(imageLocation6);
-<<<<<<< HEAD
-=======
         imageLocation6.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -594,15 +580,11 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
 
         GridPane.setRowIndex(location7, 4);
         location7.setPrefHeight(200.0);
         location7.setPrefWidth(200.0);
-<<<<<<< HEAD
-=======
-       
->>>>>>> ahmed
+
 
         BorderPane.setAlignment(imageLocation7, javafx.geometry.Pos.CENTER);
         imageLocation7.setFitHeight(77.0);
@@ -610,8 +592,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation7.setPickOnBounds(true);
         imageLocation7.setPreserveRatio(true);
         location7.setCenter(imageLocation7);
-<<<<<<< HEAD
-=======
+
          imageLocation7.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -645,7 +626,6 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
 
         GridPane.setColumnIndex(location8, 2);
         GridPane.setRowIndex(location8, 4);
@@ -658,8 +638,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation8.setPickOnBounds(true);
         imageLocation8.setPreserveRatio(true);
         location8.setCenter(imageLocation8);
-<<<<<<< HEAD
-=======
+
          imageLocation8.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -693,7 +672,7 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
->>>>>>> ahmed
+
 
         GridPane.setColumnIndex(location9, 4);
         GridPane.setRowIndex(location9, 4);
@@ -706,8 +685,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation9.setPickOnBounds(true);
         imageLocation9.setPreserveRatio(true);
         location9.setCenter(imageLocation9);
-<<<<<<< HEAD
-=======
+
          imageLocation9.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -743,8 +721,6 @@ public class GameScreenViewBase extends AnchorPane {
         });
         
          
->>>>>>> ahmed
-
         framePlayer2.setArcHeight(41.0);
         framePlayer2.setArcWidth(41.0);
         framePlayer2.setBlendMode(javafx.scene.effect.BlendMode.SCREEN);
@@ -904,7 +880,7 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(scorePlayer2);
         getChildren().add(label0);
         getChildren().add(flowPane);
-        getChildren().add(ExitBtn);
+        //getChildren().add(ExitBtn);
 
     }
 }
