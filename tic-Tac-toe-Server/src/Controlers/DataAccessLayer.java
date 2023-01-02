@@ -5,11 +5,12 @@
  */
 package Controlers;
 
-<<<<<<< HEAD
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import tic.tac.toe.server.*;
+import java.sql.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -35,27 +36,14 @@ public class DataAccessLayer  {
         conn.close();
         return id;
     }
-}
-=======
-import tic.tac.toe.server.*;
-import java.sql.*;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-
-/**
- *
- * @author HP
- */
-public class DataAccessLayer {
-    
-    public static ArrayList<Player> retrieveOnlineList() throws SQLException, ClassNotFoundException
+        public static ArrayList<Player> retrieveOnlineList() throws SQLException, ClassNotFoundException
     {
        {
         int result=0;
         ArrayList<Player> onlinePlayersList=new ArrayList<>();
-        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","root","root");
-        Statement preparedStatement=con.createStatement();
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
+        Statement preparedStatement=conn.createStatement();
         String queryString =new String("SELECT ID,NAME FROM ACCOUNT WHERE STATE='online'");
         ResultSet rs= preparedStatement.executeQuery(queryString) ;
           
@@ -66,12 +54,16 @@ public class DataAccessLayer {
           playerRetrieved.setName(rs.getString(2)); */
           onlinePlayersList.add(playerRetrieved);
         }
-        con.close();                                     
+        conn.close();                                     
         preparedStatement.close();
         return onlinePlayersList;   
     }
     }
-    
-    
 }
->>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
+
+
+
+/**
+ *
+ * @author HP
+ */

@@ -1,9 +1,7 @@
 package tic.tac.toe;
 
-<<<<<<< HEAD
-=======
+
 import Controlers.ScreenAdapter;
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,11 +40,7 @@ public class SignUpBase extends AnchorPane {
         setPrefHeight(478.0);
         setPrefWidth(793.0);
         getStyleClass().add("background");
-<<<<<<< HEAD
-        getStylesheets().add("/CssStyle/GameStyle.css");
-=======
         getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);
         txtusername.setLayoutX(250.0);
@@ -54,11 +48,8 @@ public class SignUpBase extends AnchorPane {
         txtusername.setOpacity(0.74);
         txtusername.setPromptText("Enter Username");
         txtusername.getStyleClass().add("text-signup");
-<<<<<<< HEAD
-        txtusername.getStylesheets().add("/CssStyle/GameStyle.css");
-=======
         txtusername.getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
 
         txtemail.setLayoutX(250.0);
         txtemail.setLayoutY(123.0);
@@ -66,26 +57,21 @@ public class SignUpBase extends AnchorPane {
         txtemail.setPromptText("Email");
         txtemail.setStyle("-fx-alignment: center; -fx-font: #000000;");
         txtemail.getStyleClass().add("text-signup");
-<<<<<<< HEAD
-        txtemail.getStylesheets().add("/CssStyle/GameStyle.css");
-=======
+
         txtemail.getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
 
         btnsignup.setLayoutX(250.0);
         btnsignup.setLayoutY(329.0);
         btnsignup.setMnemonicParsing(false);
         btnsignup.getStyleClass().add("blueBtn");
-<<<<<<< HEAD
-        btnsignup.getStylesheets().add("/CssStyle/GameStyle.css");
-        btnsignup.setText("Sign Up");
-=======
+
         btnsignup.getStylesheets().add("/css/GameStyle.css");
         btnsignup.setText("Sign Up");
         btnsignup.setOnAction((event)->{
          ScreenAdapter.setScreen(event, new players_listBase());
         });
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
 
         loginscreen.setLayoutX(360.0);
         loginscreen.setLayoutY(422.0);
@@ -93,30 +79,13 @@ public class SignUpBase extends AnchorPane {
         loginscreen.setPrefHeight(51.0);
         loginscreen.setPrefWidth(140.0);
         loginscreen.getStyleClass().add("anotherScreen");
-<<<<<<< HEAD
-        loginscreen.getStylesheets().add("/CssStyle/GameStyle.css");
-        loginscreen.setText("Login");
-        loginscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));
-        loginscreen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                    Scene scene = new Scene (root);
-                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-=======
+
         loginscreen.getStylesheets().add("/css/GameStyle.css");
         loginscreen.setText("Login");
         loginscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));
         loginscreen.setOnAction((event)->{
          ScreenAdapter.setScreen(event, new LoginBase());
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
         });
 
         text.setFill(javafx.scene.paint.Color.WHITE);
@@ -133,11 +102,9 @@ public class SignUpBase extends AnchorPane {
         txtpw.setOpacity(0.74);
         txtpw.setPromptText("Enter password");
         txtpw.getStyleClass().add("text-signup");
-<<<<<<< HEAD
-        txtpw.getStylesheets().add("/CssStyle/GameStyle.css");
-=======
+
         txtpw.getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
 
         getChildren().add(txtusername);
         getChildren().add(txtemail);

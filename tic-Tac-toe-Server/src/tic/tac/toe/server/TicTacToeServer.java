@@ -13,11 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-<<<<<<< HEAD
-=======
 import Controlers.*;
-
->>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 /**
  *
  * @author User
@@ -25,17 +21,11 @@ import Controlers.*;
 public class TicTacToeServer extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-<<<<<<< HEAD
-        Parent root =new FXMLDocumentBase();
-=======
-        
-        
+    public void start(Stage stage) throws Exception {        
        /* String ip=new String();
         ip=DataAccessLayer.SearchbyIP(3);
         System.out.println(ip);*/
         Parent root =new FXMLDocumentBase();  
->>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
