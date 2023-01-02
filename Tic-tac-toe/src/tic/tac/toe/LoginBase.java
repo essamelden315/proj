@@ -1,9 +1,8 @@
 package tic.tac.toe;
 
-<<<<<<< HEAD
-=======
+
 import Controlers.ScreenAdapter;
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,11 +28,7 @@ public class LoginBase extends AnchorPane {
     protected final Text text0;
     protected final PasswordField txtpw;
 
-<<<<<<< HEAD
-    public LoginBase(Stage stage) {
-=======
     public LoginBase() {
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         btnlogin = new Button();
         txtusername = new TextField();
@@ -49,26 +44,17 @@ public class LoginBase extends AnchorPane {
         setPrefHeight(478.0);
         setPrefWidth(793.0);
         getStyleClass().add("background");
-<<<<<<< HEAD
-        getStylesheets().add("/CssStyle/GameStyle.css");
-=======
         getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         btnlogin.setLayoutX(260.0);
         btnlogin.setLayoutY(326.0);
         btnlogin.setMnemonicParsing(false);
         btnlogin.getStyleClass().add("blueBtn");
-<<<<<<< HEAD
-        btnlogin.getStylesheets().add("/CssStyle/GameStyle.css");
-        btnlogin.setText("Login");
-=======
         btnlogin.getStylesheets().add("/css/GameStyle.css");
         btnlogin.setText("Login");
         btnlogin.setOnAction((event)->{
          ScreenAdapter.setScreen(event, new players_listBase());
         });
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);
         txtusername.setLayoutX(260.0);
@@ -76,11 +62,7 @@ public class LoginBase extends AnchorPane {
         txtusername.setOpacity(0.74);
         txtusername.setPromptText("Enter Username");
         txtusername.getStyleClass().add("text-field");
-<<<<<<< HEAD
-        txtusername.getStylesheets().add("/CssStyle/GameStyle.css");
-=======
         txtusername.getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         signupscreen.setLayoutX(413.0);
         signupscreen.setLayoutY(414.0);
@@ -88,30 +70,12 @@ public class LoginBase extends AnchorPane {
         signupscreen.setPrefHeight(51.0);
         signupscreen.setPrefWidth(140.0);
         signupscreen.getStyleClass().add("anotherScreen");
-<<<<<<< HEAD
-        signupscreen.getStylesheets().add("/CssStyle/GameStyle.css");
-        signupscreen.setText("Sign Up");
-        signupscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));
-        signupscreen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
-                    Scene scene = new Scene (root);
-                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginBase.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-=======
+
         signupscreen.getStylesheets().add("/css/GameStyle.css");
         signupscreen.setText("Sign Up");
         signupscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));
         signupscreen.setOnAction((event)->{
          ScreenAdapter.setScreen(event, new SignUpBase());
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
         });
 
         text.setFill(javafx.scene.paint.Color.WHITE);
@@ -139,11 +103,7 @@ public class LoginBase extends AnchorPane {
         txtpw.setOpacity(0.74);
         txtpw.setPromptText("Enter password");
         txtpw.getStyleClass().add("text-field");
-<<<<<<< HEAD
-        txtpw.getStylesheets().add("/CssStyle/GameStyle.css");
-=======
         txtpw.getStylesheets().add("/css/GameStyle.css");
->>>>>>> fc5b41bbff7c104c9177be76f97f37b7a7b66512
 
         getChildren().add(btnlogin);
         getChildren().add(txtusername);
