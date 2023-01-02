@@ -86,7 +86,7 @@ public class GameScreenViewBase extends AnchorPane {
     protected final ImageView recordImage;
     protected final Pane pane;
     protected final ImageView exitImage;
-    protected final Button ExitBtn;
+    //protected final Button ExitBtn;
     private Stage stage;
 
     public GameScreenViewBase() {
@@ -163,7 +163,7 @@ public class GameScreenViewBase extends AnchorPane {
         pane = new Pane();
         exitImage = new ImageView();
         
-        ExitBtn = new Button();
+       // ExitBtn = new Button();
         
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -843,7 +843,7 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(scorePlayer2);
         getChildren().add(label0);
         getChildren().add(flowPane);
-        getChildren().add(ExitBtn);
+        //getChildren().add(ExitBtn);
 
     }
 }

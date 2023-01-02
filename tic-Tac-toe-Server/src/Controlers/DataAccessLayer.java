@@ -59,6 +59,25 @@ public class DataAccessLayer  {
         return onlinePlayersList;   
     }
     }
+   public static String SearchbyIP(int id) throws SQLException, ClassNotFoundException{
+        
+
+        String ip = "null";
+        try{
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","root","root");
+        Statement stmt=conn.createStatement();
+        ResultSet t= stmt.executeQuery("SELECT IP FROM ACCOUNT WHERE ID="+id);
+        if(t.next()) {
+          ip = t.getString(1);
+        }
+
+        }
+        catch(Exception ex){
+        JOptionPane.showMessageDialog(null,"Error");
+        }
+       return ip;
+        }    
 }
 
 
