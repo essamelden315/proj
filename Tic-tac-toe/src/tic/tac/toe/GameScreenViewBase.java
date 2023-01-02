@@ -1,6 +1,12 @@
 package tic.tac.toe;
 
+<<<<<<< HEAD
 import Controlers.GameHandler;
+=======
+
+import Controlers.GameHandler;
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -10,6 +16,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+<<<<<<< HEAD
+=======
+import javafx.scene.control.Button;
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -32,6 +42,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameScreenViewBase extends AnchorPane {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
     private boolean gameTurn; 
     protected final ImageView myBackground;
     protected final GridPane gridPane;
@@ -86,12 +100,19 @@ public class GameScreenViewBase extends AnchorPane {
     protected final ImageView recordImage;
     protected final Pane pane;
     protected final ImageView exitImage;
-    protected final Button ExitBtn;
+    //protected final Button ExitBtn;
     private Stage stage;
 
     public GameScreenViewBase() {
+<<<<<<< HEAD
          GameHandler.board = new String[9];
         gameTurn= false;
+=======
+
+         GameHandler.board = new String[9];
+        gameTurn= false;
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         this.stage=stage;
         myBackground = new ImageView();
         gridPane = new GridPane();
@@ -163,7 +184,7 @@ public class GameScreenViewBase extends AnchorPane {
         pane = new Pane();
         exitImage = new ImageView();
         
-        ExitBtn = new Button();
+        //ExitBtn = new Button();
         
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -294,7 +315,21 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation1.setFitWidth(77.0);
         imageLocation1.setPickOnBounds(true);
         location1.setCenter(imageLocation1);
+<<<<<<< HEAD
 
+=======
+/*<<<<<<< HEAD
+        imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+     @Override
+     public void handle(MouseEvent event) {
+         imageLocation1.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+         event.consume();
+     }
+    });
+=======*/
+        
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> {
              String turn;
             if(gameTurn){ 
@@ -327,6 +362,10 @@ public class GameScreenViewBase extends AnchorPane {
          }
            event.consume();
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 
         GridPane.setColumnIndex(location2, 2);
         location2.setPrefHeight(200.0);
@@ -338,7 +377,19 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation2.setPickOnBounds(true);
         imageLocation2.setPreserveRatio(true);
         location2.setCenter(imageLocation2);
+<<<<<<< HEAD
 
+=======
+/*<<<<<<< HEAD
+        imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            imageLocation2.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+            event.consume();
+        }
+       });
+=======*/
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -383,6 +434,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation3.setPickOnBounds(true);
         imageLocation3.setPreserveRatio(true);
         location3.setCenter(imageLocation3);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         imageLocation3.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -416,6 +471,10 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 
         GridPane.setRowIndex(location4, 2);
         location4.setPrefHeight(200.0);
@@ -427,6 +486,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation4.setPickOnBounds(true);
         imageLocation4.setPreserveRatio(true);
         location4.setCenter(imageLocation4);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         imageLocation4.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -472,6 +535,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation5.setPickOnBounds(true);
         imageLocation5.setPreserveRatio(true);
         location5.setCenter(imageLocation5);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         imageLocation5.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -505,6 +572,10 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 
         GridPane.setColumnIndex(location6, 4);
         GridPane.setRowIndex(location6, 2);
@@ -550,17 +621,29 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 
         GridPane.setRowIndex(location7, 4);
         location7.setPrefHeight(200.0);
         location7.setPrefWidth(200.0);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         BorderPane.setAlignment(imageLocation7, javafx.geometry.Pos.CENTER);
         imageLocation7.setFitHeight(77.0);
         imageLocation7.setFitWidth(77.0);
         imageLocation7.setPickOnBounds(true);
         imageLocation7.setPreserveRatio(true);
         location7.setCenter(imageLocation7);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
          imageLocation7.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
              String turn;
             if(gameTurn){ 
@@ -606,6 +689,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation8.setPickOnBounds(true);
         imageLocation8.setPreserveRatio(true);
         location8.setCenter(imageLocation8);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
          imageLocation8.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -639,6 +726,10 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
 
         GridPane.setColumnIndex(location9, 4);
         GridPane.setRowIndex(location9, 4);
@@ -651,6 +742,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation9.setPickOnBounds(true);
         imageLocation9.setPreserveRatio(true);
         location9.setCenter(imageLocation9);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
          imageLocation9.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String turn;
             if(gameTurn){ 
@@ -684,6 +779,11 @@ public class GameScreenViewBase extends AnchorPane {
          }
             event.consume();
         });
+<<<<<<< HEAD
+=======
+        
+         
+>>>>>>> 8d1ebd134b01909690f7809bfe8bccce411214e3
         framePlayer2.setArcHeight(41.0);
         framePlayer2.setArcWidth(41.0);
         framePlayer2.setBlendMode(javafx.scene.effect.BlendMode.SCREEN);
@@ -843,7 +943,7 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(scorePlayer2);
         getChildren().add(label0);
         getChildren().add(flowPane);
-        getChildren().add(ExitBtn);
+        //getChildren().add(ExitBtn);
 
     }
 }
