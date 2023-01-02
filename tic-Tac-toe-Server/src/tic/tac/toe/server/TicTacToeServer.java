@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 /**
  *
  * @author User
@@ -20,10 +19,7 @@ public class TicTacToeServer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root =new FXMLDocumentBase();
-        
         Scene scene = new Scene(root);
-        
-        
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Tic Tac Toe Server ");
@@ -37,4 +33,5 @@ public class TicTacToeServer extends Application {
         launch(args);
     }
     
+   
 }
