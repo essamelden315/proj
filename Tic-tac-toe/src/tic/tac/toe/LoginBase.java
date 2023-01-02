@@ -1,23 +1,11 @@
 package tic.tac.toe;
 
-
 import Controlers.ScreenAdapter;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class LoginBase extends AnchorPane {
 
@@ -70,7 +58,6 @@ public class LoginBase extends AnchorPane {
         signupscreen.setPrefHeight(51.0);
         signupscreen.setPrefWidth(140.0);
         signupscreen.getStyleClass().add("anotherScreen");
-
         signupscreen.getStylesheets().add("/css/GameStyle.css");
         signupscreen.setText("Sign Up");
         signupscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));

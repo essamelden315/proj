@@ -1,6 +1,5 @@
 package tic.tac.toe;
 
-
 import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -74,7 +73,6 @@ public class SignUpBase extends AnchorPane {
         loginscreen.setPrefHeight(51.0);
         loginscreen.setPrefWidth(140.0);
         loginscreen.getStyleClass().add("anotherScreen");
-
         loginscreen.getStylesheets().add("/css/GameStyle.css");
         loginscreen.setText("Login");
         loginscreen.setTextFill(javafx.scene.paint.Color.valueOf("#66ccff"));

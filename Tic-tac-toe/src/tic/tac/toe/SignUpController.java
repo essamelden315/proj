@@ -34,7 +34,6 @@ public class SignUpController implements Initializable {
     private void anotherScreenButtonAction(ActionEvent event) throws Exception
     {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-
         Parent root = new LoginBase();
         Scene scene = new Scene (root);
         stage.setScene(scene);
