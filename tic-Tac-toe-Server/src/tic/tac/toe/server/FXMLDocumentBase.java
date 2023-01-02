@@ -1,7 +1,11 @@
 package tic.tac.toe.server;
 
+import Controlers.DataAccessLayer;
 import Controlers.ScreenAdapter;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,7 +61,17 @@ public  class FXMLDocumentBase extends AnchorPane {
         getChildren().add(btnStart);
         getChildren().add(label);
         btnStart.setOnAction((event)->{
+             String ip=" ";
+            try {
+                ip = DataAccessLayer.SearchbyIP(1);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLDocumentBase.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FXMLDocumentBase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        System.out.println(ip);
               ScreenAdapter.setScreen(event, new serverControlPanalBase());
+              
         });
         
         
