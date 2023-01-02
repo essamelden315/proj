@@ -1,0 +1,75 @@
+.background{
+-fx-background-image: url("backgroundimg.jpg");
+-fx-background-size: cover;
+}
+.blueBtn{
+    -fx-background-color: #66ccff; /*dark blue*/
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 60px;
+    -fx-pref-width: 293px;  
+    -fx-transition-duration: 0.4s;
+}
+
+.blueBtn:hover {
+    -fx-background-color: #ffffff; /* white */
+  -fx-color: white;
+  
+}
+
+.anotherScreen{
+    -fx-background-color: transparent;
+    -fx-font-size: 20px;
+   -fx-font-weight: bold; 
+}
+
+.logo{
+    -fx-font-size: 72px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+    -fx-text-fill: #66ccff;
+}
+.pinkbtn{
+    -fx-background-color: #ff66cc;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 60px;
+    -fx-pref-width: 293px;
+}
+.backBtn{
+    -fx-background-color: #ffcc66;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 24px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+   -fx-pref-height: 40px;
+    -fx-pref-width: 93px;
+}
+.text-field {   /*for user name and password*/
+	
+	-fx-background-color: #0C6384;
+	-fx-background-radius: 5000px;
+        -fx-font-size: 24px;
+        -fx-font-style:italic; 
+        -fx-font-weight: bold;
+        -fx-pref-height: 60px;
+        -fx-pref-width: 293px; 
+         -fx-text-fill:#ffffff;
+         -fx-prompt-text-fill: #ffffff;
+}
+.text-signup {   /*for signup*/
+	
+	-fx-background-color: #BBC1C7;
+	-fx-background-radius: 5000px;
+        -fx-font-size: 24px;
+        -fx-font-style:italic; 
+        -fx-font-weight: bold;
+        -fx-pref-height: 60px;
+        -fx-pref-width: 293px; 
+        -fx-text-fill: #000000;
+        -fx-prompt-text-fill: #000000;
+}
