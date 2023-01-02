@@ -13,18 +13,19 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author User
+ * @author LapStore
  */
 public class TicTacToe extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new FXMLDocumentBase();
+        LoginBase root = new LoginBase(stage);
+        
         Scene scene = new Scene(root);
+        
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setTitle("Tic-Tac-toe Game");
         stage.show();
+        stage.setResizable(false);
     }
 
     /**
