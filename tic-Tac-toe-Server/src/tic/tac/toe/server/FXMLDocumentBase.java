@@ -62,7 +62,7 @@ public  class FXMLDocumentBase extends AnchorPane {
         getChildren().add(label);
         btnStart.setOnAction((event)->{
             try {
-                String ip= DataAccessLayer.SearchbyIP(1);
+                String ip= DataAccessLayer.SearchbyIP(2);
                 System.out.println(ip);
                 
             } catch (SQLException ex) {
