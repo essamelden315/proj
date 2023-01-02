@@ -6,6 +6,7 @@
 package Controlers;
 
 
+import Model.Player;
 import tic.tac.toe.server.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -77,7 +78,25 @@ public class DataAccessLayer  {
         JOptionPane.showMessageDialog(null,"Error");
         }
        return ip;
-        }    
+        } 
+    public static int addPlayer(Player p, String ip , String state) throws ClassNotFoundException, SQLException{
+        int id=1 ;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","root","root");
+        Statement stmt=conn.createStatement();
+        ResultSet t= stmt.executeQuery("select * From ACCOUNT"); 
+        while(t.next()){
+            if (id<t.getInt(1)){
+            id = t.getInt(1);
+                }
+            }
+                id++;
+        stmt.executeUpdate("INSERT INTO ACCOUNT (ID,NAME,EMAIL,PASS,IP,STATE)" +
+                            "VALUES ("+id+",'"+p.getName()+"','"+p.getEmail()+"','"+p.getPassword()+"','"+ip+"','"+state+"') ");    
+        stmt.close();
+        conn.close();       
+            return id ;
+    }   
 }
 
 
