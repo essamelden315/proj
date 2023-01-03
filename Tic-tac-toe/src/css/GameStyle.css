@@ -1,7 +1,7 @@
 .background{
 -fx-background-image: url("photos/backgroundimg.jpg"); 
 -fx-background-size: cover;
-}
+-fx-background-color: #1d1d1d;}
 .root{
     -fx-background-image: url("../images/Background.jpg");    
     -fx-background-size: cover;

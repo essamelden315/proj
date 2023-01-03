@@ -2,19 +2,11 @@ package tic.tac.toe;
 
 import Controlers.GameHandler;
 import Controlers.ScreenAdapter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,8 +20,9 @@ import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class GameScreenViewBase extends AnchorPane {
     private boolean gameTurn; 
@@ -88,9 +81,15 @@ public class GameScreenViewBase extends AnchorPane {
     protected final ImageView exitImage;
     //protected final Button ExitBtn;
     private Stage stage;
+    ImageView [] gameBoard;
+    private int sumOfUsedindex;
+    Alert a;
 
     public GameScreenViewBase() {
+        a =new Alert(Alert.AlertType.CONFIRMATION);
+        sumOfUsedindex=1;
          GameHandler.board = new String[9];
+         GameHandler.winIndex=new int[3];
         gameTurn= false;
         this.stage=stage;
         myBackground = new ImageView();
@@ -162,8 +161,16 @@ public class GameScreenViewBase extends AnchorPane {
         recordImage = new ImageView();
         pane = new Pane();
         exitImage = new ImageView();
-        
-       // ExitBtn = new Button();
+         gameBoard=new ImageView [9]; 
+        gameBoard[0]=imageLocation1;
+        gameBoard[1]= imageLocation2;
+         gameBoard[2]=imageLocation3;
+         gameBoard[3]=imageLocation4;
+         gameBoard[4]=imageLocation5;
+         gameBoard[5]=imageLocation6;
+         gameBoard[6]=imageLocation7;
+         gameBoard[7]=imageLocation8;
+         gameBoard[8]=imageLocation9;
         
         setId("AnchorPane");
         setMaxHeight(USE_PREF_SIZE);
@@ -181,8 +188,6 @@ public class GameScreenViewBase extends AnchorPane {
         myBackground.setPreserveRatio(true);
         myBackground.getStyleClass().add("background");
        
-  
-        
         gridPane.setLayoutX(221.0);
         gridPane.setLayoutY(73.0);
         gridPane.setPrefHeight(263.0);
@@ -296,36 +301,7 @@ public class GameScreenViewBase extends AnchorPane {
         location1.setCenter(imageLocation1);
 
         imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> {
-             String turn;
-            if(gameTurn){ 
-                imageLocation1.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation1.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O"; 
-            }
-            imageLocation1.setDisable(true);
-            GameHandler.board[0]=turn;
-            System.out.println(GameHandler.checkWinner());
-             if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-           event.consume();
+            gameControl(event,imageLocation1,0);
         });
 
         GridPane.setColumnIndex(location2, 2);
@@ -340,36 +316,7 @@ public class GameScreenViewBase extends AnchorPane {
         location2.setCenter(imageLocation2);
 
         imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            String turn;
-            if(gameTurn){ 
-                imageLocation2.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation2.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-            }
-            imageLocation2.setDisable(true);
-            GameHandler.board[1]=turn;
-           System.out.println(GameHandler.checkWinner());
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+             gameControl(event,imageLocation2,1);
         });
 
 
@@ -384,37 +331,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation3.setPreserveRatio(true);
         location3.setCenter(imageLocation3);
         imageLocation3.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             String turn;
-            if(gameTurn){ 
-                imageLocation3.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation3.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            imageLocation3.setDisable(true);
-            GameHandler.board[2]=turn;
-            System.out.println(GameHandler.checkWinner());
-             if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+              gameControl(event,imageLocation3,2);
         });
 
         GridPane.setRowIndex(location4, 2);
@@ -428,37 +345,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation4.setPreserveRatio(true);
         location4.setCenter(imageLocation4);
         imageLocation4.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             String turn;
-            if(gameTurn){ 
-                imageLocation4.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation4.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            imageLocation4.setDisable(true);
-            GameHandler.board[3]=turn;
-           System.out.println(GameHandler.checkWinner());
-             if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+              gameControl(event,imageLocation4,3);
         });
 
         GridPane.setColumnIndex(location5, 2);
@@ -473,37 +360,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation5.setPreserveRatio(true);
         location5.setCenter(imageLocation5);
         imageLocation5.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            String turn;
-            if(gameTurn){ 
-                imageLocation5.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation5.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            imageLocation5.setDisable(true);
-            GameHandler.board[4]=turn;
-            System.out.println(GameHandler.checkWinner());
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+             gameControl(event,imageLocation5,4);
         });
 
         GridPane.setColumnIndex(location6, 4);
@@ -518,37 +375,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation6.setPreserveRatio(true);
         location6.setCenter(imageLocation6);
         imageLocation6.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            String turn;
-            if(gameTurn){ 
-                imageLocation6.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation6.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            imageLocation6.setDisable(true);
-            GameHandler.board[5]=turn;
-            System.out.println(GameHandler.checkWinner());
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+             gameControl(event,imageLocation6,5);
         });
 
 
@@ -562,37 +389,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation7.setPreserveRatio(true);
         location7.setCenter(imageLocation7);
          imageLocation7.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             String turn;
-            if(gameTurn){ 
-                imageLocation7.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation7.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            imageLocation7.setDisable(true);
-            GameHandler.board[6]=turn;
-            System.out.println(GameHandler.checkWinner());
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+               gameControl(event,imageLocation7,6);
         });
 
         GridPane.setColumnIndex(location8, 2);
@@ -607,37 +404,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation8.setPreserveRatio(true);
         location8.setCenter(imageLocation8);
          imageLocation8.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            String turn;
-            if(gameTurn){ 
-                imageLocation8.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation8.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            GameHandler.board[7]=turn;
-            System.out.println(GameHandler.checkWinner());
-            imageLocation8.setDisable(true);
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+             gameControl(event,imageLocation8,7);
         });
 
         GridPane.setColumnIndex(location9, 4);
@@ -652,37 +419,7 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation9.setPreserveRatio(true);
         location9.setCenter(imageLocation9);
          imageLocation9.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            String turn;
-            if(gameTurn){ 
-                imageLocation9.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
-                gameTurn=false;
-                turn="X";
-            }
-            else{
-                 imageLocation9.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=true;
-                 turn="O";
-                 
-            }
-            GameHandler.board[8]=turn;
-            System.out.println(GameHandler.checkWinner());
-            imageLocation9.setDisable(true);
-              if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
-             imageLocation1.setDisable(true);
-             imageLocation2.setDisable(true);
-             imageLocation3.setDisable(true);
-             imageLocation4.setDisable(true);
-             imageLocation5.setDisable(true);
-             imageLocation6.setDisable(true);
-             imageLocation7.setDisable(true);
-             imageLocation8.setDisable(true);
-             imageLocation9.setDisable(true);
-             Alert a1 = new Alert(AlertType.NONE,
-             GameHandler.checkWinner()+" win",ButtonType.APPLY);
-             a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
-         }
-            event.consume();
+              gameControl(event,imageLocation9,8);
         });
         framePlayer2.setArcHeight(41.0);
         framePlayer2.setArcWidth(41.0);
@@ -783,17 +520,10 @@ public class GameScreenViewBase extends AnchorPane {
         exitImage.setPickOnBounds(true);
         exitImage.setPreserveRatio(true);
         exitImage.setImage(new Image(getClass().getResource("/images/logout.png").toExternalForm()));
-        exitImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
+        exitImage.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             ScreenAdapter.setScreen(event, new OfflineModesBase());
             event.consume();
-        }
-       /* public void handle(ActionEvent event) {
-            ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
-            event.consume();
-        }*/
-       });
+        });
       
         getChildren().add(myBackground);
         gridPane.getColumnConstraints().add(columnConstraints);
@@ -843,7 +573,75 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(scorePlayer2);
         getChildren().add(label0);
         getChildren().add(flowPane);
-        //getChildren().add(ExitBtn);
+       
 
     }
+    void printWinerOnScreen(){ // print winer played games with differnt style
+            for(int i=0;i<gameBoard.length;i++){
+             gameBoard[i].setDisable(true);
+             }
+            for(ImageView b : gameBoard){
+                ColorAdjust colorAdjust = new ColorAdjust();
+                colorAdjust.setBrightness(-0.25);
+                b.setEffect(colorAdjust);
+            }
+           if(GameHandler.checkWinner().equals("O")){
+               for(int i=0;i<3;i++){
+               gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                   Glow g = new Glow(1);
+                gameBoard[GameHandler.winIndex[i]].setEffect(g);
+                }
+           }else{
+                for(int i=0;i<3;i++){
+               gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+                 Glow g = new Glow(1);
+                gameBoard[GameHandler.winIndex[i]].setEffect(g);
+                }
+            }  
+    }
+     void gameControl(MouseEvent event,ImageView i, int index){
+        String turn;
+        sumOfUsedindex++;
+            if(gameTurn){ 
+                i.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+                gameTurn=false;
+                turn="X";
+            }
+            else{
+                 i.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                 gameTurn=true;
+                 turn="O"; 
+            }
+            i.setDisable(true);
+            GameHandler.board[index]=turn;
+            System.out.println(GameHandler.checkWinner());
+            if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
+                printWinerOnScreen();
+                a.setTitle(GameHandler.checkWinner()+"win Play again ");
+                a.initModality(Modality.APPLICATION_MODAL);
+                ButtonType buttonPlayAgain = new ButtonType("Play again");
+                a.getButtonTypes().setAll(buttonPlayAgain);
+                 a.setOnCloseRequest(e -> {
+                // Get the result
+                ButtonType result = a.getResult();
+                if (result != null && result == buttonPlayAgain) {
+                    ScreenAdapter.setScreen(event,new GameScreenViewBase());
+                } else {
+                        ScreenAdapter.setScreen(event, new OfflineModesBase());
+                }
+            });
+                a.show();
+            }
+                else if(sumOfUsedindex==10){
+                int a=JOptionPane.showConfirmDialog(null,GameHandler.checkWinner()+" Draw Do You want To play again ?");  
+                if(a==JOptionPane.YES_OPTION){
+                ScreenAdapter.setScreen(event,new GameScreenViewBase()); 
+                }
+                 
+             }
+           event.consume();
+
+}
+    
+    
 }
