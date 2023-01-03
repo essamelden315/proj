@@ -561,7 +561,14 @@ public class GameScreenViewBase extends AnchorPane {
         recordImage.setImage(new Image(getClass().getResource("/images/record.png").toExternalForm()));
         recordImage.setOnMousePressed((event)->{
             if(sumOfUsedindex==1){
+                if(!recoeding){
                 recoeding = true;
+                  recordImage.setImage(new Image(getClass().getResource("/images/recordActive.png").toExternalForm()));
+                }
+                else{
+                    recoeding= false;
+                      recordImage.setImage(new Image(getClass().getResource("/images/record.png").toExternalForm()));
+                }
             }
         });
 
@@ -683,6 +690,7 @@ public class GameScreenViewBase extends AnchorPane {
             }
     }
      void gameControl(MouseEvent event,ImageView i, int index){
+         recordImage.setImage(null);
         String turn;
         sumOfUsedindex++; // to make sure its not draw when the index is less than 10
             if(gameTurn){ 
