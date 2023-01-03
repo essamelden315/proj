@@ -2,6 +2,12 @@ package tic.tac.toe;
 
 import Controlers.GameHandler;
 import Controlers.ScreenAdapter;
+import java.util.LinkedList;
+import java.util.Queue;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -22,6 +28,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
 public class GameScreenViewBase extends AnchorPane {
@@ -84,8 +91,12 @@ public class GameScreenViewBase extends AnchorPane {
     ImageView [] gameBoard;
     private int sumOfUsedindex;
     Alert a;
+   static Queue<ImageView> recordingInOrder;
+    boolean recoeding;
 
     public GameScreenViewBase() {
+        recoeding=false;
+        recordingInOrder= new LinkedList<>();
         a =new Alert(Alert.AlertType.CONFIRMATION);
         sumOfUsedindex=1;
          GameHandler.board = new String[9];
@@ -301,7 +312,11 @@ public class GameScreenViewBase extends AnchorPane {
         location1.setCenter(imageLocation1);
 
         imageLocation1.addEventHandler(MouseEvent.MOUSE_CLICKED, (event) -> {
-            gameControl(event,imageLocation1,0);
+            
+             if(recoeding){
+             recordGame(imageLocation1);
+             }
+             gameControl(event,imageLocation1,0);
         });
 
         GridPane.setColumnIndex(location2, 2);
@@ -316,7 +331,11 @@ public class GameScreenViewBase extends AnchorPane {
         location2.setCenter(imageLocation2);
 
         imageLocation2.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             gameControl(event,imageLocation2,1);
+             
+              if(recoeding){
+              recordGame(imageLocation2);
+              }
+              gameControl(event,imageLocation2,1);
         });
 
 
@@ -331,7 +350,11 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation3.setPreserveRatio(true);
         location3.setCenter(imageLocation3);
         imageLocation3.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-              gameControl(event,imageLocation3,2);
+             
+               if(recoeding){
+               recordGame(imageLocation3);
+               }
+                gameControl(event,imageLocation3,2);
         });
 
         GridPane.setRowIndex(location4, 2);
@@ -345,7 +368,11 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation4.setPreserveRatio(true);
         location4.setCenter(imageLocation4);
         imageLocation4.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-              gameControl(event,imageLocation4,3);
+             
+               if(recoeding){
+               recordGame(imageLocation4);
+               }
+                gameControl(event,imageLocation4,3);
         });
 
         GridPane.setColumnIndex(location5, 2);
@@ -360,7 +387,12 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation5.setPreserveRatio(true);
         location5.setCenter(imageLocation5);
         imageLocation5.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             gameControl(event,imageLocation5,4);
+            
+           
+              if(recoeding){
+              recordGame(imageLocation5);
+              }
+                gameControl(event,imageLocation5,4);
         });
 
         GridPane.setColumnIndex(location6, 4);
@@ -375,7 +407,11 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation6.setPreserveRatio(true);
         location6.setCenter(imageLocation6);
         imageLocation6.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-             gameControl(event,imageLocation6,5);
+            
+              if(recoeding){
+             recordGame(imageLocation6);
+              }
+               gameControl(event,imageLocation6,5);
         });
 
 
@@ -389,7 +425,11 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation7.setPreserveRatio(true);
         location7.setCenter(imageLocation7);
          imageLocation7.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-               gameControl(event,imageLocation7,6);
+              
+                if(recoeding){
+                recordGame(imageLocation7);
+                }
+                 gameControl(event,imageLocation7,6);
         });
 
         GridPane.setColumnIndex(location8, 2);
@@ -404,6 +444,10 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation8.setPreserveRatio(true);
         location8.setCenter(imageLocation8);
          imageLocation8.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+             
+             if(recoeding){
+              recordGame(imageLocation8);
+             }
              gameControl(event,imageLocation8,7);
         });
 
@@ -419,8 +463,13 @@ public class GameScreenViewBase extends AnchorPane {
         imageLocation9.setPreserveRatio(true);
         location9.setCenter(imageLocation9);
          imageLocation9.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-              gameControl(event,imageLocation9,8);
+             
+              if(recoeding){
+                recordGame(imageLocation9);
+              }
+               gameControl(event,imageLocation9,8);
         });
+         
         framePlayer2.setArcHeight(41.0);
         framePlayer2.setArcWidth(41.0);
         framePlayer2.setBlendMode(javafx.scene.effect.BlendMode.SCREEN);
@@ -510,6 +559,11 @@ public class GameScreenViewBase extends AnchorPane {
         recordImage.setPickOnBounds(true);
         recordImage.setPreserveRatio(true);
         recordImage.setImage(new Image(getClass().getResource("/images/record.png").toExternalForm()));
+        recordImage.setOnMousePressed((event)->{
+            if(sumOfUsedindex==1){
+                recoeding = true;
+            }
+        });
 
         pane.setPrefHeight(42.0);
         pane.setPrefWidth(10.0);
@@ -573,7 +627,6 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(scorePlayer2);
         getChildren().add(label0);
         getChildren().add(flowPane);
-       
 
     }
     void printWinerOnScreen(){ // print winer played games with differnt style
@@ -585,23 +638,53 @@ public class GameScreenViewBase extends AnchorPane {
                 colorAdjust.setBrightness(-0.25);
                 b.setEffect(colorAdjust);
             }
-           if(GameHandler.checkWinner().equals("O")){
+           if(GameHandler.checkWinner().equals("O")&&recoeding){
                for(int i=0;i<3;i++){
                gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
                    Glow g = new Glow(1);
                 gameBoard[GameHandler.winIndex[i]].setEffect(g);
                 }
-           }else{
+           }else if(GameHandler.checkWinner().equals("X")&&recoeding){
                 for(int i=0;i<3;i++){
                gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
                  Glow g = new Glow(1);
                 gameBoard[GameHandler.winIndex[i]].setEffect(g);
                 }
-            }  
+            }else if(GameHandler.checkWinner().equals("O"))
+            {
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
+                int i=0;
+             @Override
+            public void handle(ActionEvent event) {
+            gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                   Glow g = new Glow(1);
+                gameBoard[GameHandler.winIndex[i]].setEffect(g);
+                i++;
+            
+            }}));
+                     timeline.setCycleCount(3);
+                timeline.play();
+           
+            }
+            else if(GameHandler.checkWinner().equals("X")){
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
+                int i=0;
+             @Override
+            public void handle(ActionEvent event) {
+            gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                   Glow g = new Glow(1);
+                gameBoard[GameHandler.winIndex[i]].setEffect(g);
+                i++;
+            
+            }}));
+                     timeline.setCycleCount(3);
+                timeline.play();
+            
+            }
     }
      void gameControl(MouseEvent event,ImageView i, int index){
         String turn;
-        sumOfUsedindex++;
+        sumOfUsedindex++; // to make sure its not draw when the index is less than 10
             if(gameTurn){ 
                 i.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
                 gameTurn=false;
@@ -617,20 +700,24 @@ public class GameScreenViewBase extends AnchorPane {
             System.out.println(GameHandler.checkWinner());
             if(GameHandler.checkWinner().equals("O")||GameHandler.checkWinner().equals("X")){
                 printWinerOnScreen();
-                a.setTitle(GameHandler.checkWinner()+"win Play again ");
-                a.initModality(Modality.APPLICATION_MODAL);
+              if(recoeding) {playRecord (event); 
+              }
+                else{
+                a.setTitle("Play again ?");
+                a.setContentText(GameHandler.checkWinner()+" win Play again ?");
+              
                 ButtonType buttonPlayAgain = new ButtonType("Play again");
                 a.getButtonTypes().setAll(buttonPlayAgain);
-                 a.setOnCloseRequest(e -> {
-                // Get the result
+                 a.setOnCloseRequest(e -> {      
                 ButtonType result = a.getResult();
                 if (result != null && result == buttonPlayAgain) {
                     ScreenAdapter.setScreen(event,new GameScreenViewBase());
                 } else {
                         ScreenAdapter.setScreen(event, new OfflineModesBase());
-                }
+                } 
             });
                 a.show();
+                }
             }
                 else if(sumOfUsedindex==10){
                 int a=JOptionPane.showConfirmDialog(null,GameHandler.checkWinner()+" Draw Do You want To play again ?");  
@@ -642,6 +729,58 @@ public class GameScreenViewBase extends AnchorPane {
            event.consume();
 
 }
-    
-    
+     void recordGame(ImageView iv){ // Save the played X and O in Order  using Queue
+          recordingInOrder.add(iv);
+     }
+     
+     void playRecord (MouseEvent event){    //Show the saved plays 
+        
+        ImageView iv;
+          for(ImageView b : gameBoard){
+                b.setImage(null);
+            }
+          int size = recordingInOrder.size();
+           
+            
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
+                ImageView iv =  recordingInOrder.remove();
+             @Override
+            public void handle(ActionEvent event) {
+                String turn;
+                 if(!gameTurn){ 
+                      iv.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));  
+                gameTurn=true;
+                turn="X"; 
+            }
+            else{  
+                 iv.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                 gameTurn=false;
+                 turn="O";   
+
+            }
+                 iv =  recordingInOrder.remove();
+
+                 }
+                }));
+            timeline.setCycleCount(size);
+                timeline.play();
+
+              System.err.println(recordingInOrder.size());   
+             
+          
+                a.setTitle("Play again ?");
+                a.setContentText(GameHandler.checkWinner()+" win Play again ?");
+                a.initModality(Modality.APPLICATION_MODAL);
+                ButtonType buttonPlayAgain = new ButtonType("Play again");
+                a.getButtonTypes().setAll(buttonPlayAgain);
+                 a.setOnCloseRequest(e -> {      
+                ButtonType result = a.getResult();
+                if (result != null && result == buttonPlayAgain) {
+                    ScreenAdapter.setScreen(event,new GameScreenViewBase());
+                } else {
+                        ScreenAdapter.setScreen(event, new OfflineModesBase());
+                }   
+            });
+                a.show();
+     }
 }
