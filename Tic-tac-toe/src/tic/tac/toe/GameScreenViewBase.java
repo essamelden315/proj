@@ -640,6 +640,7 @@ public class GameScreenViewBase extends AnchorPane {
             for(int i=0;i<gameBoard.length;i++){
              gameBoard[i].setDisable(true);
              }
+            
             for(ImageView b : gameBoard){
                 ColorAdjust colorAdjust = new ColorAdjust();
                 colorAdjust.setBrightness(-0.25);
@@ -678,7 +679,7 @@ public class GameScreenViewBase extends AnchorPane {
                 int i=0;
              @Override
             public void handle(ActionEvent event) {
-            gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+            gameBoard[GameHandler.winIndex[i]].setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
                    Glow g = new Glow(1);
                 gameBoard[GameHandler.winIndex[i]].setEffect(g);
                 i++;
@@ -742,7 +743,7 @@ public class GameScreenViewBase extends AnchorPane {
      }
      
      void playRecord (MouseEvent event){    //Show the saved plays 
-        
+        gameTurn=false;
         ImageView iv;
           for(ImageView b : gameBoard){
                 b.setImage(null);
@@ -754,16 +755,17 @@ public class GameScreenViewBase extends AnchorPane {
                 ImageView iv =  recordingInOrder.remove();
              @Override
             public void handle(ActionEvent event) {
-                String turn;
-                 if(!gameTurn){ 
+               
+                
+                 if(gameTurn){ 
                       iv.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));  
-                gameTurn=true;
-                turn="X"; 
+                gameTurn=false;
+               
             }
             else{  
                  iv.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-                 gameTurn=false;
-                 turn="O";   
+                 gameTurn=true;
+                    
 
             }
                  iv =  recordingInOrder.remove();
