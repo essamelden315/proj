@@ -1,12 +1,18 @@
 package tic.tac.toe;
 
+
 import Controlers.ScreenAdapter;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
+import javax.swing.JOptionPane;
+import sendmessage.SendMessage;
 public class LoginBase extends AnchorPane {
 
     protected final Button btnlogin;
@@ -15,7 +21,11 @@ public class LoginBase extends AnchorPane {
     protected final Text text;
     protected final Text text0;
     protected final PasswordField txtpw;
-
+    Socket socket;
+    DataInputStream ear;
+    PrintStream mouth;
+    String email , pass;
+    int a;
     public LoginBase() {
 
         btnlogin = new Button();
@@ -41,7 +51,15 @@ public class LoginBase extends AnchorPane {
         btnlogin.getStylesheets().add("/css/GameStyle.css");
         btnlogin.setText("Login");
         btnlogin.setOnAction((event)->{
+              
+             email=txtusername.getText();
+             pass=txtpw.getText();
+             SendMessage.login(email, pass);
+             String ans = SendMessage.getAnswer();
+             if(ans.equals("3"))
          ScreenAdapter.setScreen(event, new players_listBase());
+             else
+                 JOptionPane.showConfirmDialog(null,"Wrong Email or pass");  
         });
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);

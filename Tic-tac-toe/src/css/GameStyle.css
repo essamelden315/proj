@@ -60,6 +60,14 @@
    -fx-pref-height: 40px;
    -fx-pref-width: 93px;
 }
+.onbackBtn{
+   -fx-background-color: #ffcc66;
+   -fx-background-radius: 5000px;
+   -fx-font-size: 20px;
+   -fx-font-style:italic; 
+   -fx-font-weight: bold;
+ 
+}
 .bleBtn{
    -fx-background-color:#66ccff ;
    -fx-background-radius: 5px;
@@ -79,8 +87,23 @@
     -fx-font-size: 50px;
    -fx-font-style:italic; 
    -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #ffcc66;
 }
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+.list-cell {
+-fx-background-color: transparent;
+-fx-font-size: 20px;
+-fx-font-weight: bold;
+-fx-text-fill: white;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+}
+
+
 .bckBtn{
    -fx-background-color: #ffcc66;
    -fx-background-radius: 5000px;
