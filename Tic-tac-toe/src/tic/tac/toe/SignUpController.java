@@ -33,10 +33,10 @@ public class SignUpController implements Initializable {
     @FXML
     private void anotherScreenButtonAction(ActionEvent event) throws Exception
     {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        /*Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         Parent root = new LoginBase();
         Scene scene = new Scene (root);
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
 }

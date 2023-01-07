@@ -57,7 +57,8 @@ public  class FXMLDocumentBase extends AnchorPane {
         getChildren().add(btnStart);
         getChildren().add(label);
         btnStart.setOnAction((event)->{
-              ScreenAdapter.setScreen(event, new serverControlPanalBase());
+            //ClientHandler client=new ClientHandler(event);
+             ScreenAdapter.setScreen(event, new serverControlPanalBase());           
         });
         
         

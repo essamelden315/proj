@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class TicTacToeServer extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {  
         Parent root =new FXMLDocumentBase();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -30,7 +30,8 @@ public class TicTacToeServer extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+      // launch(args);  
+      new Server();
     }
     
    

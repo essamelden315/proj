@@ -92,7 +92,6 @@ public class GameScreenViewBase extends AnchorPane {
     public GameScreenViewBase() {
          GameHandler.board = new String[9];
         gameTurn= false;
-        this.stage=stage;
         myBackground = new ImageView();
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -323,7 +322,7 @@ public class GameScreenViewBase extends AnchorPane {
              Alert a1 = new Alert(AlertType.NONE,
              GameHandler.checkWinner()+" win",ButtonType.APPLY);
              a1.show();
-             ScreenAdapter.setScreen(event,new GameScreenViewBase());
+            ScreenAdapter.setScreen(event,new GameScreenViewBase());
          }
            event.consume();
         });

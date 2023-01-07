@@ -98,7 +98,7 @@
    -fx-font-weight: bold;
    -fx-pref-height: 30px;
     -fx-pref-width: 80px;
-       -fx-text-fill: whitesmoke;
+    -fx-text-fill: whitesmoke;
 }
 .img{
         -fx-border-radius: 5000px;

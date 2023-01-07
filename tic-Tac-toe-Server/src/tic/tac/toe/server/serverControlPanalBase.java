@@ -1,10 +1,10 @@
 package tic.tac.toe.server;
 
 import Controlers.ScreenAdapter;
-import java.net.URL;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tic.tac.toe.server.ClientHandler.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public  class serverControlPanalBase extends AnchorPane {
 
@@ -180,7 +179,8 @@ public  class serverControlPanalBase extends AnchorPane {
         gridPane.getChildren().add(txtAccountNo0);
         getChildren().add(gridPane);
        btnStop.setOnAction((event)->{
-               ScreenAdapter.setScreen(event, new FXMLDocumentBase());
+           //ClientHandler client=new ClientHandler(event);
+           ScreenAdapter.setScreen(event, new FXMLDocumentBase());
        });
        
        

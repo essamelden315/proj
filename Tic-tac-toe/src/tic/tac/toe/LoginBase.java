@@ -1,11 +1,22 @@
 package tic.tac.toe;
 
+import Controlers.Clients;
 import Controlers.ScreenAdapter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginBase extends AnchorPane {
 
@@ -14,17 +25,26 @@ public class LoginBase extends AnchorPane {
     protected final Button signupscreen;
     protected final Text text;
     protected final Text text0;
-    protected final PasswordField txtpw;
-
+    public final PasswordField txtpw;
+    public final Pane pane;
+    protected final FlowPane flowPane;
+    protected final ImageView imgError;
+    public final Label labelError;
+    
+    Clients client;
     public LoginBase() {
-
+        
         btnlogin = new Button();
         txtusername = new TextField();
         signupscreen = new Button();
         text = new Text();
         text0 = new Text();
         txtpw = new PasswordField();
-
+        pane = new Pane();
+        flowPane = new FlowPane();
+        imgError = new ImageView();
+        labelError = new Label();
+        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -33,7 +53,8 @@ public class LoginBase extends AnchorPane {
         setPrefWidth(793.0);
         getStyleClass().add("background");
         getStylesheets().add("/css/GameStyle.css");
-
+ 
+        pane.setVisible(false);
         btnlogin.setLayoutX(260.0);
         btnlogin.setLayoutY(326.0);
         btnlogin.setMnemonicParsing(false);
@@ -41,7 +62,22 @@ public class LoginBase extends AnchorPane {
         btnlogin.getStylesheets().add("/css/GameStyle.css");
         btnlogin.setText("Login");
         btnlogin.setOnAction((event)->{
-         ScreenAdapter.setScreen(event, new players_listBase());
+            if(txtusername.getText().trim().isEmpty() || txtpw.getText().trim().isEmpty() )
+            {
+                 labelError.setText("Enter Your Username and Password");
+                 pane.setVisible(true);
+            }
+            
+            else{
+            String userNameMessage= txtusername.getText();
+            String passwordMessage= txtpw.getText();
+            String loginMessage="login.";
+            loginMessage+=userNameMessage+"."+passwordMessage;
+            System.out.println("Button: "+loginMessage);
+            client=new Clients(this,event);
+            client.sendMessage(loginMessage); 
+            }
+           
         });
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);
@@ -91,13 +127,37 @@ public class LoginBase extends AnchorPane {
         txtpw.setPromptText("Enter password");
         txtpw.getStyleClass().add("text-field");
         txtpw.getStylesheets().add("/css/GameStyle.css");
+        
+        pane.setLayoutX(300.0);
+        pane.setLayoutY(275.0);
+        pane.setPrefHeight(51.0);
+        pane.setPrefWidth(435.0);
 
+        flowPane.setLayoutY(-4.0);
+        flowPane.setPrefHeight(52.0);
+        flowPane.setPrefWidth(435.0);
+
+        imgError.setFitHeight(20.0);
+        imgError.setFitWidth(20.0);
+        imgError.setPickOnBounds(true);
+        imgError.setPreserveRatio(true);
+        imgError.setImage(new Image(getClass().getResource("/images/error.png").toExternalForm()));
+
+        labelError.setPrefHeight(33.0);
+        labelError.setPrefWidth(401.0);
+        labelError.setTextFill(javafx.scene.paint.Color.valueOf("#f70012"));
+        labelError.setFont(new Font("System Bold", 14.0));
+        
         getChildren().add(btnlogin);
         getChildren().add(txtusername);
         getChildren().add(signupscreen);
         getChildren().add(text);
         getChildren().add(text0);
         getChildren().add(txtpw);
+        flowPane.getChildren().add(imgError);
+        flowPane.getChildren().add(labelError);
+        pane.getChildren().add(flowPane);
+        getChildren().add(pane);
 
     }
 

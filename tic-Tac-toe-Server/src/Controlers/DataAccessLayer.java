@@ -17,13 +17,13 @@ import javax.swing.JOptionPane;
  * @author essam elden
  */
 public class DataAccessLayer  {
-    int check (String email ,String pass , String ip) throws Exception
+    public static int check (String name ,String pass , String ip) throws Exception
     {
         int id =-1;
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
-        PreparedStatement prestate = conn.prepareStatement("select id from account where email=? and pass =?");
-        prestate.setString(1, email);
+        PreparedStatement prestate = conn.prepareStatement("select id from account where NAME=? and PASS =?");
+        prestate.setString(1, name);
         prestate.setString(2, pass);
         ResultSet result = prestate.executeQuery();
         if(result.next()){
@@ -34,6 +34,7 @@ public class DataAccessLayer  {
         }
         prestate.close();
         conn.close();
+       System.out.println("id in check method "+id);
         return id;
     }
         public static ArrayList<Player> retrieveOnlineList() throws SQLException, ClassNotFoundException

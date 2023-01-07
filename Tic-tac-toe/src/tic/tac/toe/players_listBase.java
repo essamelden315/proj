@@ -30,6 +30,7 @@ public class players_listBase extends AnchorPane {
     protected final ImageView btnImg3;
     protected final ImageView btnImg4;
     protected final Button backBtn;
+    //Stage stage;
 
     public players_listBase() {
 
