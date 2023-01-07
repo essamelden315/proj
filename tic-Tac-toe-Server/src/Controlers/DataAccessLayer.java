@@ -84,15 +84,23 @@ public class DataAccessLayer  {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","root","root");
         Statement stmt=conn.createStatement();
-        ResultSet t= stmt.executeQuery("select * From ACCOUNT"); 
-        while(t.next()){
+        ResultSet t= stmt.executeQuery("select * From ACCOUNT where EMAIL ="+p.getEmail());
+        if(!t.next()){
+         t= stmt.executeQuery("select * From ACCOUNT"); 
+            while(t.next()){
             if (id<t.getInt(1)){
             id = t.getInt(1);
                 }
             }
                 id++;
         stmt.executeUpdate("INSERT INTO ACCOUNT (ID,NAME,EMAIL,PASS,IP,STATE)" +
-                            "VALUES ("+id+",'"+p.getName()+"','"+p.getEmail()+"','"+p.getPassword()+"','"+ip+"','"+state+"') ");    
+                            "VALUES ("+id+",'"+p.getName()+"','"+p.getEmail()+"','"+p.getPassword()+"','"+ip+"','"+state+"') ");
+                            
+        }
+        else{
+               id=-1;
+        }
+        
         stmt.close();
         conn.close();       
             return id ;

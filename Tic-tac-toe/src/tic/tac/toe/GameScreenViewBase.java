@@ -89,7 +89,7 @@ public class GameScreenViewBase extends AnchorPane {
     //protected final Button ExitBtn;
     private Stage stage;
     ImageView [] gameBoard;
-    private int sumOfUsedindex;
+    private int noOfPlays;
     Alert a;
    static Queue<ImageView> recordingInOrder;
     boolean recoeding;
@@ -98,7 +98,7 @@ public class GameScreenViewBase extends AnchorPane {
         recoeding=false;
         recordingInOrder= new LinkedList<>();
         a =new Alert(Alert.AlertType.CONFIRMATION);
-        sumOfUsedindex=1;
+        noOfPlays=1;
          GameHandler.board = new String[9];
          GameHandler.winIndex=new int[3];
         gameTurn= false;
@@ -560,7 +560,7 @@ public class GameScreenViewBase extends AnchorPane {
         recordImage.setPreserveRatio(true);
         recordImage.setImage(new Image(getClass().getResource("/images/record.png").toExternalForm()));
         recordImage.setOnMousePressed((event)->{
-            if(sumOfUsedindex==1){
+            if(noOfPlays==1){
                 if(!recoeding){
                 recoeding = true;
                   recordImage.setImage(new Image(getClass().getResource("/images/recordActive.png").toExternalForm()));
@@ -693,7 +693,7 @@ public class GameScreenViewBase extends AnchorPane {
      void gameControl(MouseEvent event,ImageView i, int index){
          recordImage.setImage(null);
         String turn;
-        sumOfUsedindex++; // to make sure its not draw when the index is less than 10
+        noOfPlays++; // to make sure its not draw when the index is less than 10
             if(gameTurn){ 
                 i.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
                 gameTurn=false;
@@ -728,7 +728,7 @@ public class GameScreenViewBase extends AnchorPane {
                 a.show();
                 }
             }
-                else if(sumOfUsedindex==10){
+                else if(noOfPlays==10){
                 int a=JOptionPane.showConfirmDialog(null,GameHandler.checkWinner()+" Draw Do You want To play again ?");  
                 if(a==JOptionPane.YES_OPTION){
                 ScreenAdapter.setScreen(event,new GameScreenViewBase()); 
@@ -783,12 +783,12 @@ public class GameScreenViewBase extends AnchorPane {
                 a.initModality(Modality.APPLICATION_MODAL);
                 ButtonType buttonPlayAgain = new ButtonType("Play again");
                 a.getButtonTypes().setAll(buttonPlayAgain);
-                 a.setOnCloseRequest(e -> {      
+                a.setOnCloseRequest(e -> {      
                 ButtonType result = a.getResult();
                 if (result != null && result == buttonPlayAgain) {
                     ScreenAdapter.setScreen(event,new GameScreenViewBase());
                 } else {
-                        ScreenAdapter.setScreen(event, new OfflineModesBase());
+                    ScreenAdapter.setScreen(event, new OfflineModesBase());
                 }   
             });
                 a.show();
