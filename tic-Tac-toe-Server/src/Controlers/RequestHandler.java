@@ -24,11 +24,9 @@ import java.util.logging.Logger;
  */
 public class RequestHandler {
      DataInputStream ear ;
-    PrintStream ps;
+        PrintStream ps;
      Integer id;
-     
-     // key for id of user and request to make a connection 
-     static HashMap<Integer,RequestHandler> clinetsVector = new HashMap<>(); 
+     static HashMap<Integer,RequestHandler> clinetsHashMap = new HashMap<>(); 
 
 
     public RequestHandler(Socket s , Integer id) {
@@ -36,8 +34,7 @@ public class RequestHandler {
              
             ear = new DataInputStream(s.getInputStream());
             ps= new PrintStream(s.getOutputStream());
-           
-            RequestHandler.clinetsVector.put(id,this);
+            RequestHandler.clinetsHashMap.put(id,this);
            
         } catch (IOException ex) {
             Logger.getLogger(RequestHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,10 +42,10 @@ public class RequestHandler {
             
     }
     
-      private void sendMessage(String msg , int ClinetId ) {
+      public static void sendMessage(String msg , int competitorId, int senderId ) {
       
-           clinetsVector.get(ClinetId).ps.println(msg);
+           clinetsHashMap.get(competitorId).ps.println(msg+","+senderId);
        
     }
-     
+         
 }

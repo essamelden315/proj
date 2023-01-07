@@ -1,6 +1,10 @@
 package tic.tac.toe.server;
 
+import Controlers.MessageHandler;
 import Controlers.ScreenAdapter;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,6 +21,7 @@ public  class FXMLDocumentBase extends AnchorPane {
     protected final Button btnStart;
     protected final Label label;
     protected final Bloom bloom;
+    ServerSocket serverSocket;
 
     public FXMLDocumentBase() {
 
@@ -56,8 +61,19 @@ public  class FXMLDocumentBase extends AnchorPane {
 
         getChildren().add(btnStart);
         getChildren().add(label);
-        btnStart.setOnAction((event)->{
+          btnStart.setOnAction((event)->{
               ScreenAdapter.setScreen(event, new serverControlPanalBase());
+        try {
+            serverSocket = new ServerSocket(5006);
+            while(true)
+            {
+                Socket s = serverSocket.accept();
+                System.out.println(s.getInetAddress());
+                new MessageHandler(s);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         });
         
         

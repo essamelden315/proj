@@ -10,6 +10,8 @@ import Model.Player;
 import tic.tac.toe.server.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -104,9 +106,26 @@ public class DataAccessLayer  {
         stmt.close();
         conn.close();       
             return id ;
-    }   
+    } 
+     public static int logout(int id){
+      int retval=0;
+        try {         
+           Class.forName("oracle.jdbc.driver.OracleDriver");
+           Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
+           PreparedStatement prestate = conn.prepareStatement("update account set state =? where id ="+id);
+           prestate.setString(1, "offline");
+           prestate.executeQuery();
+           retval=1;
+             } catch (Exception ex) {
+           Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return retval;
+    }
+     
+     
+     
+    
 }
-
 
 
 /**

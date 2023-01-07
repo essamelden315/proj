@@ -1,15 +1,18 @@
 package tic.tac.toe;
 
 import Controlers.ScreenAdapter;
+import Controlers.SendMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -68,10 +71,9 @@ public class players_listBase extends AnchorPane {
         onBtn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                requestDialog(event);
+               SendMessage.playRequest(1);
             }
         });
-        
         onBtn2.setId("onBtn2");
         onBtn2.setLayoutX(265.0);
         onBtn2.setLayoutY(182.0);
@@ -156,7 +158,8 @@ public class players_listBase extends AnchorPane {
         btnImg3.setLayoutY(288.0);
         btnImg3.setPickOnBounds(true);
         btnImg3.setPreserveRatio(true);
-        btnImg3.setImage(new Image(getClass().getResource("/css/photos/boy.jpeg").toExternalForm()));
+        
+        btnImg3.setImage(null);
 
         btnImg4.setFitHeight(59.0);
         btnImg4.setFitWidth(59.0);
@@ -176,6 +179,7 @@ public class players_listBase extends AnchorPane {
         backBtn.getStylesheets().add("/css/GameStyle.css");
         backBtn.setText("back");
         backBtn.setOnAction((ActionEvent event) -> {
+              SendMessage.logout(event);
               ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         });
         getChildren().add(onBtn1);
@@ -188,12 +192,36 @@ public class players_listBase extends AnchorPane {
         getChildren().add(btnImg3);
         getChildren().add(btnImg4);
         getChildren().add(backBtn);
-
+        
+        Platform.runLater(()->{
+            if(SendMessage.getAnswer().split(",").equals("Do you want to play?")){
+            btnImg3.setImage(new Image(getClass().getResource("/css/photos/boy.jpeg").toExternalForm()));
+            }
+        });  
     }
+    
     void requestDialog (ActionEvent event){
         int a=JOptionPane.showConfirmDialog(null,"Send a request?");  
         if(a==JOptionPane.YES_OPTION)
             
             ScreenAdapter.setScreen(event, new GameScreenViewBase());  
 }
+  
+            
+              
+    
+
+    public players_listBase(Button onBtn1, Button onBtn2, Button onBtn3, Button onBtn4, Label onLabel, ImageView btnImg1, ImageView btnImg2, ImageView btnImg3, ImageView btnImg4, Button backBtn) {
+        this.onBtn1 = onBtn1;
+        this.onBtn2 = onBtn2;
+        this.onBtn3 = onBtn3;
+        this.onBtn4 = onBtn4;
+        this.onLabel = onLabel;
+        this.btnImg1 = btnImg1;
+        this.btnImg2 = btnImg2;
+        this.btnImg3 = btnImg3;
+        this.btnImg4 = btnImg4;
+        this.backBtn = backBtn;
+    }
+   
 }
