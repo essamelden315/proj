@@ -27,22 +27,22 @@ public class Server {
     
     public Server()
     {
-        this.event=event;
+        /*this.event=event;
         serverIsOn=true;
          try {
            // launch(args);
             serverSocket= new ServerSocket(5002);
-            while(true)//3lshan me2flsh lma el client y2fl //hena hn-check lw el server Start?
-            {
+            //while(true)//3lshan me2flsh lma el client y2fl //hena el mfrod hn-check lw el server Start?
+            //{
               clientSocket= serverSocket.accept();
-              client=new ClientHandler(clientSocket);
+              //client=new ClientHandler(clientSocket);
               
-            }
+           // }
             
         } catch (IOException ex) {
             Logger.getLogger(TicTacToeServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        */
     }
     public static String serverToDB(String clientMsg)
     {

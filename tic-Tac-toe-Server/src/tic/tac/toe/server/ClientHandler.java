@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Controlers.DataAccessLayer;
 import Controlers.ScreenAdapter;
+import java.net.ServerSocket;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
@@ -23,29 +24,34 @@ import javafx.event.ActionEvent;
  */
 public class ClientHandler extends Thread{
 
+     ServerSocket serverSocket;
      Socket clientSocket;
      DataInputStream dataInput;//listen
      PrintStream dataOutput;//talk
-     boolean serverIsOn;
+     boolean serverIsOn=true;
      String clientMsg=" ";
      ActionEvent event;
      Thread thread;
      
    
-    public ClientHandler(Socket socket) {
-        this.event=event;
+    public ClientHandler() {
+       // this.event=event;
          try {
-             serverIsOn=true;
-             clientSocket=socket;
-             dataInput=new DataInputStream(clientSocket.getInputStream());
-             dataOutput=new PrintStream(clientSocket.getOutputStream());
+             serverSocket= new ServerSocket(5002);
+             
              // System.out.println(Platform.isFxApplicationThread());
              thread=new Thread(new Runnable()
              {
                  @Override
                  public void run() {
                     try {
-                        readMessage();
+                        while(serverIsOn)
+                        {
+                         clientSocket= serverSocket.accept();
+                         dataInput=new DataInputStream(clientSocket.getInputStream());
+                         dataOutput=new PrintStream(clientSocket.getOutputStream());
+                         readMessage();
+                        }
                         //sendMessage();
                     } catch (IOException ex) {
                         Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,6 +59,7 @@ public class ClientHandler extends Thread{
                  }
                  
              });
+             
              thread.start();
              
          } catch (IOException ex) {
@@ -68,22 +75,23 @@ public class ClientHandler extends Thread{
              Platform.runLater(new Runnable() {
                  @Override
                  public void run() {
-                   sendMessage();
+                            //Hena hy7sal update lel UI eny 2a2ra no. of accounts....
                  }
              });
-             /*while((clientMsg=dataInput.readLine())!=" ")
-             {
-                 Platform.runLater(new Runnable() {
-                 @Override
-                 public void run() {
-                    // ScreenAdapter.setScreen(event, new FXMLDocumentBase());
-                   //updat ui
-                 }
-             });
-             }*/
-                
+            sendMessage();
+
+             
      }
-     
+     public void stopConnection()
+     {
+         try {
+             serverIsOn=false;
+             serverSocket.close();
+             thread.stop();
+         } catch (IOException ex) {
+             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     }
      public void sendMessage()
      {
           String returnDatabase=" ";

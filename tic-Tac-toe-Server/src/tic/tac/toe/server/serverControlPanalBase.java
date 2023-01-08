@@ -32,6 +32,9 @@ public  class serverControlPanalBase extends AnchorPane {
     protected final Text txtOnlinePlayers;
     protected final Text txtGamesPlayed;
     protected final Text txtAccountNo0;
+    ClientHandler client;
+    
+    
 
     public serverControlPanalBase() {
 
@@ -50,6 +53,10 @@ public  class serverControlPanalBase extends AnchorPane {
         txtOnlinePlayers = new Text();
         txtGamesPlayed = new Text();
         txtAccountNo0 = new Text();
+        client=new ClientHandler();
+        
+        
+        // server= new Server();
 
         setId("AnchorPane");
         setPrefHeight(800.0);
@@ -180,7 +187,10 @@ public  class serverControlPanalBase extends AnchorPane {
         getChildren().add(gridPane);
        btnStop.setOnAction((event)->{
            //ClientHandler client=new ClientHandler(event);
+           client.stopConnection();
            ScreenAdapter.setScreen(event, new FXMLDocumentBase());
+           
+         
        });
        
        
