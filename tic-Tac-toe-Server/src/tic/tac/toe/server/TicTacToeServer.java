@@ -5,8 +5,14 @@
  */
 package tic.tac.toe.server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,6 +30,7 @@ public class TicTacToeServer extends Application {
         stage.setResizable(false);
         stage.setTitle("Tic Tac Toe Server ");
         stage.show();
+        
     }
 
     /**
@@ -31,7 +38,17 @@ public class TicTacToeServer extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
     }
-    
    
+
+    
+    void sendMessageToAll(String msg)
+    {
+        /*for(int i=0 ; i<clientsVector.size() ; i++)
+        {
+            clientsVector.get(i).prints.println(msg);
+        }*/
+
+    }
 }

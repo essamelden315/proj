@@ -7,9 +7,10 @@ package Controlers;
 
 
 import Model.Player;
-import tic.tac.toe.server.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -18,7 +19,8 @@ import javax.swing.JOptionPane;
  * @author essam elden
  */
 public class DataAccessLayer  {
-    int check (String email ,String pass , String ip) throws Exception
+    
+   public int check (String email ,String pass , String ip) throws Exception
     {
         int id =-1;
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -32,20 +34,22 @@ public class DataAccessLayer  {
             prestate = conn.prepareStatement("update account set state =? , ip =? where id ="+id);
             prestate.setString(1, "online");
             prestate.setString(2, ip);
+            prestate.executeQuery();
         }
         prestate.close();
         conn.close();
         return id;
     }
-        public static ArrayList<Player> retrieveOnlineList() throws SQLException, ClassNotFoundException
+   
+  public static ArrayList<Player> retrieveOnlineList(int id) throws SQLException, ClassNotFoundException
     {
-       {
+       
         int result=0;
         ArrayList<Player> onlinePlayersList=new ArrayList<>();
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
         Statement preparedStatement=conn.createStatement();
-        String queryString =new String("SELECT ID,NAME FROM ACCOUNT WHERE STATE='online'");
+        String queryString =new String("SELECT ID,NAME FROM ACCOUNT WHERE STATE='online' and id  !="+id);
         ResultSet rs= preparedStatement.executeQuery(queryString) ;
           
         while(rs.next())
@@ -58,7 +62,7 @@ public class DataAccessLayer  {
         conn.close();                                     
         preparedStatement.close();
         return onlinePlayersList;   
-    }
+    
     }
    public static String SearchbyIP(int id) throws SQLException, ClassNotFoundException{
         
@@ -96,9 +100,23 @@ public class DataAccessLayer  {
         stmt.close();
         conn.close();       
             return id ;
-    }   
+    }
+    
+    public static int logout(int id){
+      int retval=0;
+        try {         
+           Class.forName("oracle.jdbc.driver.OracleDriver");
+           Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
+           PreparedStatement prestate = conn.prepareStatement("update account set state =? where id ="+id);
+           prestate.setString(1, "offline");
+           prestate.executeQuery();
+           retval=1;
+             } catch (Exception ex) {
+           Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return retval;
+    }
 }
-
 
 
 /**
