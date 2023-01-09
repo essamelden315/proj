@@ -23,6 +23,7 @@ public class DataAccessLayer  {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
         PreparedStatement prestate = conn.prepareStatement("select id from account where NAME=? and PASS =?");
+       //PreparedStatement prestate = conn.prepareStatement("select id from account where EMAIL=? and PASS =?"); //and state= offline
         prestate.setString(1, name);
         prestate.setString(2, pass);
         ResultSet result = prestate.executeQuery();
