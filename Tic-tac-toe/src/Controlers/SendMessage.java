@@ -15,58 +15,73 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import tic.tac.toe.OnlineAndOfflineBase;
 
-
 /**
  *
  * @author essam elden
  */
- public class SendMessage{
+public class SendMessage {
+
     private static Socket socket;
     private static DataInputStream ear;
     private static PrintStream mouth;
     private static String replyMsg;
-    private  static int senderId ;
-   public static void send(String str){
-         try {
-            socket=new Socket("127.0.0.1",5006);//172.16.10.183
-            ear=new DataInputStream(socket.getInputStream());
-            mouth=new PrintStream(socket.getOutputStream());
-            mouth.println(str);    
-            replyMsg= ear.readLine();
-             System.out.println("server answer ="+replyMsg);
-            } catch (IOException ex) {
-           ex.printStackTrace();
+    private static int senderId;
+
+    public static void send(String str) {
+        try {
+            socket = new Socket("127.0.0.1", 5006);//172.16.10.183
+            ear = new DataInputStream(socket.getInputStream());
+            mouth = new PrintStream(socket.getOutputStream());
+            mouth.println(str);
+            replyMsg = ear.readLine();
+            System.out.println("server answer =" + replyMsg);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
-   
 
-    public static String getAnswer (){
-     return replyMsg;
-  }
-    public static void logout(ActionEvent event){
-      final String LOGOUT= "logout,";
-      String msg=LOGOUT+"1";
-      send(msg);
+    public static String getAnswer() {
+        
+        return replyMsg;
+    }
+
+    public static void logout(ActionEvent event) {
+        final String LOGOUT = "logout,";
+        String msg = LOGOUT + "1";
+        send(msg);
         try {
             socket.close();
         } catch (IOException ex) {
             Logger.getLogger(SendMessage.class.getName()).log(Level.SEVERE, null, ex);
         }
-         ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
+        ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
     }
-    
-    public static void login(String email,String pass){
-        final String LOGIN= "login,";
-            String msg=LOGIN+email+","+pass;
-             send(msg);
-             senderId=Integer.parseInt(getAnswer());
-             
-    }
-    public static void playRequest(int competitorId ){
-        final String PLAY_REQUEST="playRequest,";
-        String msg=PLAY_REQUEST+competitorId+","+senderId;
-             send(msg);
-    }
-    
-}
 
+    public static void login(String email, String pass) {
+        final String LOGIN = "login,";
+        String msg = LOGIN + email + "," + pass;
+        send(msg);
+        senderId = Integer.parseInt(getAnswer());
+
+    }
+
+    public static void playRequest(int competitorId) {
+        final String PLAY_REQUEST = "playRequest,";
+        String msg = PLAY_REQUEST + competitorId + "," + senderId;
+        send(msg);
+        
+    }
+
+    public static void acceptPlayRequest(int competitorId) {
+        final String ACCEPT_PLAY_REQUEST = "acceptPlayRequest,";
+        String msg = ACCEPT_PLAY_REQUEST + competitorId + "," + senderId;
+        send(msg);
+    }
+
+    public static void rejectPlayRequest(int competitorId) {
+        final String REJECT_PLAY_REQUEST = "rejectPlayRequest,";
+        String msg = REJECT_PLAY_REQUEST + competitorId + "," + senderId;
+        send(msg);
+    }
+
+}

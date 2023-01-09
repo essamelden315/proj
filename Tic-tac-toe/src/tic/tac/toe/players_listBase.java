@@ -71,7 +71,7 @@ public class players_listBase extends AnchorPane {
         onBtn1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               SendMessage.playRequest(1);
+                SendMessage.playRequest(1);
             }
         });
         onBtn2.setId("onBtn2");
@@ -90,7 +90,7 @@ public class players_listBase extends AnchorPane {
                 requestDialog(event);
             }
         });
-        
+
         onBtn3.setId("onBtn3");
         onBtn3.setLayoutX(265.0);
         onBtn3.setLayoutY(277.0);
@@ -107,7 +107,7 @@ public class players_listBase extends AnchorPane {
                 requestDialog(event);
             }
         });
-        
+
         onBtn4.setId("onBtn4");
         onBtn4.setLayoutX(265.0);
         onBtn4.setLayoutY(371.0);
@@ -122,7 +122,7 @@ public class players_listBase extends AnchorPane {
                 requestDialog(event);
             }
         });
-        
+
         onLabel.setAlignment(javafx.geometry.Pos.CENTER);
         onLabel.setId("onLabel");
         onLabel.setLayoutX(306.0);
@@ -158,7 +158,7 @@ public class players_listBase extends AnchorPane {
         btnImg3.setLayoutY(288.0);
         btnImg3.setPickOnBounds(true);
         btnImg3.setPreserveRatio(true);
-        
+
         btnImg3.setImage(null);
 
         btnImg4.setFitHeight(59.0);
@@ -170,7 +170,7 @@ public class players_listBase extends AnchorPane {
         btnImg4.setPreserveRatio(true);
         btnImg4.getStyleClass().add("btnImg1");
         btnImg4.setImage(new Image(getClass().getResource("/css/photos/girl.jpeg").toExternalForm()));
-        
+
         backBtn.setId("backBtn");
         backBtn.setLayoutX(675.0);
         backBtn.setLayoutY(400.0);
@@ -179,8 +179,8 @@ public class players_listBase extends AnchorPane {
         backBtn.getStylesheets().add("/css/GameStyle.css");
         backBtn.setText("back");
         backBtn.setOnAction((ActionEvent event) -> {
-              SendMessage.logout(event);
-              ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
+            SendMessage.logout(event);
+            ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         });
         getChildren().add(onBtn1);
         getChildren().add(onBtn2);
@@ -192,24 +192,16 @@ public class players_listBase extends AnchorPane {
         getChildren().add(btnImg3);
         getChildren().add(btnImg4);
         getChildren().add(backBtn);
-        
-        Platform.runLater(()->{
-            if(SendMessage.getAnswer().split(",").equals("Do you want to play?")){
-            btnImg3.setImage(new Image(getClass().getResource("/css/photos/boy.jpeg").toExternalForm()));
-            }
-        });  
+
+       
     }
-    
-    void requestDialog (ActionEvent event){
-        int a=JOptionPane.showConfirmDialog(null,"Send a request?");  
-        if(a==JOptionPane.YES_OPTION)
-            
-            ScreenAdapter.setScreen(event, new GameScreenViewBase());  
-}
-  
-            
-              
-    
+
+    void requestDialog(ActionEvent event) {
+        int a = JOptionPane.showConfirmDialog(null, "Send a request?");
+        if (a == JOptionPane.YES_OPTION) {
+            ScreenAdapter.setScreen(event, new GameScreenViewBase());
+        }
+    }
 
     public players_listBase(Button onBtn1, Button onBtn2, Button onBtn3, Button onBtn4, Label onLabel, ImageView btnImg1, ImageView btnImg2, ImageView btnImg3, ImageView btnImg4, Button backBtn) {
         this.onBtn1 = onBtn1;
@@ -223,5 +215,5 @@ public class players_listBase extends AnchorPane {
         this.btnImg4 = btnImg4;
         this.backBtn = backBtn;
     }
-   
+
 }
