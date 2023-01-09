@@ -1,5 +1,6 @@
 package tic.tac.toe.server;
 
+import Controlers.MessageHandler;
 import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.net.ServerSocket;

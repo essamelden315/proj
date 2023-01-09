@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javax.swing.JOptionPane;
-import sendmessage.SendMessage;
+import Controlers.SendMessage;
 public class LoginBase extends AnchorPane {
 
     protected final Button btnlogin;
@@ -50,16 +50,9 @@ public class LoginBase extends AnchorPane {
         btnlogin.getStyleClass().add("blueBtn");
         btnlogin.getStylesheets().add("/css/GameStyle.css");
         btnlogin.setText("Login");
-        btnlogin.setOnAction((event)->{
-              
-             email=txtusername.getText();
-             pass=txtpw.getText();
-             SendMessage.login(email, pass);
-             String ans = SendMessage.getAnswer();
-             if(ans.equals("3"))
-         ScreenAdapter.setScreen(event, new players_listBase());
-             else
-                 JOptionPane.showConfirmDialog(null,"Wrong Email or pass");  
+        btnlogin.setOnAction((event)->{   
+            SendMessage.login(txtusername.getText(), txtpw.getText());
+         ScreenAdapter.setScreen(event, new players_listBase());       
         });
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);

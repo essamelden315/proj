@@ -1,5 +1,9 @@
 package tic.tac.toe;
 
+import Controlers.ScreenAdapter;
+import java.util.ArrayList;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,22 +13,29 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
-import sendmessage.SendMessage;
-public  class players_listBase extends BorderPane {
+import Controlers.SendMessage;
+import static Controlers.SendMessage.send;
+import Model.Player;
+import tic.tac.toe.ShowPlayers;
+//import static Controlers.SendMessage.showPlayers;
+public class players_listBase extends BorderPane {
 
     protected final Label myLabel;
     protected final AnchorPane anchorPane;
-    protected final Button button;
+    protected final Button logOut;
+    //protected final Button button;
     protected final ScrollPane scrollPane;
-    protected final ListView myListView;
-
+    public final ListView<String>myListView;
+    String selectedFood;
+    ShowPlayers show =new ShowPlayers(this);
+    
     public players_listBase() {
 
         myLabel = new Label();
         anchorPane = new AnchorPane();
-        button = new Button();
+        logOut = new Button();
         scrollPane = new ScrollPane();
-        myListView = new ListView();
+        myListView = new ListView<>();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -50,15 +61,15 @@ public  class players_listBase extends BorderPane {
         anchorPane.setPrefHeight(80.0);
         anchorPane.setPrefWidth(793.0);
 
-        button.setLayoutX(662.0);
-        button.setLayoutY(4.0);
-        button.setMnemonicParsing(false);
-        button.setPrefHeight(49.0);
-        button.setPrefWidth(117.0);
-        button.getStyleClass().add("onbackBtn");
-        button.getStylesheets().add("/css/GameStyle.css");
-        button.setText("Log Out");
-        button.setOnAction((ActionEvent event) -> {
+        logOut.setLayoutX(662.0);
+        logOut.setLayoutY(4.0);
+        logOut.setMnemonicParsing(false);
+        logOut.setPrefHeight(49.0);
+        logOut.setPrefWidth(117.0);
+        logOut.getStyleClass().add("onbackBtn");
+        logOut.getStylesheets().add("/css/GameStyle.css");
+        logOut.setText("Log Out");
+        logOut.setOnAction((ActionEvent event) -> {
            SendMessage.logout(event);
         });
         setBottom(anchorPane);
@@ -75,7 +86,34 @@ public  class players_listBase extends BorderPane {
         scrollPane.setContent(myListView);
         setCenter(scrollPane);
 
-        anchorPane.getChildren().add(button);
+        anchorPane.getChildren().add(logOut);
+        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    selectedFood = myListView.getSelectionModel().getSelectedItem().toString();
+                   myLabel.setText(selectedFood);
+                }
+            });
+        
+     
+ }
+    public void show(){
+             ArrayList<Player>items=new ArrayList<>();
+             //.addAll(SendMessage.showPlayers());
+             String name[]=new String[items.size()];
+             for(int i=0;i<items.size();i++){
+              name[i]= items.get(i).getName();
+             }
 
-    }
+             myListView.getItems().addAll(name);
+
+            myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    selectedFood = myListView.getSelectionModel().getSelectedItem().toString();
+                   myLabel.setText(selectedFood);
+                }
+            });
+    } 
 }
+    
