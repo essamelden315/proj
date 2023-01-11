@@ -64,7 +64,8 @@ public class SignUpBase extends AnchorPane {
         btnsignup.getStylesheets().add("/css/GameStyle.css");
         btnsignup.setText("Sign Up");
         btnsignup.setOnAction((event)->{
-         ScreenAdapter.setScreen(event, new players_listBase());
+            
+            ScreenAdapter.setScreen(event, new players_listBase());
         });
 
         loginscreen.setLayoutX(360.0);

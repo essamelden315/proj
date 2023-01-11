@@ -94,8 +94,10 @@ public class GameScreenViewBase extends AnchorPane {
     Alert a;
     static Queue<ImageView> recordingInOrder;
     boolean recoeding;
+    int size;
 
     public GameScreenViewBase() {
+
         recoeding = false;
         recordingInOrder = new LinkedList<>();
         a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -104,6 +106,7 @@ public class GameScreenViewBase extends AnchorPane {
         GameHandler.winIndex = new int[3];
         gameTurn = false;
         this.stage = stage;
+
         myBackground = new ImageView();
         gridPane = new GridPane();
         columnConstraints = new ColumnConstraints();
@@ -312,6 +315,7 @@ public class GameScreenViewBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation1);
             }
+
             gameControl(event, imageLocation1, 0);
         });
 
@@ -734,11 +738,19 @@ public class GameScreenViewBase extends AnchorPane {
 
     void playRecord(MouseEvent event) {    //Show the saved plays 
         gameTurn = false;
-        ImageView iv;
-        for (ImageView b : gameBoard) {
+        Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                for (ImageView b : gameBoard) {
             b.setImage(null);
         }
-        int size = recordingInOrder.size();
+            }
+        }));
+        ti.setCycleCount(1);
+        ti.play();
+        
+        
+        size = recordingInOrder.size();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
             ImageView iv;
@@ -754,6 +766,10 @@ public class GameScreenViewBase extends AnchorPane {
                     iv.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
                     gameTurn = true;
 
+                }
+                size--;
+                if(size==0){
+                a.show();
                 }
 
             }
@@ -776,6 +792,6 @@ public class GameScreenViewBase extends AnchorPane {
                 ScreenAdapter.setScreen(event, new OfflineModesBase());
             }
         });
-        a.show();
+        
     }
 }

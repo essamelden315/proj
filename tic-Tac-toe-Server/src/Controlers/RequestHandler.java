@@ -24,10 +24,9 @@ import java.util.logging.Logger;
  */
 public class RequestHandler {
      DataInputStream ear ;
-        PrintStream ps;
+     PrintStream ps;
      Integer id;
      static HashMap<Integer,RequestHandler> clinetsHashMap = new HashMap<>(); 
-
 
     public RequestHandler(Socket s , Integer id) {
          try {

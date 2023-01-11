@@ -5,6 +5,13 @@
  */
 package tic.tac.toe;
 
+import Controlers.Clients;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +27,7 @@ public class TicTacToe extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-     
+        
         Parent root = new FXMLDocumentBase();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -33,7 +40,7 @@ public class TicTacToe extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        launch(args);    
     }
     
 }

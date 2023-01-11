@@ -1,10 +1,12 @@
 package tic.tac.toe.server;
 
+import Controlers.MessageHandler;
 import Controlers.ScreenAdapter;
-import java.net.URL;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import Controlers.StartServer;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tic.tac.toe.server.ClientHandler.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
@@ -14,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public  class serverControlPanalBase extends AnchorPane {
 
@@ -33,9 +34,13 @@ public  class serverControlPanalBase extends AnchorPane {
     protected final Text txtOnlinePlayers;
     protected final Text txtGamesPlayed;
     protected final Text txtAccountNo0;
+    MessageHandler client;
+    StartServer sv;
+    
+    
 
     public serverControlPanalBase() {
-
+         sv = new StartServer();
         btnStop = new Button();
         label = new Label();
         bloom = new Bloom();
@@ -51,6 +56,10 @@ public  class serverControlPanalBase extends AnchorPane {
         txtOnlinePlayers = new Text();
         txtGamesPlayed = new Text();
         txtAccountNo0 = new Text();
+        //client=new MessageHandler();
+        
+        
+        // server= new Server();
 
         setId("AnchorPane");
         setPrefHeight(800.0);
@@ -180,7 +189,12 @@ public  class serverControlPanalBase extends AnchorPane {
         gridPane.getChildren().add(txtAccountNo0);
         getChildren().add(gridPane);
        btnStop.setOnAction((event)->{
-               ScreenAdapter.setScreen(event, new FXMLDocumentBase());
+           //ClientHandler client=new ClientHandler(event);
+           //client.stopConnection();
+           sv.stopConnection();
+           ScreenAdapter.setScreen(event, new FXMLDocumentBase());
+           
+         
        });
        
        

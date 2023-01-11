@@ -6,67 +6,96 @@
 package Controlers;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
+
 import java.net.Socket;
-import Controlers.DataAccessLayer;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MessageHandler extends Thread {
 
     DataInputStream dis;
-    PrintStream prints;
+    DataOutputStream dos;
+    PrintStream ps;
     DataAccessLayer DAL = new DataAccessLayer();
-    //static Vector<MessageHandler> clientsVector =new Vector<MessageHandler>();
     String ip;
     int result;
-    Socket s;
+    Socket clientSocket;
+    //Thread thread;
+    //ServerSocket serverSocket;
+    boolean serverIsOn = true;
 
-    public MessageHandler(Socket cs) {
+    public MessageHandler(Socket client) {
         try {
-            s = cs;
-            dis = new DataInputStream(cs.getInputStream());
-            prints = new PrintStream(cs.getOutputStream());
-            ip = cs.getInetAddress().toString();
-            //MessageHandler.clientsVector.add(this);
+            clientSocket = client;
+            dis = new DataInputStream(client.getInputStream());
+            ps = new PrintStream(client.getOutputStream());
+            ip = clientSocket.getInetAddress().toString();
             start();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    @Override
     public void run() {
+
         while (true) {
             String read;
             String msg;
             try {
+                System.out.println("inside message");
+
                 read = dis.readLine();
+                System.out.println("inside server " + read);
                 StringTokenizer st = new StringTokenizer(read, ",");
 
                 msg = st.nextToken();
+                System.out.println(msg);
                 if (msg.equals("login")) {
                     String email = st.nextToken();
                     String pass = st.nextToken();
                     result = DAL.check(email, pass, ip);
                     if (result != -1) {
-                        new RequestHandler(s, result);
+                        new RequestHandler(clientSocket, result);
                     }
-                    prints.println(result);
+                    System.out.println("res=" + result);
+                    ps.println(result);
+                } else if (msg.equals("signup")) {
+                    String name = st.nextToken();
+                    String email = st.nextToken();
+                    String pass = st.nextToken();
+                    result = DAL.addPlayer(name, email, pass);
+                    ps.println(result);
                 } else if (msg.equals("logout")) {
                     int id = Integer.parseInt(st.nextToken());
-                    result = DAL.logout(id);
+                    DataAccessLayer.logout(id);
                     RequestHandler.clinetsHashMap.remove(id);
-                    prints.println(result);
+
+                } else if (msg.equals("show")) {
+
+                    ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                    System.out.println("inside show players");
+                    int senderId = Integer.parseInt(st.nextToken());
+                    objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
                 } else if (msg.equals("playRequest")) {
                     int competitorId = Integer.parseInt(st.nextToken());
                     int senderId = Integer.parseInt(st.nextToken());
                     RequestHandler.sendMessage("Do you want to play?", competitorId, senderId);
 
                 }
+            } catch (IOException ex) {
+                Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
     }
+
 }

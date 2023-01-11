@@ -5,8 +5,13 @@
  */
 package tic.tac.toe.server;
 
+
+import Controlers.DataAccessLayer;
+import Model.Player;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,21 +22,26 @@ import javafx.stage.Stage;
 public class TicTacToeServer extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {  
         Parent root =new FXMLDocumentBase();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Tic Tac Toe Server ");
         stage.show();
+        
     }
 
     /**
      * @param args the command line arguments
      */
+
     public static void main(String[] args) {
-        launch(args);
+
+       launch(args);  
+      //new Server();
     }
     
-   
+
+
 }
