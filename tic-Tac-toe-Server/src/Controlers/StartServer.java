@@ -28,7 +28,6 @@ public class StartServer {
                 {
                     
                         Socket s = serverSocket.accept();
-                        System.out.println(s.getInetAddress());
                         new MessageHandler(s);
                     
                 }

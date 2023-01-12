@@ -48,7 +48,6 @@ public class MessageHandler extends Thread {
             String read;
             String msg;
             try {
-                System.out.println("inside message");
 
                 read = dis.readLine();
                 System.out.println("inside server " + read);
@@ -67,8 +66,11 @@ public class MessageHandler extends Thread {
                     ps.println(result);
                 } else if (msg.equals("signup")) {
                     String name = st.nextToken();
+                    System.out.println(name);
                     String email = st.nextToken();
+                    System.out.println(email);
                     String pass = st.nextToken();
+                    System.out.println(pass);
                     result = DAL.addPlayer(name, email, pass);
                     ps.println(result);
                 } else if (msg.equals("logout")) {
