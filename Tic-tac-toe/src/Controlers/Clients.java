@@ -36,7 +36,7 @@ public class Clients extends Thread {
     ActionEvent event;
     private LoginBase loginBase;
     private SignUpBase signupBase;
-     private players_listBase playerListBase;
+    private players_listBase playerListBase;
     Thread thread;
     static String idMsg;
     String fromPage;
