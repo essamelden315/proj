@@ -6,10 +6,6 @@
 package tic.tac.toe.server;
 
 
-import Controlers.DataAccessLayer;
-import Model.Player;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.scene.Parent;

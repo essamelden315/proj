@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
- public class ShowPlayers extends Thread{
+ /*public class ShowPlayers extends Thread{
     
             private Socket mySocket;
             private DataInputStream dataInput; //listen
@@ -79,4 +79,4 @@ import javafx.event.ActionEvent;
        dataOutput.println(msg);
    }
     
-}
+}*/

@@ -34,19 +34,33 @@ public class Clients extends Thread {
     private DataInputStream dataInput; //listen
     private PrintStream dataOutput;
     ActionEvent event;
-    LoginBase loginBase;
-    SignUpBase signupBase;
+    private LoginBase loginBase;
+    private SignUpBase signupBase;
+     private players_listBase playerListBase;
     Thread thread;
     static String idMsg;
+    String fromPage;
     boolean work = true;
-    players_listBase playerList;
+   
     //Stage stage;
 
-    //Stage stage;
-    public Clients(LoginBase loginBase, ActionEvent event) {
-
-        this.event = event;
+    public void setLoginBase(LoginBase loginBase) {
         this.loginBase = loginBase;
+    }
+
+    public void setSignupBase(SignUpBase signupBase) {
+        this.signupBase = signupBase;
+    }
+
+    public void setPlayerListBase(players_listBase playerListBase) {
+        this.playerListBase = playerListBase;
+    }
+
+    //Stage stage;
+    public Clients(String fromPage, ActionEvent event) {
+        System.out.println("page"+fromPage);
+        this.event = event;
+        this.fromPage=fromPage;
         try {
             mySocket = new Socket("127.0.0.1", 5006);
             dataInput = new DataInputStream(mySocket.getInputStream()); //listen
@@ -56,11 +70,16 @@ public class Clients extends Thread {
                 @Override
                 public void run() {
                     try {
-                        // if(page.equals("players"))
-                        //showPlayers();
-                        // else
-                        readMessage();
+                       if(fromPage.equals("show"))
+                       {
+                          readMessageObject(); 
+                       }
+                       else{
+                           readMessage(); 
+                       }
                     } catch (IOException ex) {
+                        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -91,7 +110,7 @@ public class Clients extends Thread {
                     System.out.println("Wasalt");
                     ScreenAdapter.setScreen(event, new players_listBase(idMsg));
                 }
-                else {
+                else if(idMsg.equals("-1")){
                     loginBase.pane.setVisible(true);
                     loginBase.labelError.setText("Incorrect Username or password");
                 }
@@ -100,10 +119,43 @@ public class Clients extends Thread {
 
         //dataOutput.print(clientMsg);      
     }
+     public void readMessageObject() throws IOException, ClassNotFoundException
+   {
+       
+            ArrayList<Player> players = new ArrayList<>();
+            ObjectInputStream inStream= new ObjectInputStream(mySocket.getInputStream());;
+            players=(ArrayList<Player>) inStream.readObject();
+            String name[]=new String[players.size()];
+            System.out.println("OnlineObject");
+             for(int i=0;i<players.size();i++){
+              name[i]= players.get(i).getName();
+             }
+             Platform.runLater(new Runnable() {
+                 @Override
+                 public void run() {
+                     // System.out.println("Return "+returnVal)
+                        System.out.println("Wasalt");
+                       // ScreenAdapter.setScreen(event, );
+                       playerListBase.myListView.getItems().addAll(name);
+                    
+                 }
+             });
+        //dataOutput.print(clientMsg);      
+   }
 
     public void sendMessage(String clientMsg) {
-        System.out.print("Client said: " + clientMsg);
-        dataOutput.println(clientMsg);
+        System.out.println(idMsg);
+       
+        //System.out.print("Client said: " + clientMsg+idMsg);
+        if(fromPage.equals("show"))
+        {
+             String sendMsg= clientMsg+idMsg;
+             dataOutput.println(sendMsg);
+        }
+        else{
+             dataOutput.println(clientMsg);
+        }
+        
 
     }
 

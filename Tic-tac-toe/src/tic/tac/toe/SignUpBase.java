@@ -40,7 +40,7 @@ public class SignUpBase extends AnchorPane {
         loginscreen = new Button();
         text = new Text();
         txtpw = new PasswordField();
-        client=new Clients(null,null);
+        //client=new Clients(null,null);
         
          
         setId("AnchorPane");
@@ -105,11 +105,11 @@ public class SignUpBase extends AnchorPane {
             String msg;
             msg= "signup,";
             msg+= userName+","+email+","+pass;
-            client = new Clients (null,event);
+            client = new Clients ("signup",event);
+            client.setSignupBase(this);
             client.sendMessage(msg);
             
         }
-            //ScreenAdapter.setScreen(event, new LoginBase());
         });
 
         loginscreen.setLayoutX(360.0);

@@ -91,7 +91,8 @@ public class LoginBase extends AnchorPane {
             System.out.println("Button: "+loginMessage);
            // SendMessage.login(userNameMessage, passwordMessage);
              //   System.out.println(SendMessage.getAnswer());
-            client=new Clients(this,event);
+            client=new Clients("login",event);
+            client.setLoginBase(this);
             client.sendMessage(loginMessage);
             // ScreenAdapter.setScreen(event, new players_listBase());
             }

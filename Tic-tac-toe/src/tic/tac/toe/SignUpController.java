@@ -84,7 +84,7 @@ public class SignUpController implements Initializable {
             String msg;
             msg= "signup,";
             msg+= userName+","+email+","+pass;
-            client = new Clients (null,event);
+            //client = new Clients (null,event);
             client.sendMessage(msg);
             
         }

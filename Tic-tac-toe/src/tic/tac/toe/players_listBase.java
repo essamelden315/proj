@@ -20,7 +20,7 @@ import Controlers.SendMessage;
 import static Controlers.SendMessage.send;
 import Model.Player;
 import javax.swing.JOptionPane;
-import tic.tac.toe.ShowPlayers;
+//import tic.tac.toe.ShowPlayers;
 //import static Controlers.SendMessage.showPlayers;
 
 public class players_listBase extends BorderPane {
@@ -32,8 +32,9 @@ public class players_listBase extends BorderPane {
     protected final ScrollPane scrollPane;
     public final ListView<String> myListView;
     String selectedFood;
-    ShowPlayers show = new ShowPlayers(this);
-    Clients client=new Clients(null,null);
+    //ShowPlayers show = new ShowPlayers(this);
+    
+    Clients client;
     public players_listBase(String id) {
 
         myLabel = new Label();
@@ -41,6 +42,9 @@ public class players_listBase extends BorderPane {
         logOut = new Button();
         scrollPane = new ScrollPane();
         myListView = new ListView<>();
+        client=new Clients("show",null);
+        client.setPlayerListBase(this);
+        client.sendMessage("show,");
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -103,7 +107,7 @@ public class players_listBase extends BorderPane {
 
     }
 
-    public void show() {
+    /*public void show() {
         ArrayList<Player> items = new ArrayList<>();
         //.addAll(SendMessage.showPlayers());
         String name[] = new String[items.size()];
@@ -121,7 +125,7 @@ public class players_listBase extends BorderPane {
             }
         });
 
-    }
+    }*/
 
     void requestDialog(ActionEvent event) {
         int a = JOptionPane.showConfirmDialog(null, "Send a request?");

@@ -50,6 +50,7 @@ public class MessageHandler extends Thread {
             try {
 
                 read = dis.readLine();
+                System.out.println("READ"+read);
                 System.out.println("inside server " + read);
                 StringTokenizer st = new StringTokenizer(read, ",");
 
