@@ -68,12 +68,17 @@ public class DataAccessLayer {
 
     public int addPlayer(String name, String email, String password ) throws ClassNotFoundException, SQLException {
         int id = 1;
+        int reply= -12;
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
-        Statement stmt = conn.createStatement();
-        ResultSet t = stmt.executeQuery("select * From ACCOUNT where EMAIL =" + email);
+        //Statement stmt = conn.createStatement();
+        PreparedStatement stmt=conn.prepareStatement("select * From ACCOUNT where EMAIL =?");
+        stmt.setString(1, email);
+        ResultSet t = stmt.executeQuery();
+        
         if (!t.next()) {
-            t = stmt.executeQuery("select * From ACCOUNT");
+             stmt=conn.prepareStatement("select * From ACCOUNT");
+            t = stmt.executeQuery();
             while (t.next()) {
 
                 if (id < t.getInt(1)) {
@@ -83,6 +88,7 @@ public class DataAccessLayer {
             id++;
             stmt.executeUpdate("INSERT INTO ACCOUNT (ID,NAME,EMAIL,PASS,STATE)"
                     + "VALUES (" + id + ",'" + name + "','" + email + "','" + password + "','offline') ");
+            reply=0;
 
         } else {
             id = -1;
@@ -90,7 +96,7 @@ public class DataAccessLayer {
 
         stmt.close();
         conn.close();
-        return id;
+        return reply;
     }
 
     public static void logout(int id) {

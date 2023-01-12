@@ -10,7 +10,7 @@
    <children>
       <TextField fx:id="txtusername" alignment="CENTER" layoutX="250.0" layoutY="39.0" opacity="0.74" promptText="Enter Username" styleClass="text-signup" stylesheets="@../../../CssStyle/GameStyle.css" />
       <TextField fx:id="txtemail" layoutX="250.0" layoutY="123.0" opacity="0.74" promptText="Email" style="-fx-alignment: center; -fx-font: #000000;" styleClass="text-signup" stylesheets="@../../../CssStyle/GameStyle.css" />
-      <Button fx:id="btnsignup" layoutX="250.0" layoutY="329.0" mnemonicParsing="false" styleClass="blueBtn" stylesheets="@../../../CssStyle/GameStyle.css" text="Sign Up" />
+      <Button fx:id="btnsignup" layoutX="250.0" layoutY="329.0" mnemonicParsing="false" onAction="#register" styleClass="blueBtn" stylesheets="@../../../CssStyle/GameStyle.css" text="Sign Up" />
       <Button fx:id="loginscreen" layoutX="360.0" layoutY="422.0" mnemonicParsing="false" onAction="#anotherScreenButtonAction" prefHeight="51.0" prefWidth="140.0" styleClass="anotherScreen" stylesheets="@../../../CssStyle/GameStyle.css" text="Login" textFill="#66ccff" />
       <Text fill="WHITE" layoutX="299.0" layoutY="453.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have account?" wrappingWidth="97.6708984375" />
       <PasswordField fx:id="txtpw" alignment="CENTER" layoutX="250.0" layoutY="209.0" opacity="0.74" promptText="Enter password" styleClass="text-signup" stylesheets="@../../../CssStyle/GameStyle.css" />

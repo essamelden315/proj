@@ -34,7 +34,7 @@ public class players_listBase extends BorderPane {
     String selectedFood;
     ShowPlayers show = new ShowPlayers(this);
     Clients client=new Clients(null,null);
-    public players_listBase() {
+    public players_listBase(String id) {
 
         myLabel = new Label();
         anchorPane = new AnchorPane();

@@ -1,5 +1,6 @@
 package tic.tac.toe;
 
+import Controlers.Clients;
 import Controlers.ScreenAdapter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -10,12 +11,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class SignUpBase extends AnchorPane {
 
@@ -26,6 +30,8 @@ public class SignUpBase extends AnchorPane {
     protected final Text text;
     protected final PasswordField txtpw;
 
+    Clients client;
+
     public SignUpBase() {
 
         txtusername = new TextField();
@@ -34,7 +40,9 @@ public class SignUpBase extends AnchorPane {
         loginscreen = new Button();
         text = new Text();
         txtpw = new PasswordField();
-
+        client=new Clients(null,null);
+        
+         
         setId("AnchorPane");
         setPrefHeight(478.0);
         setPrefWidth(793.0);
@@ -64,8 +72,44 @@ public class SignUpBase extends AnchorPane {
         btnsignup.getStylesheets().add("/css/GameStyle.css");
         btnsignup.setText("Sign Up");
         btnsignup.setOnAction((event)->{
+                           
+        String userName=txtusername.getText();
+        String email=txtemail.getText();
+        String pass=txtpw.getText();
+        Window owner =btnsignup.getScene().getWindow();
+        
+        System.out.println(userName);
+        System.out.println(email);
+        System.out.println(pass);
+        ///if empty or has special chars.
+        if (userName.isEmpty()|| (!userName.matches("^[a-zA-Z0-9_]*$"))) {
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                "Please enter your name");
+            return;
+        }
+
+        else if (email.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                "Please enter your email id");
+            return;
+        }
+        else if (pass.isEmpty()|| (!pass.matches("^[a-zA-Z0-9_]*$"))) {
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                "Please enter a password");
+           
+        }
+        /*else if  (!email.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)$")){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                "Please enter a correct email");}*/
+        else{
+            String msg;
+            msg= "signup,";
+            msg+= userName+","+email+","+pass;
+            client = new Clients (null,event);
+            client.sendMessage(msg);
             
-            ScreenAdapter.setScreen(event, new players_listBase());
+        }
+            //ScreenAdapter.setScreen(event, new LoginBase());
         });
 
         loginscreen.setLayoutX(360.0);
@@ -96,6 +140,9 @@ public class SignUpBase extends AnchorPane {
         txtpw.setPromptText("Enter password");
         txtpw.getStyleClass().add("text-signup");
         txtpw.getStylesheets().add("/css/GameStyle.css");
+        
+        
+        
 
         getChildren().add(txtusername);
         getChildren().add(txtemail);
@@ -103,7 +150,16 @@ public class SignUpBase extends AnchorPane {
         getChildren().add(loginscreen);
         getChildren().add(text);
         getChildren().add(txtpw);
+        
 
+    }
+        private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
     }
 
 }

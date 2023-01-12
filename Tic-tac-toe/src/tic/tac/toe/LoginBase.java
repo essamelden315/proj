@@ -21,6 +21,8 @@ import Controlers.SendMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class LoginBase extends AnchorPane {
 
@@ -34,6 +36,7 @@ public class LoginBase extends AnchorPane {
     protected final FlowPane flowPane;
     protected final ImageView imgError;
     public final Label labelError;
+    protected final Button btnBack;
     Clients client;
 
    
@@ -55,6 +58,7 @@ public class LoginBase extends AnchorPane {
         flowPane = new FlowPane();
         imgError = new ImageView();
         labelError = new Label();
+        btnBack = new Button();
         
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -161,12 +165,28 @@ public class LoginBase extends AnchorPane {
         labelError.setTextFill(javafx.scene.paint.Color.valueOf("#f70012"));
         labelError.setFont(new Font("System Bold", 14.0));
         
+        btnBack.setLayoutX(630.0);
+        btnBack.setLayoutY(382.0);
+        btnBack.setMnemonicParsing(false);
+        btnBack.setPrefHeight(60.0);
+        btnBack.setPrefWidth(93.0);
+        btnBack.getStyleClass().add("backBtn");
+        btnBack.getStylesheets().add("/css/GameStyle.css");
+        btnBack.setText("Back");
+        btnBack.setTextFill(javafx.scene.paint.Color.valueOf("#000000ca"));
+        btnBack.setFont(new Font("System Bold Italic", 10.0));
+        getStylesheets().add("/css/GameStyle.css");
+        btnBack.setOnAction((ActionEvent event) -> {
+            ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
+        });
+        
         getChildren().add(btnlogin);
         getChildren().add(txtusername);
         getChildren().add(signupscreen);
         getChildren().add(text);
         getChildren().add(text0);
         getChildren().add(txtpw);
+        getChildren().add(btnBack);
         flowPane.getChildren().add(imgError);
         flowPane.getChildren().add(labelError);
         pane.getChildren().add(flowPane);
