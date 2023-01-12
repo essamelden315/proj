@@ -105,6 +105,11 @@ public class Clients extends Thread {
                  if(idMsg.equals("0")){
                     ScreenAdapter.setScreen(event, new LoginBase());
                 }
+                 else if(idMsg.equals("-12"))
+                 {
+                    signupBase.pane.setVisible(true);
+                    signupBase.labelError.setText("Email is Invalid");
+                 }
                 //System.out.println("Return "+returnVal);
                 else if (!idMsg.equals("-1")) {
                     System.out.println("Wasalt");
