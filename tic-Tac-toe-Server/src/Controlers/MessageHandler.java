@@ -47,66 +47,69 @@ public class MessageHandler extends Thread {
 
         String read;
         String msg;
-        try {
+        while (true) {
+            try {
 
-            read = dis.readLine();
-            System.out.println(read);
-            StringTokenizer st = new StringTokenizer(read, ",");
+                read = dis.readLine();
+                System.out.println(read);
+                StringTokenizer st = new StringTokenizer(read, ",");
 
-            msg = st.nextToken();
+                msg = st.nextToken();
 
-            if (msg.equals("login")) {
-                String email = st.nextToken();
-                String pass = st.nextToken();
-                result = DAL.check(email, pass, ip);
-                if (result != -1) {
-                    new RequestHandler(clientSocket, result);
+                if (msg.equals("login")) {
+                    String email = st.nextToken();
+                    String pass = st.nextToken();
+                    result = DAL.check(email, pass, ip);
+                    if (result != -1) {
+                        new RequestHandler(clientSocket, result);
+                    }
+
+                    ps.println(result);
+                } else if (msg.equals("signup")) {
+                    String name = st.nextToken();
+
+                    String email = st.nextToken();
+
+                    String pass = st.nextToken();
+
+                    result = DAL.addPlayer(name, email, pass);
+                    ps.println(result);
+                } else if (msg.equals("logout")) {
+                    System.out.println("inside logout");
+                    int id = Integer.parseInt(st.nextToken());
+
+                    //RequestHandler.removeOFflinePlayer(id);
+                    DataAccessLayer.logout(id);
+                } else if (msg.equals("show")) {
+
+                    ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                    int senderId = Integer.parseInt(st.nextToken());
+                    objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
+
+                } else if (msg.equals("playRequest")) {
+                    int competitorId = Integer.parseInt(st.nextToken());
+                    int senderId = Integer.parseInt(st.nextToken());
+                    RequestHandler.sendMessage("play", competitorId, senderId);
+
+                } else if (msg.equals("invitationRejected")) {
+                    int competitorId = Integer.parseInt(st.nextToken());
+                    int senderId = Integer.parseInt(st.nextToken());
+                    RequestHandler.sendMessage("invitationRejected", competitorId, senderId);
+
+                } else if (msg.equals("invitationAccept")) {
+                    int competitorId = Integer.parseInt(st.nextToken());
+                    int senderId = Integer.parseInt(st.nextToken());
+                    RequestHandler.sendMessage("invitationAccept", competitorId, senderId);
                 }
 
-                ps.println(result);
-            } else if (msg.equals("signup")) {
-                String name = st.nextToken();
-
-                String email = st.nextToken();
-
-                String pass = st.nextToken();
-
-                result = DAL.addPlayer(name, email, pass);
-                ps.println(result);
-            } else if (msg.equals("logout")) {
-                int id = Integer.parseInt(st.nextToken());
-
-                //    RequestHandler.removeOFflinePlayer(id);
-                DataAccessLayer.logout(id);
-            } else if (msg.equals("show")) {
-
-                ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
-
-                int senderId = Integer.parseInt(st.nextToken());
-                objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
-            } else if (msg.equals("playRequest")) {
-                int competitorId = Integer.parseInt(st.nextToken());
-                int senderId = Integer.parseInt(st.nextToken());
-               
-                RequestHandler.sendMessage("play", competitorId, senderId);
-
-            } else if (msg.equals("rejectPlayRequest")) {
-                int competitorId = Integer.parseInt(st.nextToken());
-                int senderId = Integer.parseInt(st.nextToken());
-               
-                RequestHandler.sendMessage("invitationRejected", competitorId, senderId);
-            } else if (msg.equals("acceptRequest")) {
-                int competitorId = Integer.parseInt(st.nextToken());
-                int senderId = Integer.parseInt(st.nextToken());
-                
-                RequestHandler.sendMessage("invitationAccept", competitorId, senderId);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
     }
+
 }

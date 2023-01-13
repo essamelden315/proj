@@ -40,7 +40,7 @@ public class players_listBase extends BorderPane {
         logOut = new Button();
         scrollPane = new ScrollPane();
         myListView = new ListView<>();
-        client = new Clients("show", null);
+        client = new Clients("show",new ActionEvent());
         client.setPlayerListBase(this);
         client.sendMessage("show,");
 
@@ -99,19 +99,18 @@ public class players_listBase extends BorderPane {
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
-          public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                int ans =JOptionPane.showConfirmDialog(null, "send a request");
-                if(ans==JOptionPane.YES_OPTION){
-                   Thread thread =new Thread(()->{
-                       
-                       new Clients("",null).playRequest(players.get(myListView.getSelectionModel().getSelectedIndex()).getID());
-                   });
-                   thread.start();
-                
-                }
-                else{
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                int ans = JOptionPane.showConfirmDialog(null, "send a request");
+                if (ans == JOptionPane.YES_OPTION) {
+                    Thread thread = new Thread(() -> {
+
+                        new Clients("", null).playRequest(players.get(myListView.getSelectionModel().getSelectedIndex()).getID());
+                    });
+                    thread.start();
+
+                } else {
                     JOptionPane.showMessageDialog(null, "Enter a valid Number",
-                                   "ERROR", JOptionPane.ERROR_MESSAGE);
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

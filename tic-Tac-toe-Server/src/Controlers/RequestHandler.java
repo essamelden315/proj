@@ -5,8 +5,6 @@
  */
 package Controlers;
 
-
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -16,46 +14,49 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 /**
  *
  * @author User
  */
 public class RequestHandler {
-     DataInputStream ear ;
-     PrintStream ps;
-     Integer id;
-     
-     static HashMap<Integer,RequestHandler> clinetsHashMap = new HashMap<>(); 
 
-    public RequestHandler(Socket s , Integer id) {
-         try {
-             
+    DataInputStream ear;
+    PrintStream ps;
+    Integer id;
+    Socket socket;
+    static HashMap<Integer, RequestHandler> clinetsHashMap = new HashMap<>();
+
+    public RequestHandler(Socket s, Integer id) {
+        try {
+            socket = s;
             ear = new DataInputStream(s.getInputStream());
-            ps= new PrintStream(s.getOutputStream());
-            RequestHandler.clinetsHashMap.put(id,this);
-           
+            ps = new PrintStream(s.getOutputStream());
+            RequestHandler.clinetsHashMap.put(id, this);
+
         } catch (IOException ex) {
             Logger.getLogger(RequestHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
     }
-    
-      public static void sendMessage(String msg , int competitorId, int senderId ) {
-     
-           clinetsHashMap.get(competitorId).ps.println(msg+","+senderId);
-           
+
+    public static void sendMessage(String msg, int competitorId, int senderId) {
+
+        clinetsHashMap.get(competitorId).ps.println(msg + "," + senderId);
+
     }
-      public static void removeOFflinePlayer(int senderId ) {
-      
-          //             clinetsHashMap.get(senderId).ear.close();
-          clinetsHashMap.get(senderId).ps.close();
-          clinetsHashMap.remove(senderId);
-           
-           
-           
-       
+
+    public static void removeOFflinePlayer(int senderId) {
+
+        try {
+
+            clinetsHashMap.get(senderId).ear.close();
+            clinetsHashMap.get(senderId).ps.close();
+            clinetsHashMap.get(senderId).socket.close();
+            clinetsHashMap.remove(senderId);
+        } catch (IOException ex) {
+            Logger.getLogger(RequestHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-         
+
 }

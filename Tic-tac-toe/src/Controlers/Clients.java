@@ -62,7 +62,7 @@ public class Clients extends Thread {
 
     //Stage stage;
     public Clients(String fromPage, ActionEvent event) {
-        System.out.println("page" + fromPage);
+        //System.out.println("page" + fromPage);
         this.event = event;
         this.fromPage = fromPage;
         try {
@@ -121,32 +121,33 @@ public class Clients extends Thread {
                 else if (serverMsg.contains(",")) {
                     StringTokenizer st = new StringTokenizer(idMsg, ",");
                     String header = st.nextToken();
-                    
+
                     if (header.equals("play")) {
+
                         String competitorId = st.nextToken();
-                        
+
                         int ans = JOptionPane.showConfirmDialog(null, "send a request " + competitorId);
-                        System.out.println(competitorId);
+                        //System.out.println(competitorId);
                         if (ans == JOptionPane.YES_OPTION) {
                             acceptPlayRequest(competitorId);
                             ScreenAdapter.setScreen(event, new GameScreenViewBase());
-                        }else if(ans == JOptionPane.NO_OPTION){     
-                            System.out.println(competitorId);
+                        } else if (ans == JOptionPane.NO_OPTION) {
+                            rejectPlayRequest(competitorId);
                         }
                     }
-                    if(header.equals("invitationAccept")){
+                    if (header.equals("invitationAccept")) {
                         ScreenAdapter.setScreen(event, new GameScreenViewBase());
-                    
+
                     }
-                    if (header.equals("invitationRejected")){
+                    if (header.equals("invitationRejected")) {
                         Alert inform = new Alert(Alert.AlertType.CONFIRMATION);
                         inform.setContentText("your invitation is refused");
                         inform.show();
                     }
 
                 } else if (!idMsg.equals("-1")) {
-                    id=idMsg;
-                    System.out.println("Wasalt");
+                    id = idMsg;
+                    //System.out.println("Wasalt");
                     ScreenAdapter.setScreen(event, new players_listBase());
                 } else if (idMsg.equals("-1")) {
                     loginBase.pane.setVisible(true);
@@ -163,7 +164,7 @@ public class Clients extends Thread {
         ObjectInputStream inStream = new ObjectInputStream(mySocket.getInputStream());;
         playerListBase.players = (ArrayList<Player>) inStream.readObject();
         String name[] = new String[playerListBase.players.size()];
-        System.out.println("OnlineObject");
+        //System.out.println("OnlineObject");
         for (int i = 0; i < playerListBase.players.size(); i++) {
             name[i] = playerListBase.players.get(i).getName();
         }
@@ -171,7 +172,7 @@ public class Clients extends Thread {
             @Override
             public void run() {
                 // System.out.println("Return "+returnVal)
-                System.out.println("Wasalt");
+                //System.out.println("Wasalt");
                 // ScreenAdapter.setScreen(event, );
                 playerListBase.myListView.getItems().addAll(name);
 
@@ -181,11 +182,11 @@ public class Clients extends Thread {
     }
 
     public void sendMessage(String clientMsg) {
-        System.out.println(idMsg);
+        // System.out.println(idMsg);
 
         //System.out.print("Client said: " + clientMsg+idMsg);
         if (fromPage.equals("show")) {
-            String sendMsg = clientMsg + idMsg;
+            String sendMsg = clientMsg + id;
             dataOutput.println(sendMsg);
         } else {
             dataOutput.println(clientMsg);
@@ -196,14 +197,11 @@ public class Clients extends Thread {
     public void logout(ActionEvent event) {
         try {
             final String LOGOUT = "logout,";
-            String msg = LOGOUT + idMsg;
-            System.out.println(idMsg);
-            sendMessage(msg);
-            //thread.stop();
-
-            //dataInput.close();
-            //dataOutput.close();
-            // mySocket.close();
+            sendMessage(LOGOUT);
+            thread.stop();
+            dataInput.close();
+            dataOutput.close();
+            mySocket.close();
             ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         } catch (Exception ex) {
             Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,19 +212,19 @@ public class Clients extends Thread {
 
         final String PLAY_REQUEST = "playRequest,";
         String msg = PLAY_REQUEST + competitorId + "," + id;
-        System.out.println(msg);
+        //System.out.println(msg);
         sendMessage(msg);
 
     }
 
     public void acceptPlayRequest(String competitorId) {
-        final String ACCEPT_PLAY_REQUEST = "acceptPlayRequest,";
+        final String ACCEPT_PLAY_REQUEST = "invitationAccept,";
         String msg = ACCEPT_PLAY_REQUEST + competitorId + "," + id;
         sendMessage(msg);
     }
 
     public void rejectPlayRequest(String competitorId) {
-        final String REJECT_PLAY_REQUEST = "rejectPlayRequest,";
+        final String REJECT_PLAY_REQUEST = "invitationRejected,";
         String msg = REJECT_PLAY_REQUEST + competitorId + "," + id;
         sendMessage(msg);
     }
