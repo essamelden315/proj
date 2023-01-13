@@ -13,28 +13,36 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javax.swing.JOptionPane;
+//import tic.tac.toe.ShowPlayers;
+//import static Controlers.SendMessage.showPlayers;
 
 public class players_listBase extends BorderPane {
 
     protected final Label myLabel;
     protected final AnchorPane anchorPane;
     protected final Button logOut;
+    //protected final Button button;
     protected final ScrollPane scrollPane;
     public final ListView<String> myListView;
-    public  ArrayList<Player> players ;
     String selectedFood;
-    ShowPlayers show = new ShowPlayers(this);
-    Clients client=new Clients(null,null);
-    public players_listBase() {
+    //ShowPlayers show = new ShowPlayers(this);
+    public ArrayList<Player> players;
+    Clients client;
 
+    public players_listBase() {
+        players = new ArrayList<>();
         myLabel = new Label();
         anchorPane = new AnchorPane();
         logOut = new Button();
         scrollPane = new ScrollPane();
         myListView = new ListView<>();
+        client = new Clients("show", null);
+        client.setPlayerListBase(this);
+        client.sendMessage("show,");
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -69,7 +77,7 @@ public class players_listBase extends BorderPane {
         logOut.getStylesheets().add("/css/GameStyle.css");
         logOut.setText("Log Out");
         logOut.setOnAction((ActionEvent event) -> {
-           
+
             client.logout(event);
         });
         setBottom(anchorPane);
@@ -87,14 +95,16 @@ public class players_listBase extends BorderPane {
         setCenter(scrollPane);
 
         anchorPane.getChildren().add(logOut);
+        System.out.println("befoooooooooor");
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+          public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 int ans =JOptionPane.showConfirmDialog(null, "send a request");
                 if(ans==JOptionPane.YES_OPTION){
                    Thread thread =new Thread(()->{
-                       client.playRequest(players.get(myListView.getSelectionModel().getSelectedIndex()).getID());
+                       
+                       new Clients("",null).playRequest(players.get(myListView.getSelectionModel().getSelectedIndex()).getID());
                    });
                    thread.start();
                 
@@ -107,9 +117,5 @@ public class players_listBase extends BorderPane {
         });
 
     }
-
-   
-
-    
 
 }

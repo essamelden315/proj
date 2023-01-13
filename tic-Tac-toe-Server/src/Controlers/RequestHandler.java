@@ -26,6 +26,7 @@ public class RequestHandler {
      DataInputStream ear ;
      PrintStream ps;
      Integer id;
+     
      static HashMap<Integer,RequestHandler> clinetsHashMap = new HashMap<>(); 
 
     public RequestHandler(Socket s , Integer id) {
@@ -42,26 +43,19 @@ public class RequestHandler {
     }
     
       public static void sendMessage(String msg , int competitorId, int senderId ) {
-      
+     
            clinetsHashMap.get(competitorId).ps.println(msg+","+senderId);
            
-           
-       
     }
-       public static void removeOFflinePlayer(int senderId ) {
+      public static void removeOFflinePlayer(int senderId ) {
       
-         try {
-             clinetsHashMap.get(senderId).ear.close();
-             clinetsHashMap.get(senderId).ps.close();
-             clinetsHashMap.remove(senderId);
-         } catch (IOException ex) {
-            ex.printStackTrace();
-         }
+          //             clinetsHashMap.get(senderId).ear.close();
+          clinetsHashMap.get(senderId).ps.close();
+          clinetsHashMap.remove(senderId);
            
            
            
        
     }
-      
          
 }

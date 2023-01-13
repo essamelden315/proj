@@ -18,13 +18,15 @@ import java.util.logging.Logger;
 public class StartServer {
     ServerSocket serverSocket;
      Thread thread ;
+     boolean isStart;
     public StartServer() {
-        
+        isStart=true;
+        MessageHandler.isStarted=true;
         
          thread = new Thread(()->{
             try {
                 serverSocket = new ServerSocket(5006);
-                while(true)
+                while(isStart)
                 {
                     
                         Socket s = serverSocket.accept();
@@ -43,6 +45,9 @@ public class StartServer {
     public void stopConnection() {
 
         try {
+             MessageHandler.isStarted=false;
+            isStart=false;
+             
             serverSocket.close();
             thread.stop();
         } catch (IOException ex) {

@@ -13,9 +13,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,7 +34,10 @@ public class SignUpBase extends AnchorPane {
     protected final Button loginscreen;
     protected final Text text;
     protected final PasswordField txtpw;
-
+    public final Pane pane;
+    protected final FlowPane flowPane;
+    protected final ImageView imgError;
+    public final Label labelError;
     Clients client;
 
     public SignUpBase() {
@@ -40,7 +48,10 @@ public class SignUpBase extends AnchorPane {
         loginscreen = new Button();
         text = new Text();
         txtpw = new PasswordField();
-        client=new Clients(null,null);
+        pane = new Pane();
+       labelError = new Label();
+        flowPane = new FlowPane();
+        imgError = new ImageView();
         
          
         setId("AnchorPane");
@@ -64,7 +75,9 @@ public class SignUpBase extends AnchorPane {
         txtemail.setStyle("-fx-alignment: center; -fx-font: #000000;");
         txtemail.getStyleClass().add("text-signup");
         txtemail.getStylesheets().add("/css/GameStyle.css");
-
+        
+        
+        pane.setVisible(false);
         btnsignup.setLayoutX(250.0);
         btnsignup.setLayoutY(329.0);
         btnsignup.setMnemonicParsing(false);
@@ -83,19 +96,23 @@ public class SignUpBase extends AnchorPane {
         System.out.println(pass);
         ///if empty or has special chars.
         if (userName.isEmpty()|| (!userName.matches("^[a-zA-Z0-9_]*$"))) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+            /*showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                 "Please enter your name");
-            return;
+            return;*/
+             labelError.setText("Please Enter Username used(a-zA-Z0-9)");
+             pane.setVisible(true);
         }
+         
 
         else if (email.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter your email id");
-            return;
+            labelError.setText("Please Enter Email");
+             pane.setVisible(true);
+          
         }
         else if (pass.isEmpty()|| (!pass.matches("^[a-zA-Z0-9_]*$"))) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter a password");
+            labelError.setText("Please Enter Password used(a-zA-Z0-9)");
+             pane.setVisible(true);
+          
            
         }
         /*else if  (!email.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)$")){
@@ -105,11 +122,11 @@ public class SignUpBase extends AnchorPane {
             String msg;
             msg= "signup,";
             msg+= userName+","+email+","+pass;
-            client = new Clients (null,event);
+            client = new Clients ("signup",event);
+            client.setSignupBase(this);
             client.sendMessage(msg);
             
         }
-            //ScreenAdapter.setScreen(event, new LoginBase());
         });
 
         loginscreen.setLayoutX(360.0);
@@ -141,7 +158,25 @@ public class SignUpBase extends AnchorPane {
         txtpw.getStyleClass().add("text-signup");
         txtpw.getStylesheets().add("/css/GameStyle.css");
         
-        
+        pane.setLayoutX(280.0);
+        pane.setLayoutY(275.0);
+        pane.setPrefHeight(51.0);
+        pane.setPrefWidth(435.0);
+
+        flowPane.setLayoutY(-4.0);
+        flowPane.setPrefHeight(52.0);
+        flowPane.setPrefWidth(435.0);
+
+        imgError.setFitHeight(20.0);
+        imgError.setFitWidth(20.0);
+        imgError.setPickOnBounds(true);
+        imgError.setPreserveRatio(true);
+        imgError.setImage(new Image(getClass().getResource("/images/error.png").toExternalForm()));
+
+        labelError.setPrefHeight(33.0);
+        labelError.setPrefWidth(401.0);
+        labelError.setTextFill(javafx.scene.paint.Color.valueOf("#f70012"));
+        labelError.setFont(new Font("System Bold", 14.0));
         
 
         getChildren().add(txtusername);
@@ -150,16 +185,20 @@ public class SignUpBase extends AnchorPane {
         getChildren().add(loginscreen);
         getChildren().add(text);
         getChildren().add(txtpw);
+        flowPane.getChildren().add(imgError);
+        flowPane.getChildren().add(labelError);
+        pane.getChildren().add(flowPane);
+        getChildren().add(pane);
         
 
     }
-        private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+       /* private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.initOwner(owner);
         alert.show();
-    }
+    }*/
 
 }

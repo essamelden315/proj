@@ -3,9 +3,6 @@ package tic.tac.toe;
 
 import Controlers.Clients;
 import Controlers.ScreenAdapter;
-import java.io.DataInputStream;
-import java.io.PrintStream;
-import java.net.Socket;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -17,11 +14,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class LoginBase extends AnchorPane {
 
@@ -91,7 +85,6 @@ public class LoginBase extends AnchorPane {
            // SendMessage.login(userNameMessage, passwordMessage);
              //   System.out.println(SendMessage.getAnswer());
             client=new Clients("login",event);
-            
             client.setLoginBase(this);
             client.sendMessage(loginMessage);
             // ScreenAdapter.setScreen(event, new players_listBase());

@@ -1,4 +1,5 @@
 package tic.tac.toe;
+
 import Model.Player;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -6,15 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 
- public class ShowPlayers extends Thread{
+ /*public class ShowPlayers extends Thread{
     
             private Socket mySocket;
             private DataInputStream dataInput; //listen
@@ -22,7 +18,6 @@ import javafx.scene.control.ListView;
             ActionEvent event;
             LoginBase loginBase;
             players_listBase playerList;
-            //ArrayList<Player> players ;
             //Stage stage;
             
          
@@ -59,15 +54,12 @@ import javafx.scene.control.ListView;
    public void readMessage() throws IOException, ClassNotFoundException
    {
        
-           playerList. players = new ArrayList<>();
-            ObjectInputStream inStream= new ObjectInputStream(mySocket.getInputStream());
-            
-            playerList.players=(ArrayList<Player>) inStream.readObject();
-            
-            String name[]=new String[playerList.players.size()];
-            
-             for(int i=0;i<playerList.players.size();i++){
-              name[i]= playerList.players.get(i).getName();
+            ArrayList<Player> players = new ArrayList<>();
+            ObjectInputStream inStream= new ObjectInputStream(mySocket.getInputStream());;
+            players=(ArrayList<Player>) inStream.readObject();
+            String name[]=new String[players.size()];
+             for(int i=0;i<players.size();i++){
+              name[i]= players.get(i).getName();
              }
              Platform.runLater(new Runnable() {
                  @Override
@@ -77,7 +69,6 @@ import javafx.scene.control.ListView;
                        // ScreenAdapter.setScreen(event, );
                        
                        playerList.myListView.getItems().addAll(name);
-                      
                     
                  }
              });
@@ -87,8 +78,5 @@ import javafx.scene.control.ListView;
    {   String msg ="show,1";
        dataOutput.println(msg);
    }
-   
-
-   }
-   
     
+}*/

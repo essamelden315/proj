@@ -28,6 +28,7 @@ public class MessageHandler extends Thread {
     //Thread thread;
     //ServerSocket serverSocket;
     boolean serverIsOn = true;
+    public static boolean isStarted;
 
     public MessageHandler(Socket client) {
         try {
@@ -44,62 +45,68 @@ public class MessageHandler extends Thread {
     @Override
     public void run() {
 
-        while (true) {
-            String read;
-            String msg;
-            try {
+        String read;
+        String msg;
+        try {
 
-                read = dis.readLine();
-                System.out.println("inside server " + read);
-                StringTokenizer st = new StringTokenizer(read, ",");
+            read = dis.readLine();
+            System.out.println(read);
+            StringTokenizer st = new StringTokenizer(read, ",");
 
-                msg = st.nextToken();
-                System.out.println(msg);
-                if (msg.equals("login")) {
-                    String email = st.nextToken();
-                    String pass = st.nextToken();
-                    result = DAL.check(email, pass, ip);
-                    if (result != -1) {
-                        new RequestHandler(clientSocket, result);
-                    }
-                    System.out.println("res=" + result);
-                    ps.println(result);
-                } else if (msg.equals("signup")) {
-                    String name = st.nextToken();
-                    System.out.println(name);
-                    String email = st.nextToken();
-                    System.out.println(email);
-                    String pass = st.nextToken();
-                    System.out.println(pass);
-                    result = DAL.addPlayer(name, email, pass);
-                    ps.println(result);
-                } else if (msg.equals("logout")) {
-                    int id = Integer.parseInt(st.nextToken());
+            msg = st.nextToken();
 
-                   RequestHandler.removeOFflinePlayer(id);
-                    DataAccessLayer.logout(id);
-                } else if (msg.equals("show")) {
-
-                    ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
-
-                    System.out.println("inside show players");
-                    int senderId = Integer.parseInt(st.nextToken());
-                    objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
-                    
-                } else if (msg.equals("playRequest")) {
-                    int competitorId = Integer.parseInt(st.nextToken());
-                    int senderId = Integer.parseInt(st.nextToken());
-                    System.out.println(competitorId+" "+senderId);
-                    RequestHandler.sendMessage("Do you want to play?", competitorId, senderId);
-
+            if (msg.equals("login")) {
+                String email = st.nextToken();
+                String pass = st.nextToken();
+                result = DAL.check(email, pass, ip);
+                if (result != -1) {
+                    new RequestHandler(clientSocket, result);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(MessageHandler.class.getName()).log(Level.SEVERE, null, ex);
+
+                ps.println(result);
+            } else if (msg.equals("signup")) {
+                String name = st.nextToken();
+
+                String email = st.nextToken();
+
+                String pass = st.nextToken();
+
+                result = DAL.addPlayer(name, email, pass);
+                ps.println(result);
+            } else if (msg.equals("logout")) {
+                int id = Integer.parseInt(st.nextToken());
+
+                //    RequestHandler.removeOFflinePlayer(id);
+                DataAccessLayer.logout(id);
+            } else if (msg.equals("show")) {
+
+                ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
+
+                int senderId = Integer.parseInt(st.nextToken());
+                objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
+            } else if (msg.equals("playRequest")) {
+                int competitorId = Integer.parseInt(st.nextToken());
+                int senderId = Integer.parseInt(st.nextToken());
+               
+                RequestHandler.sendMessage("play", competitorId, senderId);
+
+            } else if (msg.equals("rejectPlayRequest")) {
+                int competitorId = Integer.parseInt(st.nextToken());
+                int senderId = Integer.parseInt(st.nextToken());
+               
+                RequestHandler.sendMessage("invitationRejected", competitorId, senderId);
+            } else if (msg.equals("acceptRequest")) {
+                int competitorId = Integer.parseInt(st.nextToken());
+                int senderId = Integer.parseInt(st.nextToken());
+                
+                RequestHandler.sendMessage("invitationAccept", competitorId, senderId);
             }
 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    }
 
+    }
 }
