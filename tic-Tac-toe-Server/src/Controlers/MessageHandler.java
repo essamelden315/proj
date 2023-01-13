@@ -75,9 +75,9 @@ public class MessageHandler extends Thread {
                     ps.println(result);
                 } else if (msg.equals("logout")) {
                     int id = Integer.parseInt(st.nextToken());
-                    DataAccessLayer.logout(id);
-                    RequestHandler.clinetsHashMap.remove(id);
 
+                   RequestHandler.removeOFflinePlayer(id);
+                    DataAccessLayer.logout(id);
                 } else if (msg.equals("show")) {
 
                     ObjectOutputStream objectStream = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -85,9 +85,11 @@ public class MessageHandler extends Thread {
                     System.out.println("inside show players");
                     int senderId = Integer.parseInt(st.nextToken());
                     objectStream.writeObject(DataAccessLayer.retrieveOnlineList(senderId));
+                    
                 } else if (msg.equals("playRequest")) {
                     int competitorId = Integer.parseInt(st.nextToken());
                     int senderId = Integer.parseInt(st.nextToken());
+                    System.out.println(competitorId+" "+senderId);
                     RequestHandler.sendMessage("Do you want to play?", competitorId, senderId);
 
                 }

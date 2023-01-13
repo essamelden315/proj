@@ -44,7 +44,24 @@ public class RequestHandler {
       public static void sendMessage(String msg , int competitorId, int senderId ) {
       
            clinetsHashMap.get(competitorId).ps.println(msg+","+senderId);
+           
+           
        
     }
+       public static void removeOFflinePlayer(int senderId ) {
+      
+         try {
+             clinetsHashMap.get(senderId).ear.close();
+             clinetsHashMap.get(senderId).ps.close();
+             clinetsHashMap.remove(senderId);
+         } catch (IOException ex) {
+            ex.printStackTrace();
+         }
+           
+           
+           
+       
+    }
+      
          
 }

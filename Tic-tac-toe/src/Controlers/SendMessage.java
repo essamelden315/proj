@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlers;
+/*package Controlers;
 
 import Controlers.ScreenAdapter;
 import java.io.DataInputStream;
@@ -22,7 +22,7 @@ import Model.Player;
 /**
  *
  * @author essam elden
- */
+ 
 public class SendMessage {
 
     private static Socket socket;
@@ -80,12 +80,15 @@ public class SendMessage {
         String msg = LOGIN + email + "," + pass;
         send(msg);
         senderId = Integer.parseInt(getAnswer());
+        
 
     }
 
-    public static void playRequest(int competitorId) {
+    public static void playRequest(int competitorId,String senderId) {
+        
         final String PLAY_REQUEST = "playRequest,";
         String msg = PLAY_REQUEST + competitorId + "," + senderId;
+         System.out.println(msg);
         send(msg);
 
     }
@@ -102,4 +105,4 @@ public class SendMessage {
         send(msg);
     }
 
-}
+}*/

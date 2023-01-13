@@ -17,7 +17,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import Controlers.SendMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,7 +90,9 @@ public class LoginBase extends AnchorPane {
             System.out.println("Button: "+loginMessage);
            // SendMessage.login(userNameMessage, passwordMessage);
              //   System.out.println(SendMessage.getAnswer());
-            client=new Clients(this,event);
+            client=new Clients("login",event);
+            
+            client.setLoginBase(this);
             client.sendMessage(loginMessage);
             // ScreenAdapter.setScreen(event, new players_listBase());
             }

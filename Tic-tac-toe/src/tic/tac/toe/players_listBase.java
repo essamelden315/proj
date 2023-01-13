@@ -2,39 +2,33 @@ package tic.tac.toe;
 
 import Controlers.Clients;
 import Controlers.ScreenAdapter;
-
+import Model.Player;
 import java.util.ArrayList;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
-import Controlers.SendMessage;
-import static Controlers.SendMessage.send;
-import Model.Player;
 import javax.swing.JOptionPane;
-import tic.tac.toe.ShowPlayers;
-//import static Controlers.SendMessage.showPlayers;
 
 public class players_listBase extends BorderPane {
 
     protected final Label myLabel;
     protected final AnchorPane anchorPane;
     protected final Button logOut;
-    //protected final Button button;
     protected final ScrollPane scrollPane;
     public final ListView<String> myListView;
+    public  ArrayList<Player> players ;
     String selectedFood;
     ShowPlayers show = new ShowPlayers(this);
     Clients client=new Clients(null,null);
-    public players_listBase(String id) {
+    public players_listBase() {
 
         myLabel = new Label();
         anchorPane = new AnchorPane();
@@ -94,40 +88,28 @@ public class players_listBase extends BorderPane {
 
         anchorPane.getChildren().add(logOut);
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                selectedFood = myListView.getSelectionModel().getSelectedItem().toString();
-                myLabel.setText(selectedFood);
+                int ans =JOptionPane.showConfirmDialog(null, "send a request");
+                if(ans==JOptionPane.YES_OPTION){
+                   Thread thread =new Thread(()->{
+                       client.playRequest(players.get(myListView.getSelectionModel().getSelectedIndex()).getID());
+                   });
+                   thread.start();
+                
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Enter a valid Number",
+                                   "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
     }
 
-    public void show() {
-        ArrayList<Player> items = new ArrayList<>();
-        //.addAll(SendMessage.showPlayers());
-        String name[] = new String[items.size()];
-        for (int i = 0; i < items.size(); i++) {
-            name[i] = items.get(i).getName();
-        }
+   
 
-        myListView.getItems().addAll(name);
-
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                selectedFood = myListView.getSelectionModel().getSelectedItem().toString();
-                myLabel.setText(selectedFood);
-            }
-        });
-
-    }
-
-    void requestDialog(ActionEvent event) {
-        int a = JOptionPane.showConfirmDialog(null, "Send a request?");
-        if (a == JOptionPane.YES_OPTION) {
-            ScreenAdapter.setScreen(event, new GameScreenViewBase());
-        }
-    }
+    
 
 }

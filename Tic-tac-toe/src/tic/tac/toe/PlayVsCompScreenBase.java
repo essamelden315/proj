@@ -700,7 +700,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
         int random;
         Random computerMove = new Random();
         random = computerMove.nextInt(9);
-        if (noOfPlays < 10&&!GameHandler.checkWinner().equals("O")) {
+        if (noOfPlays < 10&&!GameHandler.checkWinner().equals("X")) {
             noOfPlays++;
             if (gameBoard[random].isDisable()){
                 random = computerMove.nextInt(9);
