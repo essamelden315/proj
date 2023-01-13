@@ -18,12 +18,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import tic.tac.toe.GameScreenViewBase;
 import tic.tac.toe.LoginBase;
 import tic.tac.toe.OnlineAndOfflineBase;
+import tic.tac.toe.OnlineGameScreenViewBase;
 import tic.tac.toe.SignUpBase;
 import tic.tac.toe.TicTacToe;
 import tic.tac.toe.players_listBase;
@@ -33,6 +37,12 @@ import tic.tac.toe.players_listBase;
  * @author HP
  */
 public class Clients extends Thread {
+
+    private OnlineGameScreenViewBase onlineGameScreenViewBase;
+
+    public void setOnlineGameScreenViewBase(OnlineGameScreenViewBase onlineGameScreenViewBase) {
+        this.onlineGameScreenViewBase = onlineGameScreenViewBase;
+    }
 
     private Socket mySocket;
     private DataInputStream dataInput; //listen
@@ -46,7 +56,7 @@ public class Clients extends Thread {
     String fromPage;
     boolean work = true;
     static String id;
-
+    
     //Stage stage;
     public void setLoginBase(LoginBase loginBase) {
         this.loginBase = loginBase;
@@ -62,7 +72,8 @@ public class Clients extends Thread {
 
     //Stage stage;
     public Clients(String fromPage, ActionEvent event) {
-        System.out.println("page" + fromPage);
+        //System.out.println("page" + fromPage);
+
         this.event = event;
         this.fromPage = fromPage;
         try {
@@ -80,16 +91,15 @@ public class Clients extends Thread {
                                 readMessageObject();
                             } else {
                                 readMessage();
-
                             }
                             sleep(30);
                         }
                     } catch (IOException ex) {
-                        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     }
                 }
 
@@ -97,7 +107,7 @@ public class Clients extends Thread {
 
             thread.start();
         } catch (IOException ex) {
-            Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -121,32 +131,51 @@ public class Clients extends Thread {
                 else if (serverMsg.contains(",")) {
                     StringTokenizer st = new StringTokenizer(idMsg, ",");
                     String header = st.nextToken();
-                    
+
                     if (header.equals("play")) {
+
                         String competitorId = st.nextToken();
-                        
+
                         int ans = JOptionPane.showConfirmDialog(null, "send a request " + competitorId);
-                        System.out.println(competitorId);
+                        //System.out.println(competitorId);
                         if (ans == JOptionPane.YES_OPTION) {
+                            Parent root = new OnlineGameScreenViewBase();
+                            Scene scene = new Scene(root);
+                            Stage s = new Stage();
+                            s.setScene(scene);
+                            s.show();
+                            s.setResizable(false);
+                            s.setTitle("Tic-Tac-toe Game");
                             acceptPlayRequest(competitorId);
                             ScreenAdapter.setScreen(event, new GameScreenViewBase());
-                        }else if(ans == JOptionPane.NO_OPTION){     
-                            System.out.println(competitorId);
+                        } else if (ans == JOptionPane.NO_OPTION) {
+                            rejectPlayRequest(competitorId);
                         }
-                    }
-                    if(header.equals("invitationAccept")){
-                        ScreenAdapter.setScreen(event, new GameScreenViewBase());
-                    
-                    }
-                    if (header.equals("invitationRejected")){
+                    } else if (header.equals("invitationAccept")) {
+                        Parent root = new OnlineGameScreenViewBase();
+                        Scene scene = new Scene(root);
+                        Stage s = new Stage();
+                        s.setScene(scene);
+                        s.show();
+                        s.setResizable(false);
+                        s.setTitle("Tic-Tac-toe Game");
+
+                    } else if (header.equals("invitationRejected")) {
                         Alert inform = new Alert(Alert.AlertType.CONFIRMATION);
                         inform.setContentText("your invitation is refused");
                         inform.show();
+                    } else if (header.equals("sendGameTurn")) {
+                         int playIndex =Integer.parseInt( st.nextToken());
+                         String competitorId = st.nextToken();
+                         ImageView iv =OnlineGameScreenViewBase.gameBoard[playIndex];
+                         OnlineGameScreenViewBase onlineGame = new OnlineGameScreenViewBase();
+                         onlineGame.gameControl(iv, playIndex);
+                         
                     }
 
                 } else if (!idMsg.equals("-1")) {
-                    id=idMsg;
-                    System.out.println("Wasalt");
+                    id = idMsg;
+                    //System.out.println("Wasalt");
                     ScreenAdapter.setScreen(event, new players_listBase());
                 } else if (idMsg.equals("-1")) {
                     loginBase.pane.setVisible(true);
@@ -163,7 +192,7 @@ public class Clients extends Thread {
         ObjectInputStream inStream = new ObjectInputStream(mySocket.getInputStream());;
         playerListBase.players = (ArrayList<Player>) inStream.readObject();
         String name[] = new String[playerListBase.players.size()];
-        System.out.println("OnlineObject");
+        //System.out.println("OnlineObject");
         for (int i = 0; i < playerListBase.players.size(); i++) {
             name[i] = playerListBase.players.get(i).getName();
         }
@@ -171,7 +200,7 @@ public class Clients extends Thread {
             @Override
             public void run() {
                 // System.out.println("Return "+returnVal)
-                System.out.println("Wasalt");
+                //System.out.println("Wasalt");
                 // ScreenAdapter.setScreen(event, );
                 playerListBase.myListView.getItems().addAll(name);
 
@@ -181,11 +210,11 @@ public class Clients extends Thread {
     }
 
     public void sendMessage(String clientMsg) {
-        System.out.println(idMsg);
+        // System.out.println(idMsg);
 
         //System.out.print("Client said: " + clientMsg+idMsg);
         if (fromPage.equals("show")) {
-            String sendMsg = clientMsg + idMsg;
+            String sendMsg = clientMsg + id;
             dataOutput.println(sendMsg);
         } else {
             dataOutput.println(clientMsg);
@@ -196,14 +225,11 @@ public class Clients extends Thread {
     public void logout(ActionEvent event) {
         try {
             final String LOGOUT = "logout,";
-            String msg = LOGOUT + idMsg;
-            System.out.println(idMsg);
-            sendMessage(msg);
-            //thread.stop();
-
-            //dataInput.close();
-            //dataOutput.close();
-            // mySocket.close();
+            sendMessage(LOGOUT);
+            thread.stop();
+            dataInput.close();
+            dataOutput.close();
+            mySocket.close();
             ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         } catch (Exception ex) {
             Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,63 +240,30 @@ public class Clients extends Thread {
 
         final String PLAY_REQUEST = "playRequest,";
         String msg = PLAY_REQUEST + competitorId + "," + id;
-        System.out.println(msg);
+        //System.out.println(msg);
         sendMessage(msg);
 
     }
 
     public void acceptPlayRequest(String competitorId) {
-        final String ACCEPT_PLAY_REQUEST = "acceptPlayRequest,";
+        final String ACCEPT_PLAY_REQUEST = "invitationAccept,";
         String msg = ACCEPT_PLAY_REQUEST + competitorId + "," + id;
         sendMessage(msg);
     }
 
     public void rejectPlayRequest(String competitorId) {
-        final String REJECT_PLAY_REQUEST = "rejectPlayRequest,";
+        final String REJECT_PLAY_REQUEST = "invitationRejected,";
         String msg = REJECT_PLAY_REQUEST + competitorId + "," + id;
         sendMessage(msg);
     }
 
-    public void listenForRequest() {
-        Thread thread = new Thread(() -> {
-            while (true) {
-
-            }
-
-        });
+    public void sendMyGame(String competitorId, String playIndex) {
+        final String GAME_TURN = "gameTurn,";
+        String msg = GAME_TURN + competitorId + "," + id + "," + playIndex;
+        sendMessage(msg);
 
     }
 
-    /*public void showPlayers() {
-        ObjectInputStream inStream = null;
-        try {
-            ArrayList<Player> players = new ArrayList<>();
-            inStream = new ObjectInputStream(mySocket.getInputStream());
-            players = (ArrayList<Player>) inStream.readObject();
-            String name[] = new String[players.size()];
-            for (int i = 0; i < players.size(); i++) {
-                name[i] = players.get(i).getName();
-            }   Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    // System.out.println("Return "+returnVal)
-                    System.out.println("Wasalt");
-                    // ScreenAdapter.setScreen(event, );
-                    
-                    playerList.myListView.getItems().addAll(name);
-                    
-                }
-            });
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                inStream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }*/
+   
+
 }

@@ -1,6 +1,7 @@
 package tic.tac.toe;
 
 import Controlers.GameHandler;
+import Controlers.GameRecord;
 import Controlers.ScreenAdapter;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -95,9 +96,10 @@ public class GameScreenViewBase extends AnchorPane {
     static Queue<ImageView> recordingInOrder;
     boolean recoeding;
     int size;
+    GameRecord gameRecord;
 
     public GameScreenViewBase() {
-
+        gameRecord = new GameRecord();
         recoeding = false;
         recordingInOrder = new LinkedList<>();
         a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -700,8 +702,10 @@ public class GameScreenViewBase extends AnchorPane {
         }
         i.setDisable(true);
         GameHandler.board[index] = turn;
+        gameRecord.addPlay(index+"");
         System.out.println(GameHandler.checkWinner());
         if (GameHandler.checkWinner().equals("O") || GameHandler.checkWinner().equals("X")) {
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
             printWinerOnScreen();
             if (recoeding) {
                 playRecord(event);
@@ -722,6 +726,7 @@ public class GameScreenViewBase extends AnchorPane {
                 a.show();
             }
         } else if (noOfPlays == 10) {
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
             int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");
             if (a == JOptionPane.YES_OPTION) {
                 ScreenAdapter.setScreen(event, new GameScreenViewBase());
@@ -742,14 +747,13 @@ public class GameScreenViewBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 for (ImageView b : gameBoard) {
-            b.setImage(null);
-        }
+                    b.setImage(null);
+                }
             }
         }));
         ti.setCycleCount(1);
         ti.play();
-        
-        
+
         size = recordingInOrder.size();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
@@ -768,8 +772,8 @@ public class GameScreenViewBase extends AnchorPane {
 
                 }
                 size--;
-                if(size==0){
-                a.show();
+                if (size == 0) {
+                    a.show();
                 }
 
             }
@@ -792,6 +796,6 @@ public class GameScreenViewBase extends AnchorPane {
                 ScreenAdapter.setScreen(event, new OfflineModesBase());
             }
         });
-        
+
     }
 }

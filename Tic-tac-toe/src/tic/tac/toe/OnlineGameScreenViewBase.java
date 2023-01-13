@@ -2,11 +2,14 @@ package tic.tac.toe;
 
 import tic.tac.toe.*;
 import Controlers.GameHandler;
+import Controlers.GameHandler;
+import Controlers.GameRecord;
 import Controlers.GameRecord;
 import Controlers.ScreenAdapter;
+import Controlers.ScreenAdapter;
+import com.sun.deploy.util.SessionState;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -34,8 +37,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
-public class PlayVsCompScreenBase extends AnchorPane {
-    GameRecord gameRecord;
+public class OnlineGameScreenViewBase extends AnchorPane {
+
     private boolean gameTurn;
     protected final ImageView myBackground;
     protected final GridPane gridPane;
@@ -92,14 +95,15 @@ public class PlayVsCompScreenBase extends AnchorPane {
     protected final ImageView exitImage;
     //protected final Button ExitBtn;
     private Stage stage;
-    ImageView[] gameBoard;
+    public static ImageView[] gameBoard;
     private int noOfPlays;
     Alert a;
     static Queue<ImageView> recordingInOrder;
     boolean recoeding;
     int size;
+    GameRecord gameRecord;
 
-    public PlayVsCompScreenBase() {
+    public OnlineGameScreenViewBase() {
         gameRecord = new GameRecord();
         recoeding = false;
         recordingInOrder = new LinkedList<>();
@@ -319,7 +323,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
                 recordGame(imageLocation1);
             }
 
-            gameControl(event, imageLocation1, 0);
+            gameControl( imageLocation1, 0);
         });
 
         GridPane.setColumnIndex(location2, 2);
@@ -338,7 +342,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation2);
             }
-            gameControl(event, imageLocation2, 1);
+            gameControl( imageLocation2, 1);
         });
 
         GridPane.setColumnIndex(location3, 4);
@@ -356,7 +360,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation3);
             }
-            gameControl(event, imageLocation3, 2);
+            gameControl( imageLocation3, 2);
         });
 
         GridPane.setRowIndex(location4, 2);
@@ -374,7 +378,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation4);
             }
-            gameControl(event, imageLocation4, 3);
+            gameControl(imageLocation4, 3);
         });
 
         GridPane.setColumnIndex(location5, 2);
@@ -393,7 +397,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation5);
             }
-            gameControl(event, imageLocation5, 4);
+            gameControl( imageLocation5, 4);
         });
 
         GridPane.setColumnIndex(location6, 4);
@@ -412,7 +416,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation6);
             }
-            gameControl(event, imageLocation6, 5);
+            gameControl( imageLocation6, 5);
         });
 
         GridPane.setRowIndex(location7, 4);
@@ -429,7 +433,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation7);
             }
-            gameControl(event, imageLocation7, 6);
+            gameControl( imageLocation7, 6);
         });
 
         GridPane.setColumnIndex(location8, 2);
@@ -448,7 +452,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation8);
             }
-            gameControl(event, imageLocation8, 7);
+            gameControl( imageLocation8, 7);
         });
 
         GridPane.setColumnIndex(location9, 4);
@@ -467,7 +471,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation9);
             }
-            gameControl(event, imageLocation9, 8);
+            gameControl( imageLocation9, 8);
         });
 
         framePlayer2.setArcHeight(41.0);
@@ -496,13 +500,13 @@ public class PlayVsCompScreenBase extends AnchorPane {
         labelPlayer1.getStyleClass().add("labelGame");
         labelPlayer1.setLayoutX(65.0);
         labelPlayer1.setLayoutY(108.0);
-        labelPlayer1.setText("Computer");
-        labelPlayer1.setFont(new Font("Agency FB Bold", 24.0));
+        labelPlayer1.setText("Player 1");
+        labelPlayer1.setFont(new Font("Agency FB Bold", 32.0));
 
         labelPlayer2.getStyleClass().add("labelGame");
         labelPlayer2.setLayoutX(635.0);
         labelPlayer2.setLayoutY(109.0);
-        labelPlayer2.setText("Player");
+        labelPlayer2.setText("Player 2");
         labelPlayer2.setFont(new Font("Agency FB Bold", 32.0));
 
         label.getStyleClass().add("labelScore");
@@ -631,7 +635,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
 
     }
 
-    void printWinerOnScreen() { // print winer played games with differnt style
+    public void printWinerOnScreen() { // print winer played games with differnt style
         for (int i = 0; i < gameBoard.length; i++) {
             gameBoard[i].setDisable(true);
         }
@@ -688,100 +692,39 @@ public class PlayVsCompScreenBase extends AnchorPane {
         }
     }
 
-    void gameControl(MouseEvent event, ImageView i, int index) {
+    public void gameControl(ImageView i, int index) {
         recordImage.setImage(null);
         String turn;
-
-        i.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
         noOfPlays++; // to make sure its not draw when the index is less than 10
-
-        turn = "X";
+        if (gameTurn) {
+            i.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+            gameTurn = false;
+            turn = "X";
+        } else {
+            i.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+            gameTurn = true;
+            turn = "O";
+        }
         i.setDisable(true);
         GameHandler.board[index] = turn;
-        gameRecord.addPlay(""+index);
-        int random;
-        Random computerMove = new Random();
-        random = computerMove.nextInt(9);
-        if (noOfPlays < 10&&!GameHandler.checkWinner().equals("X")) {
-            noOfPlays++;
-            if (gameBoard[random].isDisable()){
-                random = computerMove.nextInt(9);
-                while (gameBoard[random].isDisable()) {
-                    random = computerMove.nextInt(9);
-                }
-            }
-            gameBoard[random].setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
-            recordGame(gameBoard[random]);
-            turn = "O";
-            gameBoard[random].setDisable(true);
-            GameHandler.board[random] = turn;
-             gameRecord.addPlay(random+"");
+        gameRecord.addPlay(index + "");
 
-        }
-
-        System.out.println(GameHandler.checkWinner());
         if (GameHandler.checkWinner().equals("O") || GameHandler.checkWinner().equals("X")) {
-            gameRecord.saveRecord("gameRecordVsComp.txt");
-           
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
             printWinerOnScreen();
-            if (recoeding) {
-                playRecord(event);
-            } else {
-                a.setTitle("Play again ?");
-                a.setContentText(GameHandler.checkWinner() + " win Play again ?");
 
-                ButtonType buttonPlayAgain = new ButtonType("Play again");
-                a.getButtonTypes().setAll(buttonPlayAgain);
-                a.setOnCloseRequest(e -> {
-                    ButtonType result = a.getResult();
-                    if (result != null && result == buttonPlayAgain) {
-                        ScreenAdapter.setScreen(event, new PlayVsCompScreenBase());
-                    } else {
-                        ScreenAdapter.setScreen(event, new OfflineModesBase());
-                    }
-                });
-                Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-             a.show();
-                
-            }
-                
-            
-        }));
-        ti.setCycleCount(1);
-        ti.play();
-               
-            }
         } else if (noOfPlays == 10) {
-            gameRecord.saveRecord("gameRecordVsComp.txt");
-             
-            Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-               int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");
-            if (a == JOptionPane.YES_OPTION) {
-                ScreenAdapter.setScreen(event, new PlayVsCompScreenBase());
-                
-            }
-                
-            }
-        }));
-        ti.setCycleCount(1);
-        ti.play();
-            
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
 
         }
-         
-        event.consume();
 
     }
 
-    void recordGame(ImageView iv) { // Save the played X and O in Order  using Queue
+    public void recordGame(ImageView iv) { // Save the played X and O in Order  using Queue
         recordingInOrder.add(iv);
     }
 
-    void playRecord(MouseEvent event) {    //Show the saved plays 
+    public void playRecord(MouseEvent event) {    //Show the saved plays 
         gameTurn = false;
         Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
             @Override
@@ -803,11 +746,11 @@ public class PlayVsCompScreenBase extends AnchorPane {
             public void handle(ActionEvent event) {
                 iv = recordingInOrder.remove();
                 if (gameTurn) {
-                    iv.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
+                    iv.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
                     gameTurn = false;
 
                 } else {
-                    iv.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+                    iv.setImage(new Image(getClass().getResource("/images/circle.png").toExternalForm()));
                     gameTurn = true;
 
                 }
@@ -821,7 +764,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
         timeline.setCycleCount(size);
         timeline.play();
 
-      
+        System.err.println(recordingInOrder.size());
 
         a.setTitle("Play again ?");
         a.setContentText(GameHandler.checkWinner() + " win Play again ?");
@@ -831,7 +774,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
         a.setOnCloseRequest(e -> {
             ButtonType result = a.getResult();
             if (result != null && result == buttonPlayAgain) {
-                ScreenAdapter.setScreen(event, new PlayVsCompScreenBase());
+                ScreenAdapter.setScreen(event, new OnlineGameScreenViewBase());
             } else {
                 ScreenAdapter.setScreen(event, new OfflineModesBase());
             }
