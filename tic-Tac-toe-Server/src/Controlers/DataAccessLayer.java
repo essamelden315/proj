@@ -5,6 +5,10 @@
  */
 package Controlers;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 import Model.Player;
 import tic.tac.toe.server.*;
 import java.sql.*;
@@ -17,10 +21,17 @@ import javax.swing.JOptionPane;
  *
  * @author essam elden
  */
+<<<<<<< HEAD
 public class DataAccessLayer {
 
     public static int check(String email, String pass, String ip) throws Exception {
         int id = -1;
+=======
+public class DataAccessLayer  {
+   public int check (String email ,String pass , String ip) throws Exception
+    {
+        int id =-1;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
        // PreparedStatement prestate = conn.prepareStatement("select id from account where NAME=? and PASS =?");
@@ -112,6 +123,7 @@ public class DataAccessLayer {
         } catch (Exception ex) {
             Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
         
     }
 
@@ -120,3 +132,50 @@ public class DataAccessLayer {
 }
 
 
+=======
+        catch(Exception ex){
+        JOptionPane.showMessageDialog(null,"Error");
+        }
+       return ip;
+        } 
+    public static int addPlayer(Player p, String ip , String state) throws ClassNotFoundException, SQLException{
+        int id=1 ;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","root","root");
+        Statement stmt=conn.createStatement();
+        ResultSet t= stmt.executeQuery("select * From ACCOUNT"); 
+        while(t.next()){
+            if (id<t.getInt(1)){
+            id = t.getInt(1);
+                }
+            }
+                id++;
+        stmt.executeUpdate("INSERT INTO ACCOUNT (ID,NAME,EMAIL,PASS,IP,STATE)" +
+                            "VALUES ("+id+",'"+p.getName()+"','"+p.getEmail()+"','"+p.getPassword()+"','"+ip+"','"+state+"') ");    
+        stmt.close();
+        conn.close();       
+            return id ;
+    }
+    
+    public static int logout(int id){
+      int retval=0;
+        try {         
+           Class.forName("oracle.jdbc.driver.OracleDriver");
+           Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" ,"root","root");
+           PreparedStatement prestate = conn.prepareStatement("update account set state =? where id ="+id);
+           prestate.setString(1, "offline");
+           prestate.executeQuery();
+           retval=1;
+             } catch (Exception ex) {
+           Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return retval;
+    }
+}
+
+
+/**
+ *
+ * @author HP
+ */
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1

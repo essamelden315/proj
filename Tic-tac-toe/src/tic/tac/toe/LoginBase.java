@@ -1,8 +1,15 @@
 package tic.tac.toe;
 
 
+<<<<<<< HEAD
 import Controlers.Clients;
+=======
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 import Controlers.ScreenAdapter;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.Socket;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,9 +21,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+<<<<<<< HEAD
 
 import javafx.event.ActionEvent;
 
+=======
+import javax.swing.JOptionPane;
+import sendmessage.SendMessage;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 public class LoginBase extends AnchorPane {
 
     protected final Button btnlogin;
@@ -24,6 +36,7 @@ public class LoginBase extends AnchorPane {
     protected final Button signupscreen;
     protected final Text text;
     protected final Text text0;
+<<<<<<< HEAD
     public final PasswordField txtpw;
     public final Pane pane;
     protected final FlowPane flowPane;
@@ -39,6 +52,14 @@ public class LoginBase extends AnchorPane {
     String email , pass;
     int a;*/
 
+=======
+    protected final PasswordField txtpw;
+    Socket socket;
+    DataInputStream ear;
+    PrintStream mouth;
+    String email , pass;
+    int a;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
     public LoginBase() {
         
         btnlogin = new Button();
@@ -70,6 +91,7 @@ public class LoginBase extends AnchorPane {
         btnlogin.getStylesheets().add("/css/GameStyle.css");
         btnlogin.setText("Login");
         btnlogin.setOnAction((event)->{
+<<<<<<< HEAD
             if(txtusername.getText().trim().isEmpty() || txtpw.getText().trim().isEmpty() )
             {
                  labelError.setText("Enter Your Username and Password");
@@ -89,6 +111,17 @@ public class LoginBase extends AnchorPane {
             client.sendMessage(loginMessage);
             // ScreenAdapter.setScreen(event, new players_listBase());
             }
+=======
+              
+             email=txtusername.getText();
+             pass=txtpw.getText();
+             SendMessage.login(email, pass);
+             String ans = SendMessage.getAnswer();
+             if(ans.equals("3"))
+         ScreenAdapter.setScreen(event, new players_listBase());
+             else
+                 JOptionPane.showConfirmDialog(null,"Wrong Email or pass");  
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
         });
 
         txtusername.setAlignment(javafx.geometry.Pos.CENTER);

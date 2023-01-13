@@ -1,5 +1,6 @@
 package tic.tac.toe;
 
+<<<<<<< HEAD
 import Controlers.Clients;
 import Controlers.ScreenAdapter;
 import Model.Player;
@@ -8,11 +9,16 @@ import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+=======
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+<<<<<<< HEAD
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -32,6 +38,18 @@ public class players_listBase extends BorderPane {
     //ShowPlayers show = new ShowPlayers(this);
     public ArrayList<Player> players;
     Clients client;
+=======
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
+import sendmessage.SendMessage;
+public  class players_listBase extends BorderPane {
+
+    protected final Label myLabel;
+    protected final AnchorPane anchorPane;
+    protected final Button button;
+    protected final ScrollPane scrollPane;
+    protected final ListView myListView;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 
     public players_listBase() {
         players = new ArrayList<>();
@@ -44,6 +62,15 @@ public class players_listBase extends BorderPane {
         client.setPlayerListBase(this);
         client.sendMessage("show,");
 
+<<<<<<< HEAD
+=======
+        myLabel = new Label();
+        anchorPane = new AnchorPane();
+        button = new Button();
+        scrollPane = new ScrollPane();
+        myListView = new ListView();
+
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
@@ -68,6 +95,7 @@ public class players_listBase extends BorderPane {
         anchorPane.setPrefHeight(80.0);
         anchorPane.setPrefWidth(793.0);
 
+<<<<<<< HEAD
         logOut.setLayoutX(662.0);
         logOut.setLayoutY(4.0);
         logOut.setMnemonicParsing(false);
@@ -79,6 +107,18 @@ public class players_listBase extends BorderPane {
         logOut.setOnAction((ActionEvent event) -> {
 
             client.logout(event);
+=======
+        button.setLayoutX(662.0);
+        button.setLayoutY(4.0);
+        button.setMnemonicParsing(false);
+        button.setPrefHeight(49.0);
+        button.setPrefWidth(117.0);
+        button.getStyleClass().add("onbackBtn");
+        button.getStylesheets().add("/css/GameStyle.css");
+        button.setText("Log Out");
+        button.setOnAction((ActionEvent event) -> {
+           SendMessage.logout(event);
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
         });
         setBottom(anchorPane);
 
@@ -94,6 +134,7 @@ public class players_listBase extends BorderPane {
         scrollPane.setContent(myListView);
         setCenter(scrollPane);
 
+<<<<<<< HEAD
         anchorPane.getChildren().add(logOut);
         System.out.println("befoooooooooor");
         myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -117,4 +158,9 @@ public class players_listBase extends BorderPane {
 
     }
 
+=======
+        anchorPane.getChildren().add(button);
+
+    }
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 }

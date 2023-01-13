@@ -19,7 +19,11 @@
    <bottom>
       <AnchorPane prefHeight="80.0" prefWidth="793.0" BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD
             <Button fx:id="backBtn" layoutX="662.0" layoutY="4.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="117.0" styleClass="onbackBtn" stylesheets="@../css/GameStyle.css" text="Log Out" />
+=======
+            <Button layoutX="662.0" layoutY="4.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="117.0" styleClass="onbackBtn" stylesheets="@../css/GameStyle.css" text="Log Out" />
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
          </children>
       </AnchorPane>
    </bottom>

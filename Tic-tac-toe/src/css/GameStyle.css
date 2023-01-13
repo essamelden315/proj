@@ -96,7 +96,11 @@
 -fx-background-color: transparent;
 -fx-font-size: 20px;
 -fx-font-weight: bold;
+<<<<<<< HEAD
 -fx-text-fill: black;
+=======
+-fx-text-fill: white;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 }
 
 .list-view {

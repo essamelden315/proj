@@ -5,9 +5,19 @@
  */
 package tic.tac.toe.server;
 
+<<<<<<< HEAD
 
 
 
+=======
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,6 +44,7 @@ public class TicTacToeServer extends Application {
      */
 
     public static void main(String[] args) {
+<<<<<<< HEAD
 
        launch(args);  
       //new Server();
@@ -41,4 +52,20 @@ public class TicTacToeServer extends Application {
     
 
 
+=======
+        launch(args);
+        
+    }
+   
+
+    
+    void sendMessageToAll(String msg)
+    {
+        /*for(int i=0 ; i<clientsVector.size() ; i++)
+        {
+            clientsVector.get(i).prints.println(msg);
+        }*/
+
+    }
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 }

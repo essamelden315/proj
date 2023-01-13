@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 package Model;
+<<<<<<< HEAD
 
 import java.io.Serializable;
+=======
+>>>>>>> df36f219b6f4c368a3022fdbaa1f3e434c5899b1
 
 /**
  *
