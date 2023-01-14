@@ -14,8 +14,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import javafx.event.ActionEvent;
+import javafx.stage.Window;
+
 
 public class LoginBase extends AnchorPane {
 
@@ -186,6 +187,10 @@ public class LoginBase extends AnchorPane {
         pane.getChildren().add(flowPane);
         getChildren().add(pane);
 
+    }
+
+    public Window getWindow() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

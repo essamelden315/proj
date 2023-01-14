@@ -91,18 +91,47 @@
 }
 .scroll-pane {
    -fx-background-color: transparent;
+    /*-fx-opacity: 0;*/
+   -fx-base: transparent;
 }
-.list-cell {
+/*.list-cell {
 -fx-background-color: transparent;
--fx-font-size: 20px;
+-fx-cell-hover-color: #0093ff;
+border-style: solid;
+border-color: #0B0718;
+-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-selection-bar;
+-fx-background-insets: 0, 1, 2;
+-fx-font-size: 30px;
 -fx-font-weight: bold;
--fx-text-fill: black;
+-fx-background: -fx-accent;
+-fx-text-fill: white;
 }
-
 .list-view {
-    -fx-background-color: transparent;
+     -fx-opacity: 0;
+    
+} */
+.list-cell{
+    -fx-alignment: center ;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: #3E1052;
+    -fx-border-style: solid;
+    -fx-border-color: #FF66CC;
+    -fx-opacity: 1;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
+.list-view .list-cell:even {
+    -fx-background-color: #313E6B ;
+    -fx-border-style: solid;
+    -fx-border-color: #FF66CC;
+    -fx-opacity: 1;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
 
 .bckBtn{
    -fx-background-color: #ffcc66;

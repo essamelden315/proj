@@ -72,7 +72,7 @@ public class SignUpBase extends AnchorPane {
         txtemail.setLayoutY(123.0);
         txtemail.setOpacity(0.74);
         txtemail.setPromptText("Email");
-        txtemail.setStyle("-fx-alignment: center; -fx-font: #000000;");
+        txtemail.setStyle("-fx-alignment: center; ");
         txtemail.getStyleClass().add("text-signup");
         txtemail.getStylesheets().add("/css/GameStyle.css");
         
@@ -99,6 +99,7 @@ public class SignUpBase extends AnchorPane {
             /*showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                 "Please enter your name");
             return;*/
+
              labelError.setText("Please Enter Username used(a-zA-Z0-9)");
              pane.setVisible(true);
         }
@@ -115,9 +116,12 @@ public class SignUpBase extends AnchorPane {
           
            
         }
-        /*else if  (!email.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)$")){
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                "Please enter a correct email");}*/
+
+        else if  (!email.matches("^[\\w!#$%&amp;'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&amp;'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{1,6}$")){
+            labelError.setText("Please Enter a valid e mail");
+                pane.setVisible(true);
+        }
+
         else{
             String msg;
             msg= "signup,";

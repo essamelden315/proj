@@ -35,6 +35,7 @@ import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
 public class PlayVsCompScreenBase extends AnchorPane {
+
     GameRecord gameRecord;
     private boolean gameTurn;
     protected final ImageView myBackground;
@@ -101,6 +102,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
 
     public PlayVsCompScreenBase() {
         gameRecord = new GameRecord();
+
         recoeding = false;
         recordingInOrder = new LinkedList<>();
         a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -698,13 +700,15 @@ public class PlayVsCompScreenBase extends AnchorPane {
         turn = "X";
         i.setDisable(true);
         GameHandler.board[index] = turn;
-        gameRecord.addPlay(""+index);
+
+        gameRecord.addPlay("" + index);
         int random;
         Random computerMove = new Random();
         random = computerMove.nextInt(9);
-        if (noOfPlays < 10&&!GameHandler.checkWinner().equals("X")) {
+        if (noOfPlays < 10 && !GameHandler.checkWinner().equals("X")) {
+
             noOfPlays++;
-            if (gameBoard[random].isDisable()){
+            if (gameBoard[random].isDisable()) {
                 random = computerMove.nextInt(9);
                 while (gameBoard[random].isDisable()) {
                     random = computerMove.nextInt(9);
@@ -715,14 +719,14 @@ public class PlayVsCompScreenBase extends AnchorPane {
             turn = "O";
             gameBoard[random].setDisable(true);
             GameHandler.board[random] = turn;
-             gameRecord.addPlay(random+"");
+            gameRecord.addPlay(random + "");
 
         }
 
         System.out.println(GameHandler.checkWinner());
         if (GameHandler.checkWinner().equals("O") || GameHandler.checkWinner().equals("X")) {
             gameRecord.saveRecord("gameRecordVsComp.txt");
-           
+
             printWinerOnScreen();
             if (recoeding) {
                 playRecord(event);
@@ -741,38 +745,35 @@ public class PlayVsCompScreenBase extends AnchorPane {
                     }
                 });
                 Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-             a.show();
-                
-            }
-                
-            
-        }));
-        ti.setCycleCount(1);
-        ti.play();
-               
+                    @Override
+                    public void handle(ActionEvent event) {
+                        a.show();
+
+                    }
+
+                }));
+                ti.setCycleCount(1);
+                ti.play();
+
             }
         } else if (noOfPlays == 10) {
             gameRecord.saveRecord("gameRecordVsComp.txt");
-             
+
             Timeline ti = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-               int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");
-            if (a == JOptionPane.YES_OPTION) {
-                ScreenAdapter.setScreen(event, new PlayVsCompScreenBase());
-                
-            }
-                
-            }
-        }));
-        ti.setCycleCount(1);
-        ti.play();
-            
+                @Override
+                public void handle(ActionEvent e) {
+                    int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");
+                    if (a == JOptionPane.YES_OPTION) {
+                        ScreenAdapter.setScreen(event, new PlayVsCompScreenBase());
+
+                    }
+
+                }
+            }));
+            ti.setCycleCount(1);
+            ti.play();
 
         }
-         
         event.consume();
 
     }
@@ -808,6 +809,7 @@ public class PlayVsCompScreenBase extends AnchorPane {
 
                 } else {
                     iv.setImage(new Image(getClass().getResource("/images/close.png").toExternalForm()));
+
                     gameTurn = true;
 
                 }
@@ -820,8 +822,6 @@ public class PlayVsCompScreenBase extends AnchorPane {
         }));
         timeline.setCycleCount(size);
         timeline.play();
-
-      
 
         a.setTitle("Play again ?");
         a.setContentText(GameHandler.checkWinner() + " win Play again ?");

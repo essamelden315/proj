@@ -14,14 +14,15 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javax.swing.JOptionPane;
-import tic.tac.toe.GameScreenViewBase;
 import tic.tac.toe.LoginBase;
 import tic.tac.toe.OnlineAndOfflineBase;
 import tic.tac.toe.OnlineGameScreenViewBase;
@@ -39,7 +40,6 @@ public class Clients extends Thread {
     public void setOnlineGameScreenViewBase(OnlineGameScreenViewBase onlineGameScreenViewBase) {
         this.onlineGameScreenViewBase = onlineGameScreenViewBase;
     }
-
     private Socket mySocket;
     private DataInputStream dataInput; //listen
     private PrintStream dataOutput;
@@ -76,6 +76,7 @@ public class Clients extends Thread {
         try {
             mySocket = new Socket("127.0.0.1", 5006);
 
+
             dataInput = new DataInputStream(mySocket.getInputStream()); //listen
             dataOutput = new PrintStream(mySocket.getOutputStream()); //talk
             //sendMessage("login.nada.nada");
@@ -97,6 +98,7 @@ public class Clients extends Thread {
                         ex.printStackTrace();
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
+
                     }
                 }
 
@@ -219,6 +221,7 @@ public class Clients extends Thread {
 
     }
 
+
     public void logout(ActionEvent event) {
         try {
             final String LOGOUT = "logout,";
@@ -264,3 +267,4 @@ public class Clients extends Thread {
     }
 
 }
+

@@ -51,7 +51,8 @@ public class MessageHandler extends Thread {
             try {
 
                 read = dis.readLine();
-                System.out.println(read);
+                System.out.println("inside server " + read);
+
                 StringTokenizer st = new StringTokenizer(read, ",");
 
                 msg = st.nextToken();
@@ -67,11 +68,8 @@ public class MessageHandler extends Thread {
                     ps.println(result);
                 } else if (msg.equals("signup")) {
                     String name = st.nextToken();
-
                     String email = st.nextToken();
-
                     String pass = st.nextToken();
-
                     result = DAL.addPlayer(name, email, pass);
                     ps.println(result);
                 } else if (msg.equals("logout")) {
@@ -102,11 +100,11 @@ public class MessageHandler extends Thread {
                     int senderId = Integer.parseInt(st.nextToken());
                     RequestHandler.sendMessage("invitationAccept", competitorId, senderId);
 
-                }else if(msg.equals("gameTurn")){
-                     int competitorId = Integer.parseInt(st.nextToken());
+                } else if (msg.equals("gameTurn")) {
+                    int competitorId = Integer.parseInt(st.nextToken());
                     int senderId = Integer.parseInt(st.nextToken());
                     int gameIndex = Integer.parseInt(st.nextToken());
-                    RequestHandler.sendMessage("myGameTurn,"+gameIndex, competitorId, senderId);
+                    RequestHandler.sendMessage("myGameTurn," + gameIndex, competitorId, senderId);
 
                 }
 
