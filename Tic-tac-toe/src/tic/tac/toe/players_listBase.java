@@ -1,10 +1,8 @@
 package tic.tac.toe;
 
 import Controlers.Clients;
-import Controlers.ScreenAdapter;
 import Model.Player;
 import java.util.ArrayList;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javax.swing.JOptionPane;
@@ -25,11 +22,8 @@ public class players_listBase extends BorderPane {
     protected final Label myLabel;
     protected final AnchorPane anchorPane;
     protected final Button logOut;
-    //protected final Button button;
     protected final ScrollPane scrollPane;
     public final ListView<String> myListView;
-    String selectedFood;
-    //ShowPlayers show = new ShowPlayers(this);
     public ArrayList<Player> players;
     Clients client;
 
@@ -40,7 +34,7 @@ public class players_listBase extends BorderPane {
         logOut = new Button();
         scrollPane = new ScrollPane();
         myListView = new ListView<>();
-        client = new Clients("show",new ActionEvent());
+        client = new Clients("show", null);
         client.setPlayerListBase(this);
         client.sendMessage("show,");
 
@@ -77,7 +71,6 @@ public class players_listBase extends BorderPane {
         logOut.getStylesheets().add("/css/GameStyle.css");
         logOut.setText("Log Out");
         logOut.setOnAction((ActionEvent event) -> {
-
             client.logout(event);
         });
         setBottom(anchorPane);

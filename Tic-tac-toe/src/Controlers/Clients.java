@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import tic.tac.toe.GameScreenViewBase;
 import tic.tac.toe.LoginBase;
@@ -117,25 +116,22 @@ public class Clients extends Thread {
                 } else if (idMsg.equals("-12")) {
                     signupBase.pane.setVisible(true);
                     signupBase.labelError.setText("Email is Invalid");
-                } //System.out.println("Return "+returnVal);
-                else if (serverMsg.contains(",")) {
+                } else if (serverMsg.contains(",")) {
                     StringTokenizer st = new StringTokenizer(idMsg, ",");
                     String header = st.nextToken();
 
                     if (header.equals("play")) {
 
                         String competitorId = st.nextToken();
-
                         int ans = JOptionPane.showConfirmDialog(null, "send a request " + competitorId);
-                        //System.out.println(competitorId);
                         if (ans == JOptionPane.YES_OPTION) {
                             acceptPlayRequest(competitorId);
-                            ScreenAdapter.setScreen(event, new GameScreenViewBase());
                         } else if (ans == JOptionPane.NO_OPTION) {
                             rejectPlayRequest(competitorId);
                         }
                     }
                     if (header.equals("invitationAccept")) {
+
                         ScreenAdapter.setScreen(event, new GameScreenViewBase());
 
                     }
@@ -198,10 +194,10 @@ public class Clients extends Thread {
         try {
             final String LOGOUT = "logout,";
             sendMessage(LOGOUT);
-            thread.stop();
-            dataInput.close();
-            dataOutput.close();
-            mySocket.close();
+            //thread.stop();
+            //dataInput.close();
+            //dataOutput.close();
+            //mySocket.close();
             ScreenAdapter.setScreen(event, new OnlineAndOfflineBase());
         } catch (Exception ex) {
             Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);

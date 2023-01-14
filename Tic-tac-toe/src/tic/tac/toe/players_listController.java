@@ -30,17 +30,6 @@ public class players_listController implements Initializable {
     String selectedFood;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         String food[]={"pizza","pasta","cheken"};
-        myListView.getItems().addAll(food);
         
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-               selectedFood = myListView.getSelectionModel().getSelectedItem();
-               myLabel.setText(selectedFood);
-            }
-            
-        
-        });
     }    
 }
