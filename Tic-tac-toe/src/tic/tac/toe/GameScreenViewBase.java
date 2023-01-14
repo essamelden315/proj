@@ -2,12 +2,15 @@ package tic.tac.toe;
 
 import Controlers.GameHandler;
 import Controlers.ScreenAdapter;
+import fxmlFiles.Video;
 import java.util.LinkedList;
 import java.util.Queue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -474,18 +477,20 @@ public class GameScreenViewBase extends AnchorPane {
         framePlayer2.setHeight(162.0);
         framePlayer2.setLayoutX(605.0);
         framePlayer2.setLayoutY(98.0);
-        framePlayer2.setOpacity(0.75);
+        framePlayer2.setOpacity(1);
         framePlayer2.setStroke(javafx.scene.paint.Color.WHITE);
         framePlayer2.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         framePlayer2.setWidth(144.0);
+       
 
         framePlayer1.setArcHeight(41.0);
         framePlayer1.setArcWidth(41.0);
-        framePlayer1.setBlendMode(javafx.scene.effect.BlendMode.LIGHTEN);
-        framePlayer1.setFill(javafx.scene.paint.Color.valueOf("#c6448b"));
+        framePlayer1.setBlendMode(javafx.scene.effect.BlendMode.SCREEN);
+        framePlayer1.setFill(javafx.scene.paint.Color.valueOf("#f2da67"));
         framePlayer1.setHeight(162.0);
         framePlayer1.setLayoutX(40.0);
         framePlayer1.setLayoutY(97.0);
+        framePlayer1.setOpacity(1);
         framePlayer1.setStroke(javafx.scene.paint.Color.WHITE);
         framePlayer1.setStrokeType(javafx.scene.shape.StrokeType.INSIDE);
         framePlayer1.setWidth(144.0);
@@ -501,31 +506,7 @@ public class GameScreenViewBase extends AnchorPane {
         labelPlayer2.setLayoutY(109.0);
         labelPlayer2.setText("Player 2");
         labelPlayer2.setFont(new Font("Agency FB Bold", 32.0));
-
-        label.getStyleClass().add("labelScore");
-        label.setLayoutX(620.0);
-        label.setLayoutY(274.0);
-        label.setFont(new Font("Agency FB Bold", 50.0));
-        label.setText("score");
-
-        scorePlayer1.getStyleClass().add("labelScore");
-        scorePlayer1.setLayoutX(630.0);
-        scorePlayer1.setLayoutY(359.0);
-        scorePlayer1.setText("1");
-        scorePlayer1.setFont(new Font("Agency FB Bold", 50.0));
-
-        label0.getStyleClass().add("labelScore");
-        label0.setLayoutX(668.0);
-        label0.setLayoutY(359.0);
-        label0.setText(":");
-        label0.setFont(new Font("System Bold", 38.0));
-
-        scorePlayer2.getStyleClass().add("labelScore");
-        scorePlayer2.setLayoutX(700.0);
-        scorePlayer2.setLayoutY(359.0);
-        scorePlayer2.setText("0");
-        scorePlayer2.setFont(new Font("Agency FB Bold", 50.0));
-
+        
         imageView.setFitHeight(64.0);
         imageView.setFitWidth(64.0);
         imageView.setLayoutX(645.0);
@@ -708,8 +689,17 @@ public class GameScreenViewBase extends AnchorPane {
             } else {
                 a.setTitle("Play again ?");
                 a.setContentText(GameHandler.checkWinner() + " win Play again ?");
-
-                ButtonType buttonPlayAgain = new ButtonType("Play again");
+                //ScreenAdapter.setScreen(event, new VideoScreenBase());
+                
+                      Parent root = new VideoScreenBase();
+                        Scene scene = new Scene(root);
+                        Stage s = new Stage();
+                        s.setScene(scene);
+                        s.show();
+                        s.setResizable(false);
+                        
+                 //new Video().setVisible(true);
+                /*ButtonType buttonPlayAgain = new ButtonType("Play again");
                 a.getButtonTypes().setAll(buttonPlayAgain);
                 a.setOnCloseRequest(e -> {
                     ButtonType result = a.getResult();
@@ -719,7 +709,7 @@ public class GameScreenViewBase extends AnchorPane {
                         ScreenAdapter.setScreen(event, new OfflineModesBase());
                     }
                 });
-                a.show();
+                a.show();*/
             }
         } else if (noOfPlays == 10) {
             int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");

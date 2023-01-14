@@ -1,13 +1,16 @@
 .background{
 -fx-background-image: url("photos/backgroundimg.jpg"); 
 -fx-background-size: cover;
--fx-background-color: #1d1d1d;}
+-fx-background-color: #1d1d1d;
+
+}
 .root{
     -fx-background-image: url("../images/Background.jpg");    
     -fx-background-size: cover;
 }
 .labelGame{
    -fx-font-weight: bold;
+   -fx-opacity:1;
     -fx-text-alignment: center;
     -fx-pref-height: 47.0;
     -fx-pref-width: 98.0;  
@@ -15,6 +18,7 @@
 }
 .labelScore{
    -fx-font-weight: bold;
+    -fx-opacity:1;
     -fx-text-alignment: center;
     -fx-pref-height: 51.0;
     -fx-pref-width: 112.0;  
@@ -24,7 +28,7 @@
      -fx-fill: #2992a1;
      -fx-arc-height:80.0;
      -fx-arc-width:80.0;
-     -fx-opacity:0.75;
+     
       position: absolute;
      width: 100px;
      height: 100px;

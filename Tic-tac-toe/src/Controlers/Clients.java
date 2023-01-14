@@ -130,13 +130,13 @@ public class Clients extends Thread {
                         //System.out.println(competitorId);
                         if (ans == JOptionPane.YES_OPTION) {
                             acceptPlayRequest(competitorId);
-                            ScreenAdapter.setScreen(event, new GameScreenViewBase());
+                            ScreenAdapter.setScreen(new GameScreenViewBase());
                         } else if (ans == JOptionPane.NO_OPTION) {
                             rejectPlayRequest(competitorId);
                         }
                     }
                     if (header.equals("invitationAccept")) {
-                        ScreenAdapter.setScreen(event, new GameScreenViewBase());
+                        ScreenAdapter.setScreen(new GameScreenViewBase());
 
                     }
                     if (header.equals("invitationRejected")) {
