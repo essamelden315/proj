@@ -22,17 +22,13 @@ import javafx.stage.Stage;
  */
 public class ScreenAdapter {
 
- 
-    
-    public static void setScreen(EventObject event , Parent root ) {
-            
-             Scene scene = new Scene(root);
-                 Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                 stage.setScene(scene);
-                 stage.show();
-    
-    
-    
+    public static void setScreen(EventObject event, Parent root) {
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
     }
-    
+
 }

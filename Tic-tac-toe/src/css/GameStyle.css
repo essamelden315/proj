@@ -1,11 +1,12 @@
-.background{
--fx-background-image: url("photos/backgroundimg.jpg"); 
--fx-background-size: cover;
--fx-background-color: #1d1d1d;}
+
 .root{
-    -fx-background-image: url("../images/Background.jpg");    
+    -fx-background-image: url("photos/xo2.jpeg");    
     -fx-background-size: cover;
 }
+.background1{
+-fx-background-image: url("photos/xo1.jpeg"); 
+-fx-background-size: cover;
+-fx-background-color: #1d1d1d;}
 .labelGame{
    -fx-font-weight: bold;
     -fx-text-alignment: center;
@@ -24,7 +25,7 @@
      -fx-fill: #2992a1;
      -fx-arc-height:80.0;
      -fx-arc-width:80.0;
-     -fx-opacity:0.75;
+     -fx-opacity:1;
       position: absolute;
      width: 100px;
      height: 100px;
@@ -91,18 +92,47 @@
 }
 .scroll-pane {
    -fx-background-color: transparent;
+    /*-fx-opacity: 0;*/
+   -fx-base: transparent;
 }
-.list-cell {
+/*.list-cell {
 -fx-background-color: transparent;
--fx-font-size: 20px;
+-fx-cell-hover-color: #0093ff;
+border-style: solid;
+border-color: #0B0718;
+-fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-selection-bar;
+-fx-background-insets: 0, 1, 2;
+-fx-font-size: 30px;
 -fx-font-weight: bold;
--fx-text-fill: black;
+-fx-background: -fx-accent;
+-fx-text-fill: white;
 }
-
 .list-view {
-    -fx-background-color: transparent;
+     -fx-opacity: 0;
+    
+} */
+.list-cell{
+    -fx-alignment: center ;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: #3E1052;
+    -fx-border-style: solid;
+    -fx-border-color: #FF66CC;
+    -fx-opacity: 1;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
+.list-view .list-cell:even {
+    -fx-background-color: #313E6B ;
+    -fx-border-style: solid;
+    -fx-border-color: #FF66CC;
+    -fx-opacity: 1;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
 
 .bckBtn{
    -fx-background-color: #ffcc66;

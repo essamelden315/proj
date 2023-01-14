@@ -1,9 +1,14 @@
 package tic.tac.toe.server;
 
+import Controlers.DataAccessLayer;
+import static Controlers.DataAccessLayer.retrieveOnlineList;
 import Controlers.MessageHandler;
 import Controlers.ScreenAdapter;
 import Controlers.StartServer;
+import Model.Player;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tic.tac.toe.server.ClientHandler.*;
@@ -35,7 +40,9 @@ public  class serverControlPanalBase extends AnchorPane {
     protected final Text txtGamesPlayed;
     protected final Text txtAccountNo0;
     MessageHandler client;
-    StartServer sv;
+    StartServer sv; 
+    int id;
+    ArrayList <Player> onlineplayers = new ArrayList<Player>(); 
     
     
 
@@ -56,7 +63,14 @@ public  class serverControlPanalBase extends AnchorPane {
         txtOnlinePlayers = new Text();
         txtGamesPlayed = new Text();
         txtAccountNo0 = new Text();
-        //client=new MessageHandler();
+        try {
+            //client=new MessageHandler();
+            onlineplayers = DataAccessLayer.retrieveOnlineList(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(serverControlPanalBase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(serverControlPanalBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         // server= new Server();
@@ -90,7 +104,7 @@ public  class serverControlPanalBase extends AnchorPane {
 
         label.setEffect(bloom);
 
-        gridPane.setLayoutX(63.0);
+        gridPane.setLayoutX(200.0);
         gridPane.setLayoutY(306.0);
         gridPane.setPrefHeight(235.0);
         gridPane.setPrefWidth(1007.0);
@@ -129,7 +143,7 @@ public  class serverControlPanalBase extends AnchorPane {
         text0.setFill(javafx.scene.paint.Color.WHITE);
         text0.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         text0.setStrokeWidth(0.0);
-        text0.setText("No of Played Games :");
+        //text0.setText("No of Played Games :");
         text0.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         text0.setWrappingWidth(279.8525390625);
         text0.setFont(new Font("System Bold Italic", 25.0));
@@ -147,17 +161,19 @@ public  class serverControlPanalBase extends AnchorPane {
         txtOnlinePlayers.setFill(javafx.scene.paint.Color.WHITE);
         txtOnlinePlayers.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txtOnlinePlayers.setStrokeWidth(0.0);
-        txtOnlinePlayers.setText("Online Players :");
+        /*int count;
+        count = onlineplayers.size();*/
+        txtOnlinePlayers.setText(String.valueOf(onlineplayers.size()));
         txtOnlinePlayers.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         txtOnlinePlayers.setWrappingWidth(244.8525390625);
-        txtOnlinePlayers.setFont(new Font("System Bold Italic", 25.0));
+        txtOnlinePlayers.setFont(new Font("System Bold Italic", 30.0));
 
         GridPane.setColumnIndex(txtGamesPlayed, 1);
         GridPane.setRowIndex(txtGamesPlayed, 1);
         txtGamesPlayed.setFill(javafx.scene.paint.Color.WHITE);
         txtGamesPlayed.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txtGamesPlayed.setStrokeWidth(0.0);
-        txtGamesPlayed.setText("No of Played Games :");
+       // txtGamesPlayed.setText("No of Played Games :");
         txtGamesPlayed.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         txtGamesPlayed.setWrappingWidth(244.8525390625);
         txtGamesPlayed.setFont(new Font("System Bold Italic", 25.0));
@@ -167,7 +183,7 @@ public  class serverControlPanalBase extends AnchorPane {
         txtAccountNo0.setFill(javafx.scene.paint.Color.WHITE);
         txtAccountNo0.setStrokeType(javafx.scene.shape.StrokeType.OUTSIDE);
         txtAccountNo0.setStrokeWidth(0.0);
-        txtAccountNo0.setText("No of Accounts  :");
+        txtAccountNo0.setText(String.valueOf(DataAccessLayer.count()));
         txtAccountNo0.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         txtAccountNo0.setWrappingWidth(244.8525390625);
         txtAccountNo0.setFont(new Font("System Bold Italic", 25.0));
@@ -191,8 +207,9 @@ public  class serverControlPanalBase extends AnchorPane {
        btnStop.setOnAction((event)->{
            //ClientHandler client=new ClientHandler(event);
            //client.stopConnection();
-           sv.stopConnection();
            ScreenAdapter.setScreen(event, new FXMLDocumentBase());
+           sv.stopConnection();
+           
            
          
        });

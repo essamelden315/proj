@@ -3,6 +3,8 @@ package tic.tac.toe;
 
 import Controlers.Clients;
 import Controlers.ScreenAdapter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,8 +16,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import javafx.event.ActionEvent;
+import javafx.stage.Window;
+import javax.swing.JOptionPane;
+
 
 public class LoginBase extends AnchorPane {
 
@@ -77,17 +81,21 @@ public class LoginBase extends AnchorPane {
             }
             
             else{
-            String userNameMessage= txtusername.getText();
-            String passwordMessage= txtpw.getText();
-            String loginMessage="login,";
-            loginMessage+=userNameMessage+","+passwordMessage;
-            System.out.println("Button: "+loginMessage);
-           // SendMessage.login(userNameMessage, passwordMessage);
-             //   System.out.println(SendMessage.getAnswer());
-            client=new Clients("login",event);
-            client.setLoginBase(this);
-            client.sendMessage(loginMessage);
-            // ScreenAdapter.setScreen(event, new players_listBase());
+                try {
+                    String userNameMessage= txtusername.getText();
+                    String passwordMessage= txtpw.getText();
+                    String loginMessage="login,";
+                    loginMessage+=userNameMessage+","+passwordMessage;
+                    System.out.println("Button: "+loginMessage);
+                    // SendMessage.login(userNameMessage, passwordMessage);
+                    //   System.out.println(SendMessage.getAnswer());
+                    client=new Clients("login",event);
+                    client.setLoginBase(this);
+                    client.sendMessage(loginMessage);
+                    // ScreenAdapter.setScreen(event, new players_listBase());
+                } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(null, "Check your connection");
+                }
             }
         });
 
@@ -186,6 +194,10 @@ public class LoginBase extends AnchorPane {
         pane.getChildren().add(flowPane);
         getChildren().add(pane);
 
+    }
+
+    public Window getWindow() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

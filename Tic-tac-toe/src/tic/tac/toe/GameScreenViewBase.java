@@ -1,6 +1,7 @@
 package tic.tac.toe;
 
 import Controlers.GameHandler;
+import Controlers.GameRecord;
 import Controlers.ScreenAdapter;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,6 +9,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -79,10 +82,6 @@ public class GameScreenViewBase extends AnchorPane {
     protected final Label labelPlayer1;
     protected final ImageView imageView;
     protected final ImageView imageView0;
-    protected final Label label;
-    protected final Label scorePlayer1;
-    protected final Label scorePlayer2;
-    protected final Label label0;
     protected final FlowPane flowPane;
     protected final ImageView recordImage;
     protected final Pane pane;
@@ -95,9 +94,10 @@ public class GameScreenViewBase extends AnchorPane {
     static Queue<ImageView> recordingInOrder;
     boolean recoeding;
     int size;
+    GameRecord gameRecord;
 
     public GameScreenViewBase() {
-
+        gameRecord = new GameRecord();
         recoeding = false;
         recordingInOrder = new LinkedList<>();
         a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -166,12 +166,6 @@ public class GameScreenViewBase extends AnchorPane {
         imageView0 = new ImageView();
         imageView = new ImageView();
 
-        label0 = new Label();
-        label = new Label();
-
-        scorePlayer1 = new Label();
-        scorePlayer2 = new Label();
-
         flowPane = new FlowPane();
         recordImage = new ImageView();
         pane = new Pane();
@@ -201,7 +195,7 @@ public class GameScreenViewBase extends AnchorPane {
         myBackground.setLayoutY(-6.0);
         myBackground.setPickOnBounds(true);
         myBackground.setPreserveRatio(true);
-        myBackground.getStyleClass().add("background");
+        myBackground.getStyleClass().add("background1");
 
         gridPane.setLayoutX(221.0);
         gridPane.setLayoutY(73.0);
@@ -502,30 +496,6 @@ public class GameScreenViewBase extends AnchorPane {
         labelPlayer2.setText("Player 2");
         labelPlayer2.setFont(new Font("Agency FB Bold", 32.0));
 
-        label.getStyleClass().add("labelScore");
-        label.setLayoutX(620.0);
-        label.setLayoutY(274.0);
-        label.setFont(new Font("Agency FB Bold", 50.0));
-        label.setText("score");
-
-        scorePlayer1.getStyleClass().add("labelScore");
-        scorePlayer1.setLayoutX(630.0);
-        scorePlayer1.setLayoutY(359.0);
-        scorePlayer1.setText("1");
-        scorePlayer1.setFont(new Font("Agency FB Bold", 50.0));
-
-        label0.getStyleClass().add("labelScore");
-        label0.setLayoutX(668.0);
-        label0.setLayoutY(359.0);
-        label0.setText(":");
-        label0.setFont(new Font("System Bold", 38.0));
-
-        scorePlayer2.getStyleClass().add("labelScore");
-        scorePlayer2.setLayoutX(700.0);
-        scorePlayer2.setLayoutY(359.0);
-        scorePlayer2.setText("0");
-        scorePlayer2.setFont(new Font("Agency FB Bold", 50.0));
-
         imageView.setFitHeight(64.0);
         imageView.setFitWidth(64.0);
         imageView.setLayoutX(645.0);
@@ -620,10 +590,7 @@ public class GameScreenViewBase extends AnchorPane {
         getChildren().add(labelPlayer1);
         getChildren().add(imageView);
         getChildren().add(imageView0);
-        getChildren().add(label);
-        getChildren().add(scorePlayer1);
-        getChildren().add(scorePlayer2);
-        getChildren().add(label0);
+
         getChildren().add(flowPane);
 
     }
@@ -700,28 +667,25 @@ public class GameScreenViewBase extends AnchorPane {
         }
         i.setDisable(true);
         GameHandler.board[index] = turn;
+        gameRecord.addPlay(index + "");
         System.out.println(GameHandler.checkWinner());
         if (GameHandler.checkWinner().equals("O") || GameHandler.checkWinner().equals("X")) {
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
             printWinerOnScreen();
             if (recoeding) {
+
                 playRecord(event);
             } else {
-                a.setTitle("Play again ?");
-                a.setContentText(GameHandler.checkWinner() + " win Play again ?");
+                Parent root = new VideoScreenBase();
+                Scene scene = new Scene(root);
+                Stage s = new Stage();
+                s.setScene(scene);
+                s.show();
+                s.setResizable(false);
 
-                ButtonType buttonPlayAgain = new ButtonType("Play again");
-                a.getButtonTypes().setAll(buttonPlayAgain);
-                a.setOnCloseRequest(e -> {
-                    ButtonType result = a.getResult();
-                    if (result != null && result == buttonPlayAgain) {
-                        ScreenAdapter.setScreen(event, new GameScreenViewBase());
-                    } else {
-                        ScreenAdapter.setScreen(event, new OfflineModesBase());
-                    }
-                });
-                a.show();
             }
         } else if (noOfPlays == 10) {
+            gameRecord.saveRecord("gameRecordMultiPlayer.txt");
             int a = JOptionPane.showConfirmDialog(null, GameHandler.checkWinner() + " Draw Do You want To play again ?");
             if (a == JOptionPane.YES_OPTION) {
                 ScreenAdapter.setScreen(event, new GameScreenViewBase());
@@ -742,14 +706,13 @@ public class GameScreenViewBase extends AnchorPane {
             @Override
             public void handle(ActionEvent event) {
                 for (ImageView b : gameBoard) {
-            b.setImage(null);
-        }
+                    b.setImage(null);
+                }
             }
         }));
         ti.setCycleCount(1);
         ti.play();
-        
-        
+
         size = recordingInOrder.size();
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
@@ -768,8 +731,13 @@ public class GameScreenViewBase extends AnchorPane {
 
                 }
                 size--;
-                if(size==0){
-                a.show();
+                if (size == 0) {
+                    Parent root = new VideoScreenBase();
+                    Scene scene = new Scene(root);
+                    Stage s = new Stage();
+                    s.setScene(scene);
+                    s.show();
+                    s.setResizable(false);
                 }
 
             }
@@ -792,6 +760,6 @@ public class GameScreenViewBase extends AnchorPane {
                 ScreenAdapter.setScreen(event, new OfflineModesBase());
             }
         });
-        
+
     }
 }

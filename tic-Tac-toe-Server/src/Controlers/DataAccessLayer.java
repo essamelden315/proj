@@ -19,14 +19,16 @@ import javax.swing.JOptionPane;
  */
 public class DataAccessLayer {
 
+//public static int count =0;
     public static int check(String email, String pass, String ip) throws Exception {
         int id = -1;
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
-       // PreparedStatement prestate = conn.prepareStatement("select id from account where NAME=? and PASS =?");
-        PreparedStatement prestate = conn.prepareStatement("select id from account where EMAIL=? and PASS =?"); //and state= offline
+        // PreparedStatement prestate = conn.prepareStatement("select id from account where NAME=? and PASS =?");
+        PreparedStatement prestate = conn.prepareStatement("select id from account where EMAIL=? and PASS =? and state != ?"); //and state= offline
         prestate.setString(1, email);
         prestate.setString(2, pass);
+        prestate.setString(3, "online");
         ResultSet result = prestate.executeQuery();
         if (result.next()) {
             id = Integer.parseInt(result.getString(1));
@@ -59,25 +61,48 @@ public class DataAccessLayer {
         }
         preparedStatement.close();
         conn.close();
-        
+
         return onlinePlayersList;
 
     }
 
-    
+    public static int count() {
+        int result = 0;
+        try {
+                        
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
+            Statement preparedStatement = conn.createStatement();
+            String queryString = new String("SELECT * from Account");
+            ResultSet rs = preparedStatement.executeQuery(queryString);
+            
+            while (rs.next()) {
+                result++;
+            }
+            preparedStatement.close();
+            conn.close();
+            
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 
-    public int addPlayer(String name, String email, String password ) throws ClassNotFoundException, SQLException {
+    public int addPlayer(String name, String email, String password) throws ClassNotFoundException, SQLException {
         int id = 1;
-        int reply= -12;
+        int reply = -12;
         Class.forName("oracle.jdbc.driver.OracleDriver");
         Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
         //Statement stmt = conn.createStatement();
-        PreparedStatement stmt=conn.prepareStatement("select * From ACCOUNT where EMAIL =?");
+        PreparedStatement stmt = conn.prepareStatement("select * From ACCOUNT where EMAIL =?");
         stmt.setString(1, email);
         ResultSet t = stmt.executeQuery();
-        
+
         if (!t.next()) {
-             stmt=conn.prepareStatement("select * From ACCOUNT");
+            stmt = conn.prepareStatement("select * From ACCOUNT");
             t = stmt.executeQuery();
             while (t.next()) {
 
@@ -88,7 +113,7 @@ public class DataAccessLayer {
             id++;
             stmt.executeUpdate("INSERT INTO ACCOUNT (ID,NAME,EMAIL,PASS,STATE)"
                     + "VALUES (" + id + ",'" + name + "','" + email + "','" + password + "','offline') ");
-            reply=0;
+            reply = 0;
 
         } else {
             id = -1;
@@ -100,7 +125,7 @@ public class DataAccessLayer {
     }
 
     public static void logout(int id) {
-        
+
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "root", "root");
@@ -112,11 +137,7 @@ public class DataAccessLayer {
         } catch (Exception ex) {
             Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
-   
-
 }
-
-
