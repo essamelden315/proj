@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Window;
 
 public class LoginBase extends AnchorPane {
 
@@ -193,6 +194,10 @@ public class LoginBase extends AnchorPane {
         pane.getChildren().add(flowPane);
         getChildren().add(pane);
 
+    }
+
+    public Window getWindow() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

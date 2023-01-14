@@ -17,11 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+import javafx.stage.Window;
+import javax.swing.JOptionPane;
 import tic.tac.toe.LoginBase;
 import tic.tac.toe.OnlineAndOfflineBase;
 import tic.tac.toe.SignUpBase;
-import tic.tac.toe.TicTacToe;
 import tic.tac.toe.players_listBase;
 
 /**
@@ -88,7 +88,10 @@ public class Clients extends Thread {
 
             thread.start();
         } catch (IOException ex) {
-            Logger.getLogger(TicTacToe.class.getName()).log(Level.SEVERE, null, ex);
+            
+                 JOptionPane.showMessageDialog(null, "Check your connection");
+                
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,7 +116,7 @@ public class Clients extends Thread {
                 //System.out.println("Return "+returnVal);
                 else if (!idMsg.equals("-1")) {
                     System.out.println("Wasalt");
-                    ScreenAdapter.setScreen(event, new players_listBase(idMsg));
+                    ScreenAdapter.setScreen(event, new players_listBase());
                 }
                 else if(idMsg.equals("-1")){
                     loginBase.pane.setVisible(true);
@@ -141,6 +144,7 @@ public class Clients extends Thread {
                      // System.out.println("Return "+returnVal)
                         System.out.println("Wasalt");
                        // ScreenAdapter.setScreen(event, );
+                       
                        playerListBase.myListView.getItems().addAll(name);
                     
                  }
@@ -214,5 +218,6 @@ public class Clients extends Thread {
             }
         }
     }*/
+   
 }
 

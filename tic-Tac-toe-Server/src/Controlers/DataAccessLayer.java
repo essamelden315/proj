@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
  * @author essam elden
  */
 public class DataAccessLayer {
+    
+//public static int count =0;
 
     public static int check(String email, String pass, String ip) throws Exception {
         int id = -1;
@@ -42,7 +44,7 @@ public class DataAccessLayer {
     }
 
     public static ArrayList<Player> retrieveOnlineList(int id) throws SQLException, ClassNotFoundException {
-
+        
         int result = 0;
         ArrayList<Player> onlinePlayersList = new ArrayList<>();
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -61,7 +63,7 @@ public class DataAccessLayer {
         conn.close();
         
         return onlinePlayersList;
-
+        
     }
 
     
