@@ -101,6 +101,13 @@ public class MessageHandler extends Thread {
                     int competitorId = Integer.parseInt(st.nextToken());
                     int senderId = Integer.parseInt(st.nextToken());
                     RequestHandler.sendMessage("invitationAccept", competitorId, senderId);
+
+                }else if(msg.equals("gameTurn")){
+                     int competitorId = Integer.parseInt(st.nextToken());
+                    int senderId = Integer.parseInt(st.nextToken());
+                    int gameIndex = Integer.parseInt(st.nextToken());
+                    RequestHandler.sendMessage("myGameTurn,"+gameIndex, competitorId, senderId);
+
                 }
 
             } catch (IOException ex) {

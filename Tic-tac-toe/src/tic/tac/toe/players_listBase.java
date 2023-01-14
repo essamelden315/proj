@@ -34,7 +34,7 @@ public class players_listBase extends BorderPane {
         logOut = new Button();
         scrollPane = new ScrollPane();
         myListView = new ListView<>();
-        client = new Clients("show", null);
+        client = new Clients("show",new ActionEvent());
         client.setPlayerListBase(this);
         client.sendMessage("show,");
 
