@@ -5,6 +5,7 @@ import Controlers.GameHandler;
 import Controlers.GameHandler;
 import Controlers.GameRecord;
 import Controlers.GameRecord;
+import Controlers.OnlineGameHande;
 import Controlers.ScreenAdapter;
 import Controlers.ScreenAdapter;
 import com.sun.deploy.util.SessionState;
@@ -95,13 +96,14 @@ public class OnlineGameScreenViewBase extends AnchorPane {
     protected final ImageView exitImage;
     //protected final Button ExitBtn;
     private Stage stage;
-    public static ImageView[] gameBoard;
+    public  ImageView[] gameBoard;
     private int noOfPlays;
     Alert a;
     static Queue<ImageView> recordingInOrder;
     boolean recoeding;
     int size;
     GameRecord gameRecord;
+    public int playIndex=2;
 
     public OnlineGameScreenViewBase() {
         gameRecord = new GameRecord();
@@ -322,7 +324,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
             if (recoeding) {
                 recordGame(imageLocation1);
             }
-
+            OnlineGameHande.setPlayIndex(0);
             gameControl( imageLocation1, 0);
         });
 
@@ -343,6 +345,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation2);
             }
             gameControl( imageLocation2, 1);
+             OnlineGameHande.setPlayIndex(1);
         });
 
         GridPane.setColumnIndex(location3, 4);
@@ -361,6 +364,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation3);
             }
             gameControl( imageLocation3, 2);
+             OnlineGameHande.setPlayIndex(2);
         });
 
         GridPane.setRowIndex(location4, 2);
@@ -379,6 +383,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation4);
             }
             gameControl(imageLocation4, 3);
+             OnlineGameHande.setPlayIndex(3);
         });
 
         GridPane.setColumnIndex(location5, 2);
@@ -398,6 +403,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation5);
             }
             gameControl( imageLocation5, 4);
+             OnlineGameHande.setPlayIndex(4);
         });
 
         GridPane.setColumnIndex(location6, 4);
@@ -417,6 +423,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation6);
             }
             gameControl( imageLocation6, 5);
+             OnlineGameHande.setPlayIndex(5);
         });
 
         GridPane.setRowIndex(location7, 4);
@@ -434,6 +441,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation7);
             }
             gameControl( imageLocation7, 6);
+             OnlineGameHande.setPlayIndex(6);
         });
 
         GridPane.setColumnIndex(location8, 2);
@@ -453,6 +461,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation8);
             }
             gameControl( imageLocation8, 7);
+             OnlineGameHande.setPlayIndex(7);
         });
 
         GridPane.setColumnIndex(location9, 4);
@@ -472,6 +481,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
                 recordGame(imageLocation9);
             }
             gameControl( imageLocation9, 8);
+             OnlineGameHande.setPlayIndex(8);
         });
 
         framePlayer2.setArcHeight(41.0);
@@ -693,6 +703,7 @@ public class OnlineGameScreenViewBase extends AnchorPane {
     }
 
     public void gameControl(ImageView i, int index) {
+        playIndex=index;
         recordImage.setImage(null);
         String turn;
         noOfPlays++; // to make sure its not draw when the index is less than 10

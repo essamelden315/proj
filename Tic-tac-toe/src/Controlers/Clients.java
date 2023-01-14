@@ -56,7 +56,8 @@ public class Clients extends Thread {
     String fromPage;
     boolean work = true;
     static String id;
-    
+    OnlineGameHande onlineGameHande;
+
     //Stage stage;
     public void setLoginBase(LoginBase loginBase) {
         this.loginBase = loginBase;
@@ -73,7 +74,7 @@ public class Clients extends Thread {
     //Stage stage;
     public Clients(String fromPage, ActionEvent event) {
         //System.out.println("page" + fromPage);
-
+       
         this.event = event;
         this.fromPage = fromPage;
         try {
@@ -121,7 +122,7 @@ public class Clients extends Thread {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
+                onlineGameHande = new OnlineGameHande();
                 if (idMsg.equals("0")) {
                     ScreenAdapter.setScreen(event, new LoginBase());
                 } else if (idMsg.equals("-12")) {
@@ -147,11 +148,12 @@ public class Clients extends Thread {
                             s.setResizable(false);
                             s.setTitle("Tic-Tac-toe Game");
                             acceptPlayRequest(competitorId);
-                            ScreenAdapter.setScreen(event, new GameScreenViewBase());
+//                            ScreenAdapter.setScreen(event, new GameScreenViewBase());
                         } else if (ans == JOptionPane.NO_OPTION) {
                             rejectPlayRequest(competitorId);
                         }
-                    } else if (header.equals("invitationAccept")) {
+                    }  if (header.equals("invitationAccept")) {
+                        String competitorId = st.nextToken();
                         Parent root = new OnlineGameScreenViewBase();
                         Scene scene = new Scene(root);
                         Stage s = new Stage();
@@ -159,18 +161,28 @@ public class Clients extends Thread {
                         s.show();
                         s.setResizable(false);
                         s.setTitle("Tic-Tac-toe Game");
+                        
+                       
+                        sendMyGame(competitorId, onlineGameHande.myGameTurn());
+                        
+                        
+                        
 
-                    } else if (header.equals("invitationRejected")) {
+                    }  if (header.equals("invitationRejected")) {
                         Alert inform = new Alert(Alert.AlertType.CONFIRMATION);
                         inform.setContentText("your invitation is refused");
                         inform.show();
-                    } else if (header.equals("sendGameTurn")) {
-                         int playIndex =Integer.parseInt( st.nextToken());
-                         String competitorId = st.nextToken();
-                         ImageView iv =OnlineGameScreenViewBase.gameBoard[playIndex];
-                         OnlineGameScreenViewBase onlineGame = new OnlineGameScreenViewBase();
-                         onlineGame.gameControl(iv, playIndex);
-                         
+                    }  if (header.equals("myGameTurn")) {
+                        
+                        
+                        int playIndex = Integer.parseInt(st.nextToken());
+                        String competitorId = st.nextToken();
+                        
+                        onlineGameHande.oppinantGameTurn(playIndex);
+                        int playLoc = onlineGameHande.myGameTurn();
+                        onlineGameHande.oppinantGameTurn(playLoc);
+                        sendMyGame(competitorId, playLoc);
+
                     }
 
                 } else if (!idMsg.equals("-1")) {
@@ -257,13 +269,11 @@ public class Clients extends Thread {
         sendMessage(msg);
     }
 
-    public void sendMyGame(String competitorId, String playIndex) {
+    public void sendMyGame(String competitorId, int playIndex) {
         final String GAME_TURN = "gameTurn,";
         String msg = GAME_TURN + competitorId + "," + id + "," + playIndex;
         sendMessage(msg);
 
     }
-
-   
 
 }
